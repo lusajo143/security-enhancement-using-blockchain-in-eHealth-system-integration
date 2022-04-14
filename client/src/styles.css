@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-list-item {
+    color: #fff !important;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 44px !important;
+    margin-bottom: 4px;
+  
+    
+  }
+
+  .logo py-4{
+    flex-direction:leftng;
+    height: 50px;
+  }
+
+  mat-nav-list{
+      background-color: #000066;
+      height: 100%;
+  } 
+  mat-form-field {
+    width: 100%;
+  }
