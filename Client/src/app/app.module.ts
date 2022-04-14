@@ -7,7 +7,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -45,6 +44,11 @@ import { ChartsModule } from 'ng2-charts';
 import { AuthComponent } from './auth/auth.component';
 import { ReceptionComponent } from './reception/reception/reception.component';
 import { ReceptionDashboardComponent } from './reception/reception-dashboard/reception-dashboard.component';
+import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -62,6 +66,11 @@ import { ReceptionDashboardComponent } from './reception/reception-dashboard/rec
     ChartsModule,
     IconModule,
     IconSetModule.forRoot(),
+    MatCardModule,
+    MatDividerModule,
+    MatProgressBarModule,
+    MatIconModule
+    
   ],
   declarations: [
     AppComponent,

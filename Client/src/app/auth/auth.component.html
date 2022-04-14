@@ -1,1 +1,37 @@
-<button (click)="login()">To Reception</button>
+<div class="row mt-5">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <mat-card class="example-card">
+          
+            <mat-card-title>	<mat-icon>login</mat-icon> User login</mat-card-title>
+            <mat-card-content>
+                <form (submit)="login()">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                     
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">choose organization</label>
+                      <select name="" id="" class="form-control">
+                          <option value="">Benjamin mkapa hospital</option>
+                          <option value="">Muhimbili</option>
+                          <option value="">Dododoma Refferal hospital</option>
+                      </select>
+                      </div>
+                    <div class="mb-3 form-check">
+                        <button type="submit" class="btn btn-primary">login</button>
+                    </div>
+            
+                  </form>
+ 
+            </mat-card-content>
+            <mat-divider inset></mat-divider>
+          </mat-card>
+    </div>
+    <div class="col-4"></div>
+</div>
