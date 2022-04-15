@@ -32,8 +32,10 @@ export class NewpatientComponent implements OnInit {
   let nextofkinplace=input.nofkp
   let ralationship=input.nofkr
   let dob=input.dob
+  let kinphone=input.nofkp
+  let patientphone=input.phone
   //Data structure
-  let data={fname,mname,lname,nextkin,nextofkinplace,ralationship,dob}
+  let data={fname,mname,lname,nextkin,nextofkinplace,ralationship,dob,kinphone,patientphone}
   this.service.AddPatient(data)
   }
   ngOnInit(): void {
