@@ -10,7 +10,6 @@ export class NewpatientComponent implements OnInit {
 
   campainTwo: FormGroup;
 
-
   constructor() {
     const today = new Date();
     const month = today.getMonth();
@@ -20,6 +19,18 @@ export class NewpatientComponent implements OnInit {
       start: new FormControl(new Date(year, month, 13)),
       end: new FormControl(new Date(year, month, 16)),
     });
+
+  }
+
+  register(form:any){
+  let input = form.value
+  let fname=input.fname
+  let mname=input.mname
+  let lname=input.lname
+  let nextkin=input.nofkn
+  let nextofkinplace=input.nofkp
+  let raltionship=input.nofkr
+  let dob=input.dob
 
   }
   ngOnInit(): void {

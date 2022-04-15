@@ -78,7 +78,7 @@ import { LabTestsComponent } from './laboratory/lab-tests/lab-tests.component';
     MatSelectModule,
     MatRadioModule,
     DataTablesModule,
-    FormsModule
+    FormsModule,
     
   ],
   providers: [],
