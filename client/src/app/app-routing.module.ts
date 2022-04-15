@@ -1,6 +1,5 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { recoverPublicKey } from 'ethers/lib/utils';
 import { AuthComponent } from './auth/auth/auth.component';
 import { ConsDashboardComponent } from './consoltation/cons-dashboard/cons-dashboard.component';
 import { ConsExamformComponent } from './consoltation/cons-examform/cons-examform.component';
