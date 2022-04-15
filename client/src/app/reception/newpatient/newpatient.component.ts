@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
+import { FabricService } from 'src/app/services/fabric.service';
 
 @Component({
   selector: 'app-newpatient',
@@ -10,7 +11,7 @@ export class NewpatientComponent implements OnInit {
 
   campainTwo: FormGroup;
 
-  constructor() {
+  constructor(private service:FabricService) {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -29,9 +30,11 @@ export class NewpatientComponent implements OnInit {
   let lname=input.lname
   let nextkin=input.nofkn
   let nextofkinplace=input.nofkp
-  let raltionship=input.nofkr
+  let ralationship=input.nofkr
   let dob=input.dob
-
+  //Data structure
+  let data={fname,mname,lname,nextkin,nextofkinplace,ralationship,dob}
+  this.service.AddPatient(data)
   }
   ngOnInit(): void {
   }

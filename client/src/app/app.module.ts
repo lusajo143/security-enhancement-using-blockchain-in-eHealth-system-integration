@@ -36,8 +36,8 @@ import { LaboratoryComponent } from './laboratory/laboratory/laboratory.componen
 import { LabDashboardComponent } from './laboratory/lab-dashboard/lab-dashboard.component';
 import { LabSidenavComponent } from './laboratory/lab-sidenav/lab-sidenav.component';
 import { LabTestsComponent } from './laboratory/lab-tests/lab-tests.component';
-
-
+import { FabricService } from './services/fabric.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -79,9 +79,10 @@ import { LabTestsComponent } from './laboratory/lab-tests/lab-tests.component';
     MatRadioModule,
     DataTablesModule,
     FormsModule,
+    HttpClientModule
     
   ],
-  providers: [],
+  providers: [FabricService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
