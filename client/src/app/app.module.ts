@@ -25,6 +25,18 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import { DataTablesModule } from "angular-datatables";
+import { FormsModule } from '@angular/forms';
+import { ConsoltationComponent } from './consoltation/consoltation/consoltation.component';
+import { ConsDashboardComponent } from './consoltation/cons-dashboard/cons-dashboard.component';
+import { ConsSearchpatientComponent } from './consoltation/cons-searchpatient/cons-searchpatient.component';
+import { ConsSiderbarComponent } from './consoltation/cons-siderbar/cons-siderbar.component';
+import { ConsExamformComponent } from './consoltation/cons-examform/cons-examform.component';
+import { ConsHistoryformComponent } from './consoltation/cons-historyform/cons-historyform.component';
+import { LaboratoryComponent } from './laboratory/laboratory/laboratory.component';
+import { LabDashboardComponent } from './laboratory/lab-dashboard/lab-dashboard.component';
+import { LabSidenavComponent } from './laboratory/lab-sidenav/lab-sidenav.component';
+import { LabTestsComponent } from './laboratory/lab-tests/lab-tests.component';
+
 
 
 
@@ -37,7 +49,17 @@ import { DataTablesModule } from "angular-datatables";
     ReceptionNavbarComponent,
     ReceptionSidebarComponent,
     NewpatientComponent,
-    SearchpatientComponent
+    SearchpatientComponent,
+    ConsoltationComponent,
+    ConsDashboardComponent,
+    ConsSearchpatientComponent,
+    ConsSiderbarComponent,
+    ConsExamformComponent,
+    ConsHistoryformComponent,
+    LaboratoryComponent,
+    LabDashboardComponent,
+    LabSidenavComponent,
+    LabTestsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +78,7 @@ import { DataTablesModule } from "angular-datatables";
     MatSelectModule,
     MatRadioModule,
     DataTablesModule,
+    FormsModule
     
   ],
   providers: [],

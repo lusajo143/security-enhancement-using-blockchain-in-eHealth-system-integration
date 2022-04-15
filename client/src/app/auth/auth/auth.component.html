@@ -4,12 +4,15 @@
         <div class="col-4">
             
             <mat-card class="example-card mt-5">
+              <mat-card-header>
+                <mat-card-title><mat-icon>login</mat-icon> User login</mat-card-title>
+              </mat-card-header>
                 <mat-card-content>
-                    <form action="" (click)="login()">
+                    <form #form="ngForm" action="" (click)="login(form)">
                         <p>
                             <mat-form-field appearance="outline">
                          
-                              <input matInput placeholder="Enter username">
+                              <input ngModel name="username" matInput placeholder="Enter username">
                               <mat-icon matSuffix>email</mat-icon>
                          
                             </mat-form-field>
@@ -17,7 +20,7 @@
                           <p>
                             <mat-form-field appearance="outline">
                            
-                              <input matInput placeholder="Enter password">
+                              <input ngModel name="password" matInput placeholder="Enter password">
                               <mat-icon matSuffix>password</mat-icon>
                           
                             </mat-form-field>
@@ -34,7 +37,6 @@
                  
                 </mat-card-footer>
               </mat-card>
-          
         </div>
         <div class="col-4"></div>
     </div>

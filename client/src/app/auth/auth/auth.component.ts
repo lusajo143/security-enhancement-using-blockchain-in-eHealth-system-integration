@@ -11,9 +11,25 @@ export class AuthComponent implements OnInit {
   constructor(private router:Router) { }
 
 
-   login(){
+   login(form:any){
+   let input =form.value
+   let username=input.username
+   let password=input.password
 
+   if(username=="reception" && password=="reception"){
     this.router.navigate(["/reception/dashboard"])
+   }
+   else if(username=="consult" && password=="consult"){
+    this.router.navigate(["/consult/dashboard"]) 
+   }
+
+   else if(username == "lab" && password=="lab"){
+    this.router.navigate(["/lab/dashboard"]) 
+   }
+ 
+
+
+   
      
    }
   ngOnInit(): void {
