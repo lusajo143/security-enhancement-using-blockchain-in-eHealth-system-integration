@@ -14,60 +14,89 @@ const { Contract } = require('fabric-contract-api');
 class AssetTransfer extends Contract {
 
     async InitLedger(ctx) {
-        const assets = [
+        
+        const orgs = [
             {
-                ID: 'asset1',
-                Color: 'blue',
-                Size: 5,
-                Owner: 'Tomoko',
-                AppraisedValue: 300,
+                orgId: 'Org1',
+                name: 'Muhimbili Hospital'
             },
             {
-                ID: 'asset2',
-                Color: 'red',
-                Size: 5,
-                Owner: 'Brad',
-                AppraisedValue: 400,
+                orgId: 'Org2',
+                name: 'Benjamin Mkapa Hospital'
             },
             {
-                ID: 'asset3',
-                Color: 'green',
-                Size: 10,
-                Owner: 'Jin Soo',
-                AppraisedValue: 500,
-            },
-            {
-                ID: 'asset4',
-                Color: 'yellow',
-                Size: 10,
-                Owner: 'Max',
-                AppraisedValue: 600,
-            },
-            {
-                ID: 'asset5',
-                Color: 'black',
-                Size: 15,
-                Owner: 'Adriana',
-                AppraisedValue: 700,
-            },
-            {
-                ID: 'asset6',
-                Color: 'white',
-                Size: 15,
-                Owner: 'Michel',
-                AppraisedValue: 800,
-            },
-        ];
+                orgId: 'Org3',
+                name: 'Dodoma Hospital'
+            }
+        ]
 
-        for (const asset of assets) {
-            asset.docType = 'asset';
-            // example of how to write to world state deterministically
-            // use convetion of alphabetic order
-            // we insert data in alphabetic order using 'json-stringify-deterministic' and 'sort-keys-recursive'
-            // when retrieving data, in any lang, the order of data will be the same and consequently also the corresonding hash
-            await ctx.stub.putState(asset.ID, Buffer.from(stringify(sortKeysRecursive(asset))));
+        // Initialize patients
+        const patients = [{name: 'he'}]
+        await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
+
+        // Initialize Organizations (Hospitals)
+        await ctx.stub.putState('Orgs', Buffer.from(stringify(orgs)))
+        
+
+        // Initialize specific org data
+        for (const org of orgs) {
+            await ctx.stub.putState(org.orgId, Buffer.from(JSON.stringify(org)))
         }
+
     }
+
+    // Utils
+
+    async isPatientRegistered(ctx, fname) {
+        const patients = await ctx.stub.getState('Patients')
+        let found = 'not found'
+        for (const patient of patients) {
+            if (patient.fname == fname) {
+                found = 'found'
+            }
+        }
+        return found
+    }
+
+    async getAllOrgs(ctx) {
+        const orgs = await ctx.stub.getState('Orgs')
+        if (!orgs || orgs.length === 0) {
+            throw new Error('Organizations not found')
+        }
+        return orgs.toString()
+    }
+
+
+    async registerPatient(ctx, id, fname, mname, lname, kinName, phone, dob, kinPlace, relationship, kinPhone) {
+        const patient = {
+            id, fname, mname, lname, kinName, phone, dob, kinPlace, relationship, kinPhone
+        }
+
+        var patients = await ctx.stub.getState('Patients')
+
+        patients = JSON.parse(stringify(patients))
+        patients.push(patient)
+
+        await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
+
+        return stringify({status: 200, message: 'Patient registered successfully'})
+
+        // if (!this.isPatientRegistered(ctx, fname, mname, lname)) {
+        //     const patients = await ctx.stub.getState('Patients')
+        //     patients.push(patient)
+
+        //     await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
+
+        //     return stringify({status: 200, message: 'Patient registered successfully'})
+        // } else {
+        //     return stringify({status: 500, message: 'Patient is already registered'})
+        // }
+
+    }
+
+
+
+
 
     // CreateAsset issues a new asset to the world state with given details.
     async CreateAsset(ctx, id, color, size, owner, appraisedValue) {
