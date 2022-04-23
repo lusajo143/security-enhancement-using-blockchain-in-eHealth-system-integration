@@ -72,27 +72,27 @@ class AssetTransfer extends Contract {
             id, fname, mname, lname, kinName, phone, dob, kinPlace, relationship, kinPhone
         }
 
+        // var patients = await ctx.stub.getState('Patients')
         var patients = await ctx.stub.getState('Patients')
 
-        patients = JSON.parse(stringify(patients))
-        patients.push(patient)
+        var patientsJson = JSON.parse(patients.toString())
+        patientsJson.push(patient)
+        await ctx.stub.putState('Patients', Buffer.from(stringify(patientsJson)))
+        
+        return patientsJson.toString()
+        
+    }
 
-        await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
+    async getAllPatients(ctx) {
+        const patientsJson = await ctx.stub.getState('Patients')
+        if (!patientsJson || patientsJson == null) {
+            throw new Error("Error occured")
+        }
 
-        return stringify({status: 200, message: 'Patient registered successfully'})
-
-        // if (!this.isPatientRegistered(ctx, fname, mname, lname)) {
-        //     const patients = await ctx.stub.getState('Patients')
-        //     patients.push(patient)
-
-        //     await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
-
-        //     return stringify({status: 200, message: 'Patient registered successfully'})
-        // } else {
-        //     return stringify({status: 500, message: 'Patient is already registered'})
-        // }
+        return patientsJson.toString()
 
     }
+
 
 
 

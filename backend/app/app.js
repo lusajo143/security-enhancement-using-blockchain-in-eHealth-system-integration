@@ -34,10 +34,8 @@ async function main() {
 		// setup the wallet to hold the credentials of the application user
 		const wallet = await buildWallet(Wallets, walletPath);
 
-		// in a real application this would be done on an administrative flow, and only once
 		await enrollAdmin(caClient, wallet, mspOrg1);
 
-		
 		await registerAndEnrollUser(caClient, wallet, mspOrg1, org1UserId, 'org1.department1');
 
 		// Create a new gateway instance for interacting with the fabric network.
@@ -62,16 +60,13 @@ async function main() {
 			// Get the contract from the network.
 			const contract = network.getContract(chaincodeName);
 
-			// Initialize a set of asset data on the channel using the chaincode 'InitLedger' function.
-			// This type of transaction would only be run once by an application the first time it was started after it
-			// deployed the first time. Any updates to the chaincode deployed later would likely not need to run
-			// an "init" type function.
+			
 			console.log('\n--> Submit Transaction: InitLedger, function creates the initial set of assets on the ledger');
 			await contract.submitTransaction('InitLedger');
 			console.log('*** Result: committed');
 
-			// Let's try a query type operation (function).
-			// This will be sent to just one peer and the results will be shown.
+			
+			
 			console.log('Get all orgs');
 			let result = await contract.evaluateTransaction('getAllOrgs');
 			console.log(`*** Result: ${result.toString()}`);
@@ -83,7 +78,11 @@ async function main() {
 			console.log(`*** Result ${result.toString()}`);
 
 			result = await contract.submitTransaction('isPatientRegistered', 'lusajo')
-			
+			console.log(result.toString());
+
+			console.log('Get all orgs');
+			result = await contract.evaluateTransaction('getAllPatients');
+			console.log(`*** Result: ${result.toString()}`);
 			// console.log('\n--> Submit Transaction: CreateAsset, creates new asset with ID, color, owner, size, and appraisedValue arguments');
 			// result = await contract.submitTransaction('CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300');
 			// console.log('*** Result: committed');
