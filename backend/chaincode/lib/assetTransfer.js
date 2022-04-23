@@ -79,7 +79,7 @@ class AssetTransfer extends Contract {
         patientsJson.push(patient)
         await ctx.stub.putState('Patients', Buffer.from(stringify(patientsJson)))
         
-        return patientsJson.toString()
+        return "Done"
         
     }
 
