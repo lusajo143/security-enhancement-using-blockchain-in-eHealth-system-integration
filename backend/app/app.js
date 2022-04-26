@@ -15,8 +15,8 @@ const { buildCCPOrg1, buildWallet } = require('./Utils/AppUtil');
 const channelName = 'mychannel';
 const chaincodeName = 'basic';
 const mspOrg1 = 'Org1MSP';
-const walletPath = path.join(__dirname, 'wallet');
-const org1UserId = 'appUser';
+const walletPath = path.join(__dirname, '../server/wallet');
+const org1UserId = 'receptionist';
 
 function prettyJSONString(inputString) {
 	return JSON.stringify(JSON.parse(inputString), null, 2);
@@ -29,14 +29,14 @@ async function main() {
 
 		// build an instance of the fabric ca services client based on
 		// the information in the network configuration
-		const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
+		// const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
 
 		// setup the wallet to hold the credentials of the application user
 		const wallet = await buildWallet(Wallets, walletPath);
 
-		await enrollAdmin(caClient, wallet, mspOrg1);
+		// await enrollAdmin(caClient, wallet, mspOrg1);
 
-		await registerAndEnrollUser(caClient, wallet, mspOrg1, org1UserId, 'org1.department1');
+		// await registerAndEnrollUser(caClient, wallet, mspOrg1, org1UserId, 'org1.department1');
 
 		// Create a new gateway instance for interacting with the fabric network.
 		// In a real application this would be done as the backend server session is setup for
@@ -61,28 +61,28 @@ async function main() {
 			const contract = network.getContract(chaincodeName);
 
 			
-			console.log('\n--> Submit Transaction: InitLedger, function creates the initial set of assets on the ledger');
-			await contract.submitTransaction('InitLedger');
-			console.log('*** Result: committed');
+			// console.log('\n--> Submit Transaction: InitLedger, function creates the initial set of assets on the ledger');
+			// await contract.submitTransaction('InitLedger');
+			// console.log('*** Result: committed');
 
 			
 			
-			console.log('Get all orgs');
-			let result = await contract.evaluateTransaction('getAllOrgs');
-			console.log(`*** Result: ${result.toString()}`);
+			// console.log('Get all orgs');
+			// let result = await contract.evaluateTransaction('getAllOrgs');
+			// console.log(`*** Result: ${result.toString()}`);
 
 			console.log('register patient')
-			result = await contract.submitTransaction('registerPatient', Date.now().toString(), 'lusajo',
-			'menard','shitindi', 'menard shitindi', '07333', '30-29-2222', 'Mbeya',
+			let result = await contract.submitTransaction('registerPatient', Date.now().toString(), 'lusajo',
+			'menard','shitindi', 'Male', 'menard shitindi', '07333', '30-29-2222', 'Mbeya',
 			'Father', '0443333')
 			console.log(`*** Result ${result.toString()}`);
 
-			result = await contract.submitTransaction('isPatientRegistered', 'lusajo')
-			console.log(result.toString());
+			// result = await contract.submitTransaction('isPatientRegistered', 'lusajo')
+			// console.log(result.toString());
 
-			console.log('Get all orgs');
-			result = await contract.evaluateTransaction('getAllPatients');
-			console.log(`*** Result: ${result.toString()}`);
+			// console.log('Get all orgs');
+			// result = await contract.evaluateTransaction('getAllPatients');
+			// console.log(`*** Result: ${result.toString()}`);
 			// console.log('\n--> Submit Transaction: CreateAsset, creates new asset with ID, color, owner, size, and appraisedValue arguments');
 			// result = await contract.submitTransaction('CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300');
 			// console.log('*** Result: committed');

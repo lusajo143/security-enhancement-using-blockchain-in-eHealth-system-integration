@@ -35,12 +35,12 @@ export class NewpatientComponent implements OnInit {
     let kinName = input.kinName
     let gender = input.gender
     let kinPlace = input.kinPlace
-    let ralationship = input.relationship
+    let relationship = input.relationship
     let dob = input.dob
     let kinphone = input.kinPhone
     let phone = input.phone
 
-    let data = { fname, mname, lname, gender, kinName, kinPlace, ralationship, dob, kinphone, phone }
+    let data = { fname, mname, lname, gender, kinName, kinPlace, relationship, dob, kinphone, phone }
     console.log(data);
     
     this.service.AddPatient(data).subscribe((result: simpleResponse) => {

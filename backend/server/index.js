@@ -19,16 +19,22 @@ async function init() {
         ccp = buildCCPOrg1();
 		caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
 		wallet = await buildWallet(Wallets, walletPath);
+
+        let contract = await getContract('admin')
+        contract.submitTransaction('InitLedger')
+        
     } catch (error) {
         
     }
 }
 init()
 
+
 const express = require('express')
 const cors = require('cors');
 const reception = require('./Routes/receiption.js');
 const universal = require('./Routes/universal.js');
+const { getContract } = require('./Utils/Utils.js');
 
 const app = express()
 
@@ -47,5 +53,7 @@ app.get('/init', async (req, res) => {
     await registerAndEnrollUser(caClient, wallet, mspOrg1, 'receptionist', 'org1.department1');
     res.send('done')
 })
+
+
 
 app.listen(5000, ()=>console.log("Server listening at 5000"))

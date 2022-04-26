@@ -67,9 +67,9 @@ class AssetTransfer extends Contract {
     }
 
 
-    async registerPatient(ctx, id, fname, mname, lname, kinName, phone, dob, kinPlace, relationship, kinPhone) {
+    async registerPatient(ctx, id, fname, mname, lname, gender, kinName, phone, dob, kinPlace, relationship, kinPhone) {
         const patient = {
-            id, fname, mname, lname, kinName, phone, dob, kinPlace, relationship, kinPhone
+            id, fname, mname, lname, gender, kinName, phone, dob, kinPlace, relationship, kinPhone
         }
 
         // var patients = await ctx.stub.getState('Patients')
