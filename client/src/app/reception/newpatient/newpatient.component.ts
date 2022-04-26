@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
+import { FormGroup, FormControl, NgForm } from '@angular/forms';
+import { simpleResponse } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
+import { MatSnackBar } from '@angular/material/snack-bar'
+
 
 @Component({
   selector: 'app-newpatient',
@@ -11,7 +14,8 @@ export class NewpatientComponent implements OnInit {
 
   campainTwo: FormGroup;
 
-  constructor(private service:FabricService) {
+  constructor(private service: FabricService,
+    private snackbar: MatSnackBar) {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -23,20 +27,28 @@ export class NewpatientComponent implements OnInit {
 
   }
 
-  register(form:any){
-  let input = form.value
-  let fname=input.fname
-  let mname=input.mname
-  let lname=input.lname
-  let nextkin=input.nofkn
-  let nextofkinplace=input.nofkp
-  let ralationship=input.nofkr
-  let dob=input.dob
-  let kinphone=input.nofkp
-  let patientphone=input.phone
-  //Data structure
-  let data={fname,mname,lname,nextkin,nextofkinplace,ralationship,dob,kinphone,patientphone}
-  this.service.AddPatient(data)
+  register(form: NgForm) {
+    let input = form.value
+    let fname = input.fname
+    let mname = input.mname
+    let lname = input.lname
+    let kinName = input.kinName
+    let gender = input.gender
+    let kinPlace = input.kinPlace
+    let ralationship = input.relationship
+    let dob = input.dob
+    let kinphone = input.kinPhone
+    let phone = input.phone
+
+    let data = { fname, mname, lname, gender, kinName, kinPlace, ralationship, dob, kinphone, phone }
+    console.log(data);
+    
+    this.service.AddPatient(data).subscribe((result: simpleResponse) => {
+      this.snackbar.open(result.message, "close")
+      if (result.status == 200) {
+        form.reset()
+      }
+    })
   }
   ngOnInit(): void {
   }

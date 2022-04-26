@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { dataResponse, simpleResponse } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +8,14 @@ import { HttpClient } from '@angular/common/http';
 export class FabricService {
 
   constructor(private http:HttpClient) { }
-  base_url:any="www.url.com"
+  base_url:any="http://localhost:5000/"
  
-  AddPatient(data:any){
-    this.http.post(this.base_url,data)
-    console.log("Data has been saved")
+  AddPatient(data:any){ 
+    return this.http.post<simpleResponse>(this.base_url+"reception/registerPatient",data)
+  }
+
+  getPatients() {
+    return this.http.get<dataResponse>(this.base_url+'getPatients')
   }
 
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { dataResponse } from 'src/app/interfaces/interfaces';
+import { FabricService } from 'src/app/services/fabric.service';
 
 @Component({
   selector: 'app-searchpatient',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchpatientComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private service: FabricService,
+    private snackbar: MatSnackBar
+  ) { }
+
+  patients:[] = []
 
   ngOnInit(): void {
+    this.service.getPatients().subscribe((result: dataResponse) => {
+      if (result.status == 200) {
+        this.patients = result.data
+      } else {
+        this.snackbar.open(result.data)
+      }
+    })
   }
 
 }

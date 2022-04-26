@@ -38,7 +38,8 @@ import { LabSidenavComponent } from './laboratory/lab-sidenav/lab-sidenav.compon
 import { LabTestsComponent } from './laboratory/lab-tests/lab-tests.component';
 import { FabricService } from './services/fabric.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { FlexLayoutModule } from '@angular/flex-layout'
 
 @NgModule({
   declarations: [
@@ -75,11 +76,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     MatListModule,
     MatDatepickerModule,
+    MatSnackBarModule,
     MatSelectModule,
     MatRadioModule,
     DataTablesModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule
     
   ],
   providers: [FabricService],

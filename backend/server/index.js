@@ -28,6 +28,7 @@ init()
 const express = require('express')
 const cors = require('cors');
 const reception = require('./Routes/receiption.js');
+const universal = require('./Routes/universal.js');
 
 const app = express()
 
@@ -36,6 +37,8 @@ app.use(express.urlencoded({urlencoded: true}))
 
 app.use(cors())
 
+
+app.use(universal)
 app.use('/reception',reception)
 
 app.get('/init', async (req, res) => {

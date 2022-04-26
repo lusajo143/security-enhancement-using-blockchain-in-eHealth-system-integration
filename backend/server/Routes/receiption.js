@@ -39,6 +39,7 @@ reception.post('/registerPatient', async (req, res) => {
     let fname = req.body.fname
     let mname = req.body.mname
     let lname = req.body.lname
+    let gender = req.body.gender
     let kinName = req.body.kinName
     let phone = req.body.phone
     let dob = req.body.dob
@@ -46,9 +47,11 @@ reception.post('/registerPatient', async (req, res) => {
     let relationship = req.body.relationship
     let kinPhone = req.body.kinPhone
 
-    let result = await contract.submitTransaction('registerPatient', Date.now().toString(), fname,
-        mname, lname, kinName, phone, dob, kinPlace,
-        relationship, kinPhone)
+    // let result = await contract.submitTransaction('registerPatient', Date.now().toString(), fname,
+    //     mname, lname, kinName, phone, dob, kinPlace,
+    //     relationship, kinPhone)
+    console.log(req.body);
+    let result = "Done"
 
     if (result.toString() == "Done") {
         res.json({status: 200, message: 'Patient registration completed'})

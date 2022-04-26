@@ -38,3 +38,12 @@ mat-drawer{
 .example-spacer {
     flex: 1 1 auto;
   }
+
+.round-avatar {
+  width: 100px;
+  height: 100px;
+  background-image: url('./assets/medics.jpg');
+  background-position: center;
+  background-size: cover;
+  border-radius: 50px;
+}
