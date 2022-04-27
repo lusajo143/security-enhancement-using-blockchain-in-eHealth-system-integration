@@ -42,6 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PaymentmodalComponent } from './reception/paymentmodal/paymentmodal.component'
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { PaymentmodalComponent } from './reception/paymentmodal/paymentmodal.com
     DataTablesModule,
     FormsModule,
     HttpClientModule,
+    MatNativeDateModule,
     FlexLayoutModule,
     MatDialogModule
     

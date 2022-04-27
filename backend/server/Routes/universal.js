@@ -1,28 +1,16 @@
+const { getContract } = require('../Utils/Utils')
+
 const Router  = require('express').Router
 
 const universal = Router()
 
-universal.get('/getPatients', (req, res) => {
-    const patients = [
-        {
-            pid: '011',
-            name: 'Lusajo',
-            gender: 'Male',
-            age: 23,
-            location: 'Dodoma',
-            payment: 'Cash'
-        },
-        {
-            pid: '012',
-            name: 'Boss mdg',
-            gender: 'Female',
-            age: 23,
-            location: 'Dodoma',
-            payment: 'Cash'
-        }
-    ]
+universal.get('/getPatients', async (req, res) => {
+    
+    const contract = await getContract('receptionist')
 
-    res.json({status: 200, data: patients})
+    let result = await contract.evaluateTransaction('getAllPatients')
+
+    res.json({status: 200, data: result.toString()})
 })
 
 

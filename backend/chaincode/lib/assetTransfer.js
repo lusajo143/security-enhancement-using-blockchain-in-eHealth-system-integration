@@ -31,7 +31,7 @@ class AssetTransfer extends Contract {
         ]
 
         // Initialize patients
-        const patients = [{name: 'he'}]
+        const patients = []
         await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
 
         // Initialize Organizations (Hospitals)
