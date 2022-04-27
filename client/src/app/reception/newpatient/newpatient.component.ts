@@ -47,12 +47,12 @@ export class NewpatientComponent implements OnInit {
     let data = { fname, mname, lname, gender, kinName, kinPlace, relationship, dob, kinphone, phone }
     console.log(data);
     
-    // this.service.AddPatient(data).subscribe((result: simpleResponse) => {
-    //   this.snackbar.open(result.message, "close")
-    //   if (result.status == 200) {
-    //     form.reset()
-    //   }
-    // })
+    this.service.AddPatient(data).subscribe((result: simpleResponse) => {
+      this.snackbar.open(result.message, "close")
+      if (result.status == 200) {
+        form.reset()
+      }
+    })
   }
 
   updateDOB(Date: string) {
