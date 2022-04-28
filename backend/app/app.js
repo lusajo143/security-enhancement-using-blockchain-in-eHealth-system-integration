@@ -71,18 +71,22 @@ async function main() {
 			// let result = await contract.evaluateTransaction('getAllOrgs');
 			// console.log(`*** Result: ${result.toString()}`);
 
-			console.log('register patient')
-			let result = await contract.submitTransaction('registerPatient', Date.now().toString(), 'lusajo',
-			'menard','shitindi', 'Male', 'menard shitindi', '07333', '30-29-2222', 'Mbeya',
-			'Father', '0443333')
-			console.log(`*** Result ${result.toString()}`);
+			// console.log('register patient')
+			// let result = await contract.submitTransaction('registerPatient', Date.now().toString(), 'lusajo',
+			// 'menard','shitindi', 'Male', 'menard shitindi', '07333', '30-29-2222', 'Mbeya',
+			// 'Father', '0443333')
+			// console.log(`*** Result ${result.toString()}`);
 
 			// result = await contract.submitTransaction('isPatientRegistered', 'lusajo')
 			// console.log(result.toString());
 
-			// console.log('Get all orgs');
-			// result = await contract.evaluateTransaction('getAllPatients');
-			// console.log(`*** Result: ${result.toString()}`);
+			console.log('Get all orgs');
+			var result = await contract.evaluateTransaction('getAllPatients');
+			console.log(`*** Result: ${result.toString()}`);
+
+			console.log('Update patient status');
+			result = await contract.submitTransaction('updatePatientStatus', '333','Org1', 'consult');
+			console.log(`*** Result: ${result.toString()}`);
 			// console.log('\n--> Submit Transaction: CreateAsset, creates new asset with ID, color, owner, size, and appraisedValue arguments');
 			// result = await contract.submitTransaction('CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300');
 			// console.log('*** Result: committed');

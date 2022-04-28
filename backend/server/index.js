@@ -19,10 +19,7 @@ async function init() {
         ccp = buildCCPOrg1();
 		caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
 		wallet = await buildWallet(Wallets, walletPath);
-
-        
     } catch (error) {
-        
     }
 }
 init()

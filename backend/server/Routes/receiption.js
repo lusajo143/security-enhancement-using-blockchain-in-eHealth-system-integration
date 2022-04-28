@@ -5,7 +5,7 @@ const Router = require('express').Router
 const reception = Router()
 
 
-
+let userId = 'receptionist'
 
 
 reception.post('/registerPatient', async (req, res) => {
@@ -21,7 +21,7 @@ reception.post('/registerPatient', async (req, res) => {
     let kinPhone = req.body.kinphone
 
     console.log(req.body);
-    let contract = await getContract('receptionist')
+    let contract = await getContract(userId)
     let result = await contract.submitTransaction('registerPatient', Date.now().toString(), fname,
         mname, lname, gender, kinName, phone, dob, kinPlace,
         relationship, kinPhone)
@@ -33,6 +33,16 @@ reception.post('/registerPatient', async (req, res) => {
     } else {
         res.json({status: 500, message: 'Server error occured'})
     }
+})
+
+reception.post('/sendToConsultation', async (req, res) => {
+    let patient_id = req.body.patient_id
+
+    let contract = await getContract(userId)
+    let result = await contract.submitTransaction('updatePatientStatus', patient_id, 'Org1', 'consultation')
+
+    res.json(JSON.parse(result.toString()))
+
 })
 
 module.exports = reception

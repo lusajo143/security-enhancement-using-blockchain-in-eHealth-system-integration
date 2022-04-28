@@ -7,26 +7,29 @@
 'use strict';
 
 // Deterministic JSON.stringify()
-const stringify  = require('json-stringify-deterministic');
-const sortKeysRecursive  = require('sort-keys-recursive');
+const stringify = require('json-stringify-deterministic');
+const sortKeysRecursive = require('sort-keys-recursive');
 const { Contract } = require('fabric-contract-api');
 
 class AssetTransfer extends Contract {
 
     async InitLedger(ctx) {
-        
+
         const orgs = [
             {
                 orgId: 'Org1',
-                name: 'Muhimbili Hospital'
+                name: 'Muhimbili Hospital',
+                patients_Track: []
             },
             {
                 orgId: 'Org2',
-                name: 'Benjamin Mkapa Hospital'
+                name: 'Benjamin Mkapa Hospital',
+                patients_Track: []
             },
             {
                 orgId: 'Org3',
-                name: 'Dodoma Hospital'
+                name: 'Dodoma Hospital',
+                patients_Track: []
             }
         ]
 
@@ -34,9 +37,13 @@ class AssetTransfer extends Contract {
         const patients = []
         await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
 
+        // Initialize medical records
+        const medicalRecords = []
+        await ctx.stub.putState('medicalRecords', Buffer.from(stringify(medicalRecords)))
+
         // Initialize Organizations (Hospitals)
         await ctx.stub.putState('Orgs', Buffer.from(stringify(orgs)))
-        
+
 
         // Initialize specific org data
         for (const org of orgs) {
@@ -78,9 +85,9 @@ class AssetTransfer extends Contract {
         var patientsJson = JSON.parse(patients.toString())
         patientsJson.push(patient)
         await ctx.stub.putState('Patients', Buffer.from(stringify(patientsJson)))
-        
+
         return "Done"
-        
+
     }
 
     async getAllPatients(ctx) {
@@ -90,6 +97,41 @@ class AssetTransfer extends Contract {
         }
 
         return patientsJson.toString()
+
+    }
+
+    async updatePatientStatus(ctx, patient_id, org, status) {
+        let orgs = await ctx.stub.getState(org)
+
+        if (!orgs || orgs == null) {
+            throw new Error(`${org} is not a registered organization`)
+        }
+
+        orgs = JSON.parse(orgs.toString())
+
+        let found = false
+
+        for (let i = 0; i < orgs.patients_Track.length; i++) {
+            if (patient_id == orgs.patients_Track[i].patient_id) {
+                found = true
+                orgs.patients_Track[i].status = status
+                await ctx.stub.putState(org, Buffer.from(stringify(orgs)))
+                return stringify({status: 200, message: "Updated patient status successfully"})
+
+                // break
+            }
+        }
+
+        if (!found) {
+            orgs.patients_Track.push({
+                patient_id,
+                status
+            })
+            await ctx.stub.putState(org, Buffer.from(stringify(orgs)))
+            return stringify({status: 200, message: "Recorded new patient status successfully"})
+        } else {
+            return stringify({status: 200, message: "Updated patient status successfully"})
+        }
 
     }
 
