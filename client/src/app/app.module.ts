@@ -42,6 +42,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PaymentmodalComponent } from './reception/paymentmodal/paymentmodal.component'
+import {MatNativeDateModule} from '@angular/material/core';
+import { DiagoniseComponent } from './consoltation/diagonise/diagonise.component';
+import { RescribeComponent } from './consoltation/rescribe/rescribe.component';
+import { PrescribeComponent } from './consoltation/prescribe/prescribe.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +67,10 @@ import { PaymentmodalComponent } from './reception/paymentmodal/paymentmodal.com
     LabDashboardComponent,
     LabSidenavComponent,
     LabTestsComponent,
-    PaymentmodalComponent
+    PaymentmodalComponent,
+    DiagoniseComponent,
+    RescribeComponent,
+    PrescribeComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +92,7 @@ import { PaymentmodalComponent } from './reception/paymentmodal/paymentmodal.com
     DataTablesModule,
     FormsModule,
     HttpClientModule,
+    MatNativeDateModule,
     FlexLayoutModule,
     MatDialogModule
     

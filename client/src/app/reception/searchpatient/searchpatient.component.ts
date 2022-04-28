@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { dataResponse } from 'src/app/interfaces/interfaces';
+import { dataResponse, patient } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
 import {MatDialog} from '@angular/material/dialog'
 import { PaymentmodalComponent } from '../paymentmodal/paymentmodal.component';
@@ -18,7 +18,7 @@ export class SearchpatientComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-  patients:[] = []
+  patients: patient[] = []
 
   openDialog() {
    this.dialog.open(PaymentmodalComponent);
@@ -28,7 +28,12 @@ export class SearchpatientComponent implements OnInit {
     
     this.service.getPatients().subscribe((result: dataResponse) => {
       if (result.status == 200) {
-        this.patients = result.data
+        console.log(result.data);
+        
+        let data = JSON.parse(result.data)
+        for (let index = 0; index < data.length; index++) {
+          this.patients.push(data[index])
+        }
       } else {
         this.snackbar.open(result.data)
       }

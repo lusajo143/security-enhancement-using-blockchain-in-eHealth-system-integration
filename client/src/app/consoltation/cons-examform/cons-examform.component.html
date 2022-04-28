@@ -1,95 +1,95 @@
-<div class="container">
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <div class="card">
-                <div class="card-header">
-                History
-                </div>
-                <div class="card-body">
+<mat-dialog-content class="mat-typography">
+  <div class="card">
+    <div class="card-header">
+      History
+    </div>
+    <div class="card-body">
 
-                    <form action="">
-                        
-                    
-                        <hr style="border: 1px solid blue;">
-                        Complaints
-                        <hr style="border: 1px solid blue;">
-                        <div class="row">
-                            
-                            <div class="col-6 mt-3">
-                                <label for="">Presenting complain</label>
-                                <textarea name="" id="" cols="10" rows="3" class="form-control"></textarea>
-                            </div>
-                            <div class="col-6 mt-3">
-                                <label for="">History of the complain</label>
-                                <textarea name="" id="" cols="10" rows="3" class="form-control"></textarea>
-                            </div>
-                        </div>
-                                   <hr style="border: 1px solid blue;">
-                                   Recommended tests
-                                   <hr style="border: 1px solid blue;">
-                        <div class="row">
-                            
-                            <div class="col-6 mt-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                    Random Blood Sugar
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                    Fasting Blood Sure
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                     Liver function
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        peripheral blooc smear
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                     Thyrodi function
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        Full blood count
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                      Malaria Rapid Diagnostic
-                                    </label>
-                                  </div>
-                                
-                            </div>
-                           
-                        </div>
-                        <hr style="border: 1px solid blue;">
-                    <a routerLink="/consult/patients" class="btn btn-primary"><mat-icon>send</mat-icon></a>
-                        <hr style="border: 1px solid blue;">
-                        
-                        
-                    </form>
+      <form action="">
 
-                  
-                </div>
+        Complaints
+        <div class="row">
+
+          <div class="col-6 mt-3">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Presenting complain</mat-label>
+              <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
+              <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-6 mt-3">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>History of the complain</mat-label>
+              <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
+              <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+
+        Recommended tests
+
+        <div class="row">
+
+          <div class="col-6 mt-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                Random Blood Sugar
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Fasting Blood Sure
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Liver function
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                peripheral blooc smear
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Thyrodi function
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Full blood count
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Malaria Rapid Diagnostic
+              </label>
             </div>
 
+          </div>
 
         </div>
-        <div class="col-2"></div>
+
+
+        <hr style="border: 1px solid blue;">
+
+      </form>
+
+
     </div>
-</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <a routerLink="/consult/patients" class="btn btn-primary">
+    <mat-icon>send</mat-icon>
+  </a>
+</mat-dialog-actions>

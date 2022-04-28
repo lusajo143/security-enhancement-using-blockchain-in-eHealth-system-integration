@@ -3,6 +3,7 @@ import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { simpleResponse } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 export class NewpatientComponent implements OnInit {
 
   campainTwo: FormGroup;
+  dob: string = ""
 
   constructor(private service: FabricService,
     private snackbar: MatSnackBar) {
@@ -40,15 +42,24 @@ export class NewpatientComponent implements OnInit {
     let kinphone = input.kinPhone
     let phone = input.phone
 
+    this.updateDOB(input.dob)
+
     let data = { fname, mname, lname, gender, kinName, kinPlace, relationship, dob, kinphone, phone }
     console.log(data);
     
-    this.service.AddPatient(data).subscribe((result: simpleResponse) => {
-      this.snackbar.open(result.message, "close")
-      if (result.status == 200) {
-        form.reset()
-      }
-    })
+    // this.service.AddPatient(data).subscribe((result: simpleResponse) => {
+    //   this.snackbar.open(result.message, "close")
+    //   if (result.status == 200) {
+    //     form.reset()
+    //   }
+    // })
+  }
+
+  updateDOB(Date: string) {
+    // convert object to string then trim it to yyyy-mm-dd
+    // const dob = Date.split(' ')
+    console.log(Date);
+    
   }
   ngOnInit(): void {
   }

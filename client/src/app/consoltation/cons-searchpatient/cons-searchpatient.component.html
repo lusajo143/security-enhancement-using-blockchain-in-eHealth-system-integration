@@ -26,10 +26,10 @@
                                 <td>Juliana</td>
                                 <td>Female</td>
                                 <td>38</td>
-                                <td><a href="" mat-raised-button mat-button-primary color="primary" routerLink="/consult/history"><mat-icon>folder</mat-icon></a></td>
-                                <td><a href="" mat-raised-button mat-button-primary color="accent"  routerLink="/consult/examine" ><mat-icon>visibility</mat-icon></a></td>
-                                <td><a href="" mat-raised-button mat-button-primary color="accent"  routerLink="/consult/diagnise"><mat-icon>visibility</mat-icon></a></td> 
-                                <td><a href="" mat-raised-button mat-button-primary color="primary" routerLink="/consult/prescribe"><mat-icon>visibility</mat-icon></a></td> 
+                                <td><a mat-raised-button mat-button-primary color="primary" routerLink="/consult/history"><mat-icon>folder</mat-icon></a></td>
+                                <td><a mat-raised-button mat-button-primary color="accent"  (click)="openExamine()" ><mat-icon>visibility</mat-icon></a></td>
+                                <td><a mat-raised-button mat-button-primary color="accent"  (click)="openDiagonise()"><mat-icon>visibility</mat-icon></a></td> 
+                                <td><a  mat-raised-button mat-button-primary color="primary"(click)="openPrescribe()"><mat-icon>visibility</mat-icon></a></td> 
                               
                             </tr>
                     

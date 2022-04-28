@@ -20,8 +20,6 @@ async function init() {
 		caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
 		wallet = await buildWallet(Wallets, walletPath);
 
-        let contract = await getContract('admin')
-        contract.submitTransaction('InitLedger')
         
     } catch (error) {
         
@@ -51,6 +49,10 @@ app.get('/init', async (req, res) => {
     await enrollAdmin(caClient, wallet, mspOrg1);
 
     await registerAndEnrollUser(caClient, wallet, mspOrg1, 'receptionist', 'org1.department1');
+
+    let contract = await getContract('admin')
+    contract.submitTransaction('InitLedger')
+
     res.send('done')
 })
 

@@ -32,6 +32,16 @@
                                         <mat-icon>send</mat-icon>
                                     </button></td>
 
+            
+                            <tr *ngFor="let patient of patients">
+                                <td>{{patient.id}}</td>
+                                <td>{{patient.fname}} {{patient.mname}} {{ patient.lname}}</td>
+                                <td>{{patient.gender}}</td>
+                                <td>38</td>
+                                <td>{{patient.kinPlace}}</td>
+                                <td>cash</td>
+                                <td><button mat-button (click)="openDialog()"><mat-icon>send</mat-icon></button></td>
+        
                             </tr>
 
 
