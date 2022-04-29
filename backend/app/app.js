@@ -84,9 +84,17 @@ async function main() {
 			var result = await contract.evaluateTransaction('getAllPatients');
 			console.log(`*** Result: ${result.toString()}`);
 
-			console.log('Update patient status');
-			result = await contract.submitTransaction('updatePatientStatus', '333','Org1', 'consult');
-			console.log(`*** Result: ${result.toString()}`);
+			console.log('Get reception patients');
+			result = await contract.submitTransaction('getConsultationPatients', 'Org1');
+			console.log(`*** Result: ${result}`);
+
+			// console.log('Update patient status');
+			// result = await contract.submitTransaction('updatePatientStatus', '333','Org1', 'consult');
+			// console.log(`*** Result: ${result.toString()}`);
+
+			// console.log('Get reception patients');
+			// result = await contract.submitTransaction('getReceptionPatients', 'Org1');
+			// console.log(`*** Result: ${result.toString()}`);
 			// console.log('\n--> Submit Transaction: CreateAsset, creates new asset with ID, color, owner, size, and appraisedValue arguments');
 			// result = await contract.submitTransaction('CreateAsset', 'asset13', 'yellow', '5', 'Tom', '1300');
 			// console.log('*** Result: committed');

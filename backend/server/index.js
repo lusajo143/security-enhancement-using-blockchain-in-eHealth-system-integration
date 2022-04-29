@@ -30,6 +30,7 @@ const cors = require('cors');
 const reception = require('./Routes/receiption.js');
 const universal = require('./Routes/universal.js');
 const { getContract } = require('./Utils/Utils.js');
+const consultation = require('./Routes/consultation.js');
 
 const app = express()
 
@@ -41,6 +42,7 @@ app.use(cors())
 
 app.use(universal)
 app.use('/reception',reception)
+app.use('/consultation', consultation)
 
 app.get('/init', async (req, res) => {
     await enrollAdmin(caClient, wallet, mspOrg1);

@@ -1,13 +1,13 @@
 
-<div mat-dialog-content>
-<mat-card>
-  <mat-card-title>Choose Payment</mat-card-title>
-  <mat-card-actions>
-    <button mat-raised-button color="primary">Insurance</button>
-    <button mat-raised-button color="primary">Cash</button>
-  </mat-card-actions>
-</mat-card>
-</div>
+<div fxLayout="column" style="width: 400px;">
+  <mat-card-title>Payment Method</mat-card-title>
+  
+  <div fxLayout="row" fxLayoutAlign="space-between" class="mt-4 mb-4">
+    <button mat-raised-button color="primary" class="w-50 m-2" (click)="toConsultation('Insurance')">Insurance</button>
+    <button mat-stroked-button class="w-50 m-2">Cash</button>
+  </div>
+
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
+</div>
 </div>

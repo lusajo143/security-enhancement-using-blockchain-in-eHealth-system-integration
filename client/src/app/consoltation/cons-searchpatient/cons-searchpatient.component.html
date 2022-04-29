@@ -21,15 +21,17 @@
                         </thead>
                         <tbody>
             
-                            <tr>
-                                <td>001</td>
-                                <td>Juliana</td>
-                                <td>Female</td>
+                            
+
+                            <tr *ngFor="let patient of patients">
+                                <td>{{patient.id}}</td>
+                                <td>{{patient.fname}} {{patient.mname}} {{patient.lname}}</td>
+                                <td>{{patient.gender}}</td>
                                 <td>38</td>
                                 <td><a mat-raised-button mat-button-primary color="primary" routerLink="/consult/history"><mat-icon>folder</mat-icon></a></td>
                                 <td><a mat-raised-button mat-button-primary color="accent"  (click)="openExamine()" ><mat-icon>visibility</mat-icon></a></td>
                                 <td><a mat-raised-button mat-button-primary color="accent"  (click)="openDiagonise()"><mat-icon>visibility</mat-icon></a></td> 
-                                <td><a  mat-raised-button mat-button-primary color="primary"(click)="openPrescribe()"><mat-icon>visibility</mat-icon></a></td> 
+                                <td><a  mat-raised-button mat-button-primary color="primary" (click)="openPrescribe()"><mat-icon>visibility</mat-icon></a></td> 
                               
                             </tr>
                     

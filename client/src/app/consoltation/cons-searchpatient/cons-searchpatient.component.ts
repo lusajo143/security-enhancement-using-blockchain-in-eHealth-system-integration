@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import { dataResponse, patient } from 'src/app/interfaces/interfaces';
+import { FabricService } from 'src/app/services/fabric.service';
 import { ConsExamformComponent } from '../cons-examform/cons-examform.component';
 import { DiagoniseComponent } from '../diagonise/diagonise.component';
 import { PrescribeComponent } from '../prescribe/prescribe.component';
@@ -12,7 +14,10 @@ import { PrescribeComponent } from '../prescribe/prescribe.component';
 export class ConsSearchpatientComponent implements OnInit {
 
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,
+    private service: FabricService) {}
+
+    patients: patient[] = []
 
   openDiagonise() {
     const dialogRef = this.dialog.open(DiagoniseComponent);
@@ -41,6 +46,16 @@ export class ConsSearchpatientComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.service.getPatientsConsultation().subscribe((result: dataResponse) => {
+      if (result.status == 200) {
+        let data = JSON.parse(result.data)
+        for (let index = 0; index < data.length; index++) {
+          this.patients.push(data[index])
+        }
+      }
+
+    })
   }
 }
 

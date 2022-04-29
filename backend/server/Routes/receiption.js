@@ -45,6 +45,15 @@ reception.post('/sendToConsultation', async (req, res) => {
 
 })
 
+
+reception.get('/getPatients', async (req, res) => {
+    const contract = await getContract('receptionist')
+
+    let result = await contract.evaluateTransaction('getReceptionPatients', 'Org1')
+
+    res.json({status: 200, data: result.toString()})
+})
+
 module.exports = reception
 
 

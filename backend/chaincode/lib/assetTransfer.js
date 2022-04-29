@@ -116,7 +116,7 @@ class AssetTransfer extends Contract {
                 found = true
                 orgs.patients_Track[i].status = status
                 await ctx.stub.putState(org, Buffer.from(stringify(orgs)))
-                return stringify({status: 200, message: "Updated patient status successfully"})
+                return stringify({ status: 200, message: "Updated patient status successfully" })
 
                 // break
             }
@@ -128,14 +128,69 @@ class AssetTransfer extends Contract {
                 status
             })
             await ctx.stub.putState(org, Buffer.from(stringify(orgs)))
-            return stringify({status: 200, message: "Recorded new patient status successfully"})
-        } else {
-            return stringify({status: 200, message: "Updated patient status successfully"})
+            return stringify({ status: 200, message: "Recorded new patient status successfully" })
         }
+    }
+
+    async getReceptionPatients(ctx, Org) {
+        // Get all patients
+        let Patients = await ctx.stub.getState('Patients')
+        if (!Patients || Patients == null) throw new Error('Patients not found')
+
+        Patients = JSON.parse(Patients.toString())
+
+        // Get Tracked patients
+        let org = await ctx.stub.getState(Org)
+        let OrgJson = JSON.parse(org.toString())
+        let TrackedPatients = OrgJson.patients_Track
+
+        // Filter patients
+        let results = []
+
+        Patients.forEach(patient => {
+            let found = false
+            TrackedPatients.forEach(trackedPatient => {
+                if (patient.id == trackedPatient.patient_id) found = true
+            });
+            if (!found) {
+                results.push(patient)
+            }
+        });
+
+        return JSON.stringify(results)
 
     }
 
 
+    // Consultation
+    async getConsultationPatients(ctx, Org) {
+        // Get all patients
+        let Patients = await ctx.stub.getState('Patients')
+        if (!Patients || Patients == null) throw new Error('Patients not found')
+
+        Patients = JSON.parse(Patients.toString())
+
+        // Get Tracked patients
+        let org = await ctx.stub.getState(Org)
+        let OrgJson = JSON.parse(org.toString())
+        let TrackedPatients = OrgJson.patients_Track
+
+        // Filter patients
+        let results = []
+
+        TrackedPatients.forEach(trackedPatient => {
+            // let found = false
+
+            Patients.forEach(patient => {
+                if (patient.id == trackedPatient.patient_id && trackedPatient.status == "consultation") {
+                    results.push(patient)
+                }
+            });
+
+        });
+
+        return JSON.stringify(results)
+    }
 
 
 
