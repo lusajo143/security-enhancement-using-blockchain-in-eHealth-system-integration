@@ -16,7 +16,8 @@ export class ConsSearchpatientComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
     private service: FabricService) {}
-
+    showProgressBar=true
+    showDataTable=false
     patients: patient[] = []
 
   openDiagonise() {

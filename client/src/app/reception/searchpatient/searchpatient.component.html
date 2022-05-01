@@ -1,7 +1,7 @@
-<div class="container">
     <div class="row">
         <div class="col-12">
-            <mat-card>
+            <mat-progress-bar *ngIf="showProgressBar" mode="indeterminate"></mat-progress-bar>
+            <mat-card *ngIf="showDataTable">
                 <mat-card-title>
                     <mat-card-subtitle>
                         Patient Details
@@ -21,10 +21,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        
-
-
                         <tr *ngFor="let patient of patients">
                             <td>{{patient.id}}</td>
                             <td>{{patient.fname}} {{patient.mname}} {{ patient.lname}}</td>
@@ -48,4 +44,3 @@
         </div>
 
     </div>
-</div>

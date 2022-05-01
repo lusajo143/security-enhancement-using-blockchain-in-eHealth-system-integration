@@ -17,7 +17,8 @@ export class SearchpatientComponent implements OnInit {
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
   ) { }
-
+  showProgressBar =true
+  showDataTable=false
   patients: patient[] = []
 
   openDialog(patient_id: any) {

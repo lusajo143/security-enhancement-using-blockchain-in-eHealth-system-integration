@@ -46,6 +46,9 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { DiagoniseComponent } from './consoltation/diagonise/diagonise.component';
 import { RescribeComponent } from './consoltation/rescribe/rescribe.component';
 import { PrescribeComponent } from './consoltation/prescribe/prescribe.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -94,7 +97,10 @@ import { PrescribeComponent } from './consoltation/prescribe/prescribe.component
     HttpClientModule,
     MatNativeDateModule,
     FlexLayoutModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
+
     
   ],
   providers: [FabricService],

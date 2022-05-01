@@ -35,7 +35,7 @@ export class NewpatientComponent implements OnInit {
 
 
     Swal.fire({
-      title: 'Do you want to create this patient?',
+      title: 'Do you want to save this patient?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Save',
