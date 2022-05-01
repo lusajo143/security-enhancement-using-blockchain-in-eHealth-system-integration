@@ -4,6 +4,7 @@ import { simpleResponse } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -30,29 +31,50 @@ export class NewpatientComponent implements OnInit {
   }
 
   register(form: NgForm) {
-    let input = form.value
-    let fname = input.fname
-    let mname = input.mname
-    let lname = input.lname
-    let kinName = input.kinName
-    let gender = input.gender
-    let kinPlace = input.kinPlace
-    let relationship = input.relationship
-    let dob = input.dob
-    let kinphone = input.kinPhone
-    let phone = input.phone
 
-    this.updateDOB(input.dob)
 
-    let data = { fname, mname, lname, gender, kinName, kinPlace, relationship, dob, kinphone, phone }
-    console.log(data);
+
+    Swal.fire({
+      title: 'Do you want to create this patient?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+
+        let input = form.value
+        let fname = input.fname
+        let mname = input.mname
+        let lname = input.lname
+        let kinName = input.kinName
+        let gender = input.gender
+        let kinPlace = input.kinPlace
+        let relationship = input.relationship
+        let dob = input.dob
+        let kinphone = input.kinPhone
+        let phone = input.phone
     
-    this.service.AddPatient(data).subscribe((result: simpleResponse) => {
-      this.snackbar.open(result.message, "close")
-      if (result.status == 200) {
-        form.reset()
+        this.updateDOB(input.dob)
+    
+        let data = { fname, mname, lname, gender, kinName, kinPlace, relationship, dob, kinphone, phone }
+        console.log(data);
+        
+        this.service.AddPatient(data).subscribe((result: simpleResponse) => {
+          this.snackbar.open(result.message, "close")
+          if (result.status == 200) {
+            form.reset()
+          }
+        })
+
+
+        Swal.fire('Saved!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('user has not been saved', '', 'info')
       }
     })
+   
   }
 
   updateDOB(Date: string) {

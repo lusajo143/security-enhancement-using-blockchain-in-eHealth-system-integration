@@ -2,18 +2,26 @@
     <div class="row">
         <div class=""></div>
         <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    Patient Details
-                </div>
-                <div class="card-body">
+            <mat-card>
+                <mat-card-title>
+                    <mat-card-subtitle>
+                        Patient Details
+                    </mat-card-subtitle>
+                </mat-card-title>
+                <mat-card-content>
                     <form #form="ngForm" action="" (submit)="register(form)">
                         <div class="row">
                             <div class="col-6">
                                 <mat-form-field appearance="outline">
                                     <mat-label>First Name</mat-label>
-                                    <input ngModel name="fname" matInput>
+                                    <input #fname="ngModel" ngModel required pattern="[A-Za-z]+$" maxlength="13"
+                                        name="fname" matInput>
                                     <mat-icon matSuffix>edit</mat-icon>
+                                    <mat-error *ngIf="fname.touched && !fname.valid">
+                                        <span *ngIf="fname.errors?.['required']">please enter first name</span>
+                                        <span *ngIf="fname.errors?.['pattern']">first name should not contain number or
+                                            space</span>
+                                    </mat-error>
 
                                 </mat-form-field>
                             </div>
@@ -21,8 +29,14 @@
                             <div class="col-6">
                                 <mat-form-field appearance="outline">
 
-                                    <input ngModel name="mname" matInput placeholder="Middle Name">
+                                    <input #mname="ngModel" pattern="[A-Za-z]+$" ngModel name="mname" matInput
+                                        placeholder="Middle Name">
                                     <mat-icon matSuffix>edit</mat-icon>
+                                    <mat-error *ngIf="mname.touched && !mname.valid">
+
+                                        <span *ngIf="mname.errors?.['pattern']">middle name should not contain number or
+                                            space</span>
+                                    </mat-error>
 
                                 </mat-form-field>
                             </div>
@@ -31,9 +45,15 @@
                         <div class="row">
                             <div class="col">
                                 <mat-form-field appearance="outline">
-
-                                    <input matInput ngModel name="lname" placeholder="Last Name">
+                                    <input #lname="ngModel" required pattern="[A-Za-z]+$" maxlength="13" matInput
+                                        ngModel name="lname" placeholder="Last Name">
                                     <mat-icon matSuffix>edit</mat-icon>
+                                    <mat-error *ngIf="lname.touched && !lname.valid">
+                                        <span *ngIf="lname.errors?.['required']">please enter first name</span>
+                                        <span *ngIf="lname.errors?.['pattern']">first name should not contain number or
+                                            space</span>
+                                    </mat-error>
+
 
                                 </mat-form-field>
                             </div>
@@ -41,16 +61,17 @@
                         <div class="row">
                             <section class="example-section">
                                 <label class="example-margin">Gender:</label> <br>
-                                <mat-radio-group ngModel name="gender">
-                                  <mat-radio-button class="example-margin" style="margin-right: 10px;" value="Male">Male</mat-radio-button>
-                                  <mat-radio-button class="example-margin" value="Female">Female</mat-radio-button>
+                                <mat-radio-group ngModel name="gender" required>
+                                    <mat-radio-button aria-checked="true" class="example-margin"
+                                        style="margin-right: 10px;" value="Male">Male</mat-radio-button>
+                                    <mat-radio-button class="example-margin" value="Female">Female</mat-radio-button>
                                 </mat-radio-group>
-                              </section>
+                            </section>
                             <!-- <mat-radio-group aria-label="Select an option" ngModel name="gender">
                                 <mat-radio-button value="Male">Male</mat-radio-button>
                                 <mat-radio-button value="Female">Female</mat-radio-button>
                             </mat-radio-group> -->
-                            
+
                         </div>
 
 
@@ -58,12 +79,18 @@
                             <div class="col mt-4">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Choose a date</mat-label>
-                                    <input matInput [matDatepicker]="picker" ngModel name="dob"
-                                    >
+                                    <input #date="ngModel" required matInput [matDatepicker]="picker" ngModel
+                                        name="dob">
+                                    <mat-error *ngIf="phone.touched && !phone.valid">
+                                        <span *ngIf="phone.errors?.['required']">please choose registration date</span>
+
+
+                                    </mat-error>
+
                                     <mat-hint>MM/DD/YYYY</mat-hint>
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
-                                  </mat-form-field>
+                                </mat-form-field>
                             </div>
                         </div>
 
@@ -71,8 +98,17 @@
                             <div class="col-12 mt-4">
                                 <mat-form-field appearance="outline">
 
-                                    <input ngModel name="phone" matInput placeholder="Patient phone">
+                                    <input #phone="ngModel" required pattern="[0-9]+$" maxlength="10" ngModel name="phone"
+                                        matInput placeholder="Patient phone">
                                     <mat-icon matSuffix>phone</mat-icon>
+                                    <mat-error *ngIf="phone.touched && !phone.valid">
+                                        <span *ngIf="phone.errors?.['required']">please enter phone number</span>
+
+                                        <span *ngIf="phone.errors?.['pattern']">first name should not contain non numeric characters
+                                        </span>
+                                    </mat-error>
+
+
 
                                 </mat-form-field>
                             </div>
@@ -83,8 +119,14 @@
 
                                 <mat-form-field appearance="outline">
                                     <label for=""></label>
-                                    <input ngModel name="kinName" matInput placeholder="Next of kin name">
+                                    <input #kin="ngModel" required pattern="[A-Za-z]+$" ngModel name="kinName" matInput
+                                        placeholder="Next of kin name">
                                     <mat-icon matSuffix>edit</mat-icon>
+                                    <mat-error *ngIf="kin.touched && !kin.valid">
+                                        <span *ngIf="kin.errors?.['required']">please enter first name</span>
+                                        <span *ngIf="kin.errors?.['pattern']">first name should not contain number or
+                                            space</span>
+                                    </mat-error>
 
                                 </mat-form-field>
                             </div>
@@ -105,8 +147,16 @@
                             <div class="col-12">
                                 <mat-form-field appearance="outline">
                                     <label for=""></label>
-                                    <input ngModel name="relationship" matInput placeholder="Relationship">
+                                    <input #rltn="ngModel" pattern="[A-Za-z]+$" required ngModel name="relationship"
+                                        matInput placeholder="Relationship">
                                     <mat-icon matSuffix>edit</mat-icon>
+                                    <mat-error *ngIf="rltn.touched && !rltn.valid">
+                                        <span *ngIf="rltn.errors?.['required']">please enter relationship with the
+                                            kin</span>
+                                        <span *ngIf="rltn.errors?.['pattern']">first name should not contain number or
+                                            space</span>
+                                    </mat-error>
+
                                 </mat-form-field>
                             </div>
                         </div>
@@ -116,8 +166,16 @@
                             <div class="col-12">
                                 <mat-form-field appearance="outline">
 
-                                    <input ngModel name="kinPlace" matInput placeholder="Next of kin place">
+                                    <input required #place="ngModel" ngModel name="kinPlace" matInput
+                                        placeholder="Next of kin place">
                                     <mat-icon matSuffix>edit</mat-icon>
+                                    <mat-error *ngIf="place.touched && !place.valid">
+                                        <span *ngIf="place.errors?.['required']">please enter relationship with the
+                                            kin</span>
+                                        <span *ngIf="place.errors?.['pattern']">first name should not contain number or
+                                            space</span>
+                                    </mat-error>
+
 
                                 </mat-form-field>
                             </div>
@@ -126,8 +184,14 @@
                         <div class="row">
                             <div class="col-12">
                                 <mat-form-field appearance="outline">
-                                    <input ngModel name="kinPhone" matInput placeholder="Next of kin phone">
+                                    <input #phone="ngModel" required pattern="[0-9]+$" ngModel name="kinPhone" matInput
+                                        placeholder="Next of kin phone">
                                     <mat-icon matSuffix>phone</mat-icon>
+                                    <mat-error *ngIf="phone.touched && !phone.valid">
+                                        <span *ngIf="phone.errors?.['required']">please enter kin phone number</span>
+                                        <span *ngIf="phone.errors?.['pattern']">first name should not contain characters
+                                        </span>
+                                    </mat-error>
 
                                 </mat-form-field>
                             </div>
@@ -139,14 +203,15 @@
 
 
                         <p>
-                            <button mat-raised-button color="primary" class="btn btn-primary w-100">
+                            <button   [disabled]="form.invalid" mat-raised-button color="primary" class="btn btn-primary w-100">
                                 <mat-icon style="margin-right: 10px;">person_add</mat-icon> Register
                             </button>
                         </p>
 
                     </form>
-                </div>
-            </div>
+                </mat-card-content>
+            </mat-card>
+
 
 
         </div>
