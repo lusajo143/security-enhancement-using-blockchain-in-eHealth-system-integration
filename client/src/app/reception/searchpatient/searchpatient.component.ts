@@ -42,6 +42,8 @@ export class SearchpatientComponent implements OnInit {
         for (let index = 0; index < data.length; index++) {
           this.patients.push(data[index])
         }
+        this.showDataTable = true
+        this.showProgressBar = false
       } else {
         this.snackbar.open(result.data)
       }

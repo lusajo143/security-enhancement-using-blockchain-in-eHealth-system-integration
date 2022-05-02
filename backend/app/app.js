@@ -88,6 +88,10 @@ async function main() {
 			result = await contract.submitTransaction('getConsultationPatients', 'Org1');
 			console.log(`*** Result: ${result}`);
 
+			// console.log('Get reception patients');
+			// result = await contract.submitTransaction('sendPatientToLab', '1651455923934', 'Joh', 'Org1', 'Headache','Last week', JSON.stringify([{NAME:'HH'}]));
+			// console.log(`*** Result: ${result}`);
+
 			// console.log('Update patient status');
 			// result = await contract.submitTransaction('updatePatientStatus', '333','Org1', 'consult');
 			// console.log(`*** Result: ${result.toString()}`);

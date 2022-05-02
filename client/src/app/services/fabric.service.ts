@@ -28,4 +28,8 @@ export class FabricService {
     return this.http.get<dataResponse>(this.base_url+'consultation/getPatients')
   } 
 
+  sendToLab(data: any) {
+    return this.http.post<simpleResponse>(this.base_url+"consultation/sendToLab", data)
+  }
+
 }

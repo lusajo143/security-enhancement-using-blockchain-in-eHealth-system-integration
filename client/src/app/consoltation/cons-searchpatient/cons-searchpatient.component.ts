@@ -27,8 +27,8 @@ export class ConsSearchpatientComponent implements OnInit {
     });
   }
 
-  openExamine(){
-    const dialogRef = this.dialog.open(ConsExamformComponent);
+  openExamine(patient_id: any){
+    const dialogRef = this.dialog.open(ConsExamformComponent, { data: patient_id});
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
@@ -54,6 +54,8 @@ export class ConsSearchpatientComponent implements OnInit {
         for (let index = 0; index < data.length; index++) {
           this.patients.push(data[index])
         }
+        this.showDataTable = true
+        this.showProgressBar = false
       }
 
     })

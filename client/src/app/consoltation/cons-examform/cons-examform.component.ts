@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { simpleResponse } from 'src/app/interfaces/interfaces';
+import { FabricService } from 'src/app/services/fabric.service';
 
 @Component({
   selector: 'app-cons-examform',
@@ -7,9 +12,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConsExamformComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private patient_id: any,
+    private service: FabricService,
+    private dialogRef: MatDialogRef<ConsExamformComponent>,
+    private snackbar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
+    
+  }
+
+  tests: any[] = []
+  examine(exam: NgForm) {
+    console.log(exam.value);
+
+    const value = exam.value
+
+    this.addTest('FBS',value.FBS)
+    this.addTest('RBS', value.RBS)
+
+    let data = {
+      patient_id: this.patient_id,
+      complain: value.complain,
+      historyComplain: value.historyComplain,
+      tests: this.tests
+    }
+
+    this.service.sendToLab(data).subscribe((result: simpleResponse) => {
+      if (result.status == 200) {
+        this.dialogRef.close()
+      }
+      this.snackbar.open(result.message, 'close')
+    })
+    console.log(this.tests);
+    
+
+    
+  }
+
+  addTest(Key:string, test: any) {
+    if (test != "" || test == true) {
+      this.tests.push({Key})
+    }
   }
 
 }

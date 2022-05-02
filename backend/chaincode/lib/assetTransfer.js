@@ -10,6 +10,7 @@
 const stringify = require('json-stringify-deterministic');
 const sortKeysRecursive = require('sort-keys-recursive');
 const { Contract } = require('fabric-contract-api');
+const ClientIdentity = require('fabric-shim').ClientIdentity
 
 class AssetTransfer extends Contract {
 
@@ -73,10 +74,16 @@ class AssetTransfer extends Contract {
         return orgs.toString()
     }
 
+    async getUserId(ctx) {
+        let cid = new ClientIdentity(ctx.stub)
+        return cid.getUserId
+    }
+
 
     async registerPatient(ctx, id, fname, mname, lname, gender, kinName, phone, dob, kinPlace, relationship, kinPhone) {
         const patient = {
-            id, fname, mname, lname, gender, kinName, phone, dob, kinPlace, relationship, kinPhone
+            id, fname, mname, lname, gender, kinName, phone, dob, kinPlace, relationship, kinPhone,
+            visits: []
         }
 
         // var patients = await ctx.stub.getState('Patients')
@@ -162,6 +169,8 @@ class AssetTransfer extends Contract {
     }
 
 
+
+
     // Consultation
     async getConsultationPatients(ctx, Org) {
         // Get all patients
@@ -190,6 +199,45 @@ class AssetTransfer extends Contract {
         });
 
         return JSON.stringify(results)
+    }
+
+    // Send patient to lab
+    async sendPatientToLab(ctx, patient_id, doctor, org, complain, historyComplain, tests) {
+        let results = await this.updatePatientStatus(ctx, patient_id, org, 'lab')
+
+        results = JSON.parse(results.toString())
+
+        if (!results || results == null || results.status != 200) {
+            throw new Error('Failed to update status')
+        }
+
+        let patients = await ctx.stub.getState('Patients')
+
+        patients = JSON.parse(patients.toString())
+
+        // Prepare visit
+        // let doctor = await this.getUserId(ctx)
+        const visit = {
+            doctor,
+            examination: {
+                complain,
+                historyComplain,
+                tests
+            }
+        }
+
+        for (let index = 0; index < patients.length; index++) {
+            let patient = patients[index];
+            if (patient.id == patient_id) {
+                patient.visits.push(visit)
+                break
+            }
+        }
+
+        await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
+
+        return JSON.stringify({status: 200, message: 'Successfuly sent patient to examination'})
+
     }
 
 

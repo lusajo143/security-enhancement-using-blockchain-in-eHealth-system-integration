@@ -1,6 +1,6 @@
 <div style="width: 600px;">
 
-  <form >
+  <form #exam="ngForm" (ngSubmit)="examine(exam)">
 
     Complaints
     <div class="row">
@@ -8,14 +8,14 @@
       <div class="col-6 mt-3">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Presenting complain</mat-label>
-          <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
+          <input matInput #message maxlength="256" name="complain" ngModel placeholder="Ex. I need help with...">
           <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
         </mat-form-field>
       </div>
       <div class="col-6 mt-3">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>History of the complain</mat-label>
-          <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
+          <input matInput #message maxlength="256" name="historyComplain" ngModel placeholder="Ex. I need help with...">
           <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
         </mat-form-field>
       </div>
@@ -26,43 +26,43 @@
     <div class="row">
       <div class="col-6 mt-3">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
+          <input class="form-check-input" type="checkbox" name="RBS" ngModel id="RandomBloodSugar">
+          <label class="form-check-label" for="RandomBloodSugar">
             Random Blood Sugar
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-          <label class="form-check-label" for="flexCheckChecked">
+          <input class="form-check-input" type="checkbox" name="FBS" ngModel id="FastBloodSure">
+          <label class="form-check-label" for="FastBloodSure">
             Fasting Blood Sure
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+          <input class="form-check-input" type="checkbox" id="flexCheckChecked">
           <label class="form-check-label" for="flexCheckChecked">
             Liver function
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+          <input class="form-check-input" type="checkbox" id="flexCheckChecked">
           <label class="form-check-label" for="flexCheckChecked">
             peripheral blooc smear
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+          <input class="form-check-input" type="checkbox" id="flexCheckChecked">
           <label class="form-check-label" for="flexCheckChecked">
             Thyrodi function
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+          <input class="form-check-input" type="checkbox" id="flexCheckChecked">
           <label class="form-check-label" for="flexCheckChecked">
             Full blood count
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+          <input class="form-check-input" type="checkbox" id="flexCheckChecked">
           <label class="form-check-label" for="flexCheckChecked">
             Malaria Rapid Diagnostic
           </label>
@@ -75,14 +75,14 @@
 
     <hr style="border: 1px solid blue;">
 
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button class="btn btn-primary" type="submit">
+    <mat-icon>send</mat-icon>
+  </button>
+</mat-dialog-actions>
   </form>
 
 
 </div>
-
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <a routerLink="/consult/patients" class="btn btn-primary">
-    <mat-icon>send</mat-icon>
-  </a>
-</mat-dialog-actions>
