@@ -85,7 +85,7 @@ async function main() {
 			console.log(`*** Result: ${result.toString()}`);
 
 			console.log('Get reception patients');
-			result = await contract.submitTransaction('getConsultationPatients', 'Org1');
+			result = await contract.submitTransaction('getLabPatients', 'Org1');
 			console.log(`*** Result: ${result}`);
 
 			// console.log('Get reception patients');

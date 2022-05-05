@@ -22,7 +22,7 @@ consultation.post('/sendToLab', async (req, res) => {
 
     const contract = await getContract('receptionist')
 
-    let result = await contract.submitTransaction('sendPatientToLab', patient_id, 'Doctor 1', 'Org1', complain, historyComplain, tests.toString());
+    let result = await contract.submitTransaction('sendPatientToLab', patient_id, 'Doctor 1', 'Org1', complain, historyComplain, JSON.stringify(tests));
 
     console.log(result.toString());
     res.json(JSON.parse(result.toString()))
