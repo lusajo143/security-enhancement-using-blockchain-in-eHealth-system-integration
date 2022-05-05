@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { LabTestComponent } from '../lab-test/lab-test.component';
 
 @Component({
   selector: 'app-lab-tests',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LabTestsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog:MatDialog) { }
+
+
+  testDialog() {
+    const dialogRef = this.dialog.open(LabTestComponent );
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+
 
   ngOnInit(): void {
   }

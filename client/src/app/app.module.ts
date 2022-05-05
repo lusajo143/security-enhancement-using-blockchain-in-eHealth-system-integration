@@ -48,6 +48,8 @@ import { RescribeComponent } from './consoltation/rescribe/rescribe.component';
 import { PrescribeComponent } from './consoltation/prescribe/prescribe.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { PatientTestComponent } from './laboratory/patient-test/patient-test.component';
+import { LabTestComponent } from './laboratory/lab-test/lab-test.component';
 
 
 @NgModule({
@@ -73,7 +75,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     PaymentmodalComponent,
     DiagoniseComponent,
     RescribeComponent,
-    PrescribeComponent
+    PrescribeComponent,
+    PatientTestComponent,
+    LabTestComponent
   ],
   imports: [
     BrowserModule,
