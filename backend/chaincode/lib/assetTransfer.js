@@ -262,7 +262,8 @@ class AssetTransfer extends Contract {
             // let found = false
 
             Patients.forEach(patient => {
-                if (patient.id == trackedPatient.patient_id && trackedPatient.status == "lab") {
+                if ((patient.id == trackedPatient.patient_id && trackedPatient.status == "lab") ||
+                (patient.id == trackedPatient.patient_id && trackedPatient.status == "labconsultation")) {
                     results.push(patient)
                 }
             });
@@ -270,6 +271,36 @@ class AssetTransfer extends Contract {
         });
 
         return JSON.stringify(results)
+    }
+
+    async enterPatientTests(ctx, patient_id, org, visit) {
+        let results = await this.updatePatientStatus(ctx, patient_id, org, 'labconsultation')
+
+        results = JSON.parse(results.toString())
+
+        if (!results || results == null || results.status != 200) {
+            throw new Error('Failed to update status')
+        }
+
+        let patients = await ctx.stub.getState('Patients')
+
+        patients = JSON.parse(patients.toString())
+
+        let fullname = ''
+
+        for (let index = 0; index < patients.length; index++) {
+            let patient = patients[index];
+            if (patient.id == patient_id) {
+                patient.visits[0] = visit
+                fullname = patient.fname+' '+patient.mname+' '+patient.lname
+                 
+            }
+        }
+
+        await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
+
+        return JSON.stringify({status: 200, message: `Successfuly entered tests results for ${fullname}`})
+       
     }
 
 
