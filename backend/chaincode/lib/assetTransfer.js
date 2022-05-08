@@ -262,7 +262,8 @@ class AssetTransfer extends Contract {
             // let found = false
 
             Patients.forEach(patient => {
-                if (patient.id == trackedPatient.patient_id && trackedPatient.status == "lab") {
+                if ((patient.id == trackedPatient.patient_id && trackedPatient.status == "lab") ||
+                (patient.id == trackedPatient.patient_id && trackedPatient.status == "labconsultation")) {
                     results.push(patient)
                 }
             });
