@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+         <mat-card>
+             <mat-card-title>
+                 <mat-card-subtitle style="font-weight: 500;font-size: large;">
+                     Medical Receipt for : Job Mhagama
+                 </mat-card-subtitle>
+             </mat-card-title>
+             <mat-card-content>
+                 <form action="">
+                     Patient details
+                     <hr>
+                     <div class="row">
+                         <div class="col-4">
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>First Name</mat-label>
+                                <input matInput  value="Emmanuel" readonly>
+                              </mat-form-field>
+                            
+                         </div>
+                         <div class="col-4">
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Middle Name</mat-label>
+                                <input matInput  value="Emmanuel" readonly>
+                              </mat-form-field>
+                            
+                         </div>
+                         <div class="col-4">
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>Last  Name</mat-label>
+                                <input matInput  value="Emmanuel" readonly>
+                              </mat-form-field>
+                            
+                         </div>
+                     </div>
+                    Medical TreatMent
+                     <hr>
+                     <div class="row">
+                        
+                         <div class="col-6">
+                            Cost
+                            <hr>
+                            <ol>
+                                <li>3x30 Tsh</li>
+                                <li>2x30 Tsh</li>
+                            </ol>
+
+                         </div>
+                         <div class="col-6">
+                            Presecription
+                            <hr>
+                            <ul class="list">
+                                <li>paracetamol(500mg) 1 tabl (0) 2days</li>
+                                <li>paracetamol(500mg) 2 tabl (0) 2days</li>
+                            </ul>
+
+                         </div>
+                     </div>
+                     Total cost
+                     <hr>
+                     <div class="row">
+                         <div class="col-12">
+                             150 Tsh
+                         </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-10">
+                             
+                        </div>
+                        <div class="col-1">
+                            <button mat-raised-button  color="primary" (click)="printReceipt()">Print</button>
+                        </div>
+                         <div class="col-1">
+                             
+                         </div>
+                     </div>
+
+                 </form>
+             </mat-card-content>
+         </mat-card>
+
+
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>

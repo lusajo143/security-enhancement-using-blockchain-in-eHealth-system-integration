@@ -1,6 +1,6 @@
 <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened style="width: 200px">
-    <app-lab-sidenav></app-lab-sidenav>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened style="width: 200px;">
+        <app-account-sidebar></app-account-sidebar>
     </mat-drawer>
 
     <div class="example-sidenav-content">
@@ -18,11 +18,10 @@
              <mat-icon>people</mat-icon>
            </button>
           </mat-toolbar>
-          </p>
-          <p style="height: 1100px;">
-            <router-outlet></router-outlet>
-        </p>
-               
-      
+ </p>
+<p style="height: 1100px;">
+    <router-outlet></router-outlet>
+</p>
+       
     </div>
 </mat-drawer-container>

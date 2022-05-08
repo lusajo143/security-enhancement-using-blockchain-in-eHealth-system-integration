@@ -50,6 +50,12 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { PatientTestComponent } from './laboratory/patient-test/patient-test.component';
 import { LabTestComponent } from './laboratory/lab-test/lab-test.component';
+import { AccountComponent } from './accounts/account/account.component';
+import { AccountSidebarComponent } from './accounts/account-sidebar/account-sidebar.component';
+import { AccountDashboardComponent } from './accounts/account-dashboard/account-dashboard.component';
+import { AccountQueComponent } from './accounts/account-que/account-que.component';
+import { AccountProcesspaymentComponent } from './accounts/account-processpayment/account-processpayment.component';
+import { AccountReceiptComponent } from './accounts/account-receipt/account-receipt.component';
 
 
 @NgModule({
@@ -77,7 +83,13 @@ import { LabTestComponent } from './laboratory/lab-test/lab-test.component';
     RescribeComponent,
     PrescribeComponent,
     PatientTestComponent,
-    LabTestComponent
+    LabTestComponent,
+    AccountComponent,
+    AccountSidebarComponent,
+    AccountDashboardComponent,
+    AccountQueComponent,
+    AccountProcesspaymentComponent,
+    AccountReceiptComponent
   ],
   imports: [
     BrowserModule,

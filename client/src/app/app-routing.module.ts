@@ -1,5 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, QueryList } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountDashboardComponent } from './accounts/account-dashboard/account-dashboard.component';
+import { AccountProcesspaymentComponent } from './accounts/account-processpayment/account-processpayment.component';
+import { AccountQueComponent } from './accounts/account-que/account-que.component';
+import { AccountReceiptComponent } from './accounts/account-receipt/account-receipt.component';
+import { AccountComponent } from './accounts/account/account.component';
 import { AuthComponent } from './auth/auth/auth.component';
 import { ConsDashboardComponent } from './consoltation/cons-dashboard/cons-dashboard.component';
 import { ConsExamformComponent } from './consoltation/cons-examform/cons-examform.component';
@@ -45,6 +50,14 @@ const routes: Routes = [
  
 
 ]},
+//Account links
+{path:"account",component:AccountComponent,children:[
+  {path:"dashboard",component:AccountDashboardComponent},
+  {path:"processpayment",component:AccountProcesspaymentComponent},
+  {path:"receipt",component:AccountReceiptComponent},
+ 
+]},
+
 
 //auth link 
 {path:"**",component:AuthComponent},
