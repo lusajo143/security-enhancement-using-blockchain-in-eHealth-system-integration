@@ -84,9 +84,9 @@ async function main() {
 			var result = await contract.evaluateTransaction('getAllPatients');
 			console.log(`*** Result: ${result.toString()}`);
 
-			console.log('Get reception patients');
-			result = await contract.submitTransaction('getLabPatients', 'Org1');
-			console.log(`*** Result: ${result}`);
+			// console.log('Get reception patients');
+			// let result = await contract.submitTransaction('enterPatientTests', '1651991403273', 'Org1','s');
+			// console.log(`*** Result: ${result}`);
 
 			// console.log('Get reception patients');
 			// result = await contract.submitTransaction('sendPatientToLab', '1651455923934', 'Joh', 'Org1', 'Headache','Last week', JSON.stringify([{NAME:'HH'}]));

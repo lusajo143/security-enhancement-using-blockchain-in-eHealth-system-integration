@@ -9,5 +9,19 @@ lab.get('/getPatients', async (req, res) => {
     res.json({status: 200, data: JSON.parse(result.toString())})
 })
 
+lab.post('/addLabResults', async (req, res) => {
+    let patient_id = req.body.patient_id
+    let visit = req.body.visit
+
+    let contract = await getContract('receptionist')
+
+    let result = await contract.submitTransaction('enterPatientTests', patient_id, 'Org1', visit)
+
+    let json = JSON.parse(result.toString())
+    if (json.status == 200) {
+        res.json(json)
+    } else res.json({ status: 500, message: 'Failed to save patient\'s lab results'})
+})
+
 
 module.exports = lab

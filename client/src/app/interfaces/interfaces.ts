@@ -34,6 +34,7 @@ export interface patientFull {
     kinPlace: string
     phone: string
     relationship: string
+    visits: visits[]
 }
 
 export interface visits {
@@ -47,8 +48,13 @@ export interface examination {
     complain: string
     historyComplain: string
     tests: test[]
+    clinicalDetails: string
+    labTestComment: string
 }
 
 export interface test {
     Key: string
+    image: string
+    feedback: string
 }
+

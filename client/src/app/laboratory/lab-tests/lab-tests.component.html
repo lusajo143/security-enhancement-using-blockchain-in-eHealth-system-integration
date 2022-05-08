@@ -25,7 +25,7 @@
                     <td>38</td>
                     <td>{{patient.kinPlace}}</td>
                     <td>Insurance</td>
-                    <td><a  mat-raised-button mat-button-primary color="primary" (click)="testDialog()"  ><mat-icon>edit</mat-icon>Test</a></td> 
+                    <td><a  mat-raised-button mat-button-primary color="primary" (click)="testDialog(patient.id, patient.visits[patient.visits.length-1])"  ><mat-icon>edit</mat-icon>Test</a></td> 
                   
                 </tr>
         

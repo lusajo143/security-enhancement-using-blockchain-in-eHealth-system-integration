@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { dataResponse, patientFull } from 'src/app/interfaces/interfaces';
+import { dataResponse, patientFull, visits } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
 import { LabTestComponent } from '../lab-test/lab-test.component';
 
@@ -16,8 +16,8 @@ export class LabTestsComponent implements OnInit {
 
   patients: patientFull[] = []
   
-  testDialog() {
-    const dialogRef = this.dialog.open(LabTestComponent );
+  testDialog(id: string, visit: visits) {
+    const dialogRef = this.dialog.open(LabTestComponent, { data: {patient_id: id, visit}});
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
