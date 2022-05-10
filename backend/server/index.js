@@ -18,7 +18,9 @@ async function init() {
     try {
         ccp = buildCCPOrg1();
 		caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
-		wallet = await buildWallet(Wallets, walletPath);
+		wallet = await buildWallet(Wallets);
+        app.locals.wallet = wallet
+
     } catch (error) {
     }
 }
@@ -40,6 +42,13 @@ app.use(express.urlencoded({urlencoded: true}))
 
 app.use(cors())
 
+// Wallet middleware
+app.use((req, res, next) => {
+    res.locals.wallet = app.locals.wallet
+    // console.log(res.locals.wallet);
+    next()
+})
+
 
 app.use(universal)
 app.use('/reception',reception)
@@ -51,13 +60,14 @@ app.get('/init', async (req, res) => {
 
     // await registerAndEnrollUser(caClient, wallet, mspOrg1, 'receptionist', 'org1.department1');
 
-    await registerUser(caClient, mspOrg1, 'receptionist1', 'receptionist1', 'org1.department1', wallet)
-    await registerUser(caClient, mspOrg1, 'doctor1', 'doctor1', 'org1.department1', wallet)
-    await registerUser(caClient, mspOrg1, 'technician1', 'technician1', 'org1.department1', wallet)
-    await registerUser(caClient, mspOrg1, 'accountant1', 'accountant1', 'org1.department1', wallet)
+    await registerUser(caClient, mspOrg1, 'receptionist1', 'receptionist1', 'org1.department1', wallet, 'reception')
+    await registerUser(caClient, mspOrg1, 'doctor1', 'doctor1', 'org1.department1', wallet, 'consultation')
+    await registerUser(caClient, mspOrg1, 'technician1', 'technician1', 'org1.department1', wallet, 'lab')
+    await registerUser(caClient, mspOrg1, 'accountant1', 'accountant1', 'org1.department1', wallet, 'accountant')
 
     let contract = await getContract('admin')
     contract.submitTransaction('InitLedger')
+    
 
     res.send('done')
 })
@@ -66,7 +76,7 @@ app.post('/enroll', async (req, res) => {
     let userId = req.body.userId
     let userSecret = req.body.userSecret
     
-    let response = await enrollUser(caClient, userId, userSecret, wallet, mspOrg1)
+    let response = await enrollUser(caClient, userId, userSecret, app.locals.wallet, mspOrg1)
 
     console.log(response);
     if (response) {
@@ -85,6 +95,30 @@ app.get('/download-id/:userId', async(req, res) => {
         res.status(404).end()
     }
 
+})
+
+app.post('', async (req, res) => {
+    console.log(req.body);
+    // Default is not connected (check the use of jwt)
+    if (req.body.type == 'check') {
+        res.json({state: 0})
+    } else {
+        try {
+            let username = req.body.username
+            // await app.locals.wallet.put(username, JSON.parse(req.body.id))
+            let wallet = await buildWallet(Wallets, walletPath)
+
+            await wallet.put(username, JSON.parse(req.body.id))
+            let section = 'reception'
+            if (username == 'doctor1') section = 'consultation'
+            else if (username == 'technician1') section = 'lab'
+            
+            // else if (username == '')
+            res.json({url: `http://localhost:4200/${section}/dashboard`})
+        } catch (error) {
+            console.log(error);
+        }
+    }
 })
 
 
