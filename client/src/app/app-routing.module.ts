@@ -16,6 +16,10 @@ import { PrescribeComponent } from './consoltation/prescribe/prescribe.component
 import { LabDashboardComponent } from './laboratory/lab-dashboard/lab-dashboard.component';
 import { LabTestsComponent } from './laboratory/lab-tests/lab-tests.component';
 import { LaboratoryComponent } from './laboratory/laboratory/laboratory.component';
+import { AdddrugsComponent } from './pharmacy/adddrugs/adddrugs.component';
+import { GivedrugsComponent } from './pharmacy/givedrugs/givedrugs.component';
+import { PharmacyComponent } from './pharmacy/pharmacy/pharmacy.component';
+import { PharmacydashboardComponent } from './pharmacy/pharmacydashboard/pharmacydashboard.component';
 import { NewpatientComponent } from './reception/newpatient/newpatient.component';
 import { ReceptionDashboardComponent } from './reception/reception-dashboard/reception-dashboard.component';
 import { ReceptionComponent } from './reception/reception/reception.component';
@@ -57,6 +61,15 @@ const routes: Routes = [
   {path:"receipt",component:AccountReceiptComponent},
  
 ]},
+
+//Pharmacy links
+{path:"pharmacy",component:PharmacyComponent,children:[
+  {path:"dashboard",component:PharmacydashboardComponent},
+  {path:"givedrugs",component:GivedrugsComponent},
+  {path:"adddrugs",component:AdddrugsComponent},
+ 
+]},
+
 
 
 //auth link 

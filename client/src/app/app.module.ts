@@ -56,6 +56,12 @@ import { AccountDashboardComponent } from './accounts/account-dashboard/account-
 import { AccountQueComponent } from './accounts/account-que/account-que.component';
 import { AccountProcesspaymentComponent } from './accounts/account-processpayment/account-processpayment.component';
 import { AccountReceiptComponent } from './accounts/account-receipt/account-receipt.component';
+import { PharmacyComponent } from './pharmacy/pharmacy/pharmacy.component';
+import { PharmacySidenavComponent } from './pharmacy/pharmacy-sidenav/pharmacy-sidenav.component';
+import { PharmacydashboardComponent } from './pharmacy/pharmacydashboard/pharmacydashboard.component';
+import { GivedrugsComponent } from './pharmacy/givedrugs/givedrugs.component';
+import { AdddrugsComponent } from './pharmacy/adddrugs/adddrugs.component';
+import { ReceiptsComponent } from './pharmacy/receipts/receipts.component';
 
 
 @NgModule({
@@ -89,7 +95,13 @@ import { AccountReceiptComponent } from './accounts/account-receipt/account-rece
     AccountDashboardComponent,
     AccountQueComponent,
     AccountProcesspaymentComponent,
-    AccountReceiptComponent
+    AccountReceiptComponent,
+    PharmacyComponent,
+    PharmacySidenavComponent,
+    PharmacydashboardComponent,
+    GivedrugsComponent,
+    AdddrugsComponent,
+    ReceiptsComponent
   ],
   imports: [
     BrowserModule,

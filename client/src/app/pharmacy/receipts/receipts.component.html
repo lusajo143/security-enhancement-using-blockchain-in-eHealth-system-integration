@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <mat-card>
+                <mat-card-title>
+                    <mat-card-subtitle>
+                        Patient Information
+                    </mat-card-subtitle>
+                    <mat-card-content>
+                        <form action="">
+                            
+                            <div class="row">
+                                <div class="col-4">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>First Name</mat-label>
+                                        <input matInput placeholder="Ex. Pizza" value="Sushi">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-4">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Middle Name</mat-label>
+                                        <input matInput placeholder="Ex. Pizza" value="Sushi">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-4">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Last Name</mat-label>
+                                        <input matInput placeholder="Ex. Pizza" value="Sushi">
+                                    </mat-form-field>
+                                </div>
+    
+    
+                            </div>
+    
+                          Treatment
+                       
+                            <div class="row">
+    
+                                <div class="col-6 mt-3">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                            
+                                       paracetamol 500 mg   2od for 2days
+                                    </mat-form-field>
+                                </div>
+                               
+                            </div>
+    
+                 
+                            <a (click)="receivedDrugs()" class="btn btn-primary">Patient has paid</a>
+                        
+                        </form>
+                    </mat-card-content>
+                </mat-card-title>
+            </mat-card>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
