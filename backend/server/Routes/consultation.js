@@ -1,4 +1,3 @@
-const { json } = require('express')
 const Router = require('express')
 const { getContract } = require('../Utils/Utils')
 
