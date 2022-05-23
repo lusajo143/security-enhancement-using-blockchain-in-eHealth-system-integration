@@ -51,8 +51,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { PatientTestComponent } from './laboratory/patient-test/patient-test.component';
 import { LabTestComponent } from './laboratory/lab-test/lab-test.component';
 import { ViewResultImageComponent } from './consoltation/view-result-image/view-result-image.component';
+<<<<<<< HEAD
 import { ChartModule } from 'angular-highcharts';
 import { DashboardComponent } from './charts/dashboard/dashboard.component'
+=======
+
+>>>>>>> 5b583c0 (Diagnosis)
 
 @NgModule({
   declarations: [
@@ -80,8 +84,12 @@ import { DashboardComponent } from './charts/dashboard/dashboard.component'
     PrescribeComponent,
     PatientTestComponent,
     LabTestComponent,
+<<<<<<< HEAD
     ViewResultImageComponent,
     DashboardComponent,
+=======
+    ViewResultImageComponent
+>>>>>>> 5b583c0 (Diagnosis)
   ],
   imports: [
     BrowserModule,

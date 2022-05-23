@@ -15,7 +15,7 @@ lab.post('/addLabResults', async (req, res) => {
 
     let contract = await getContract('technician1')
 
-    let result = await contract.submitTransaction('enterPatientTests', patient_id, 'Org1', visit)
+    let result = await contract.submitTransaction('enterPatientTests', patient_id, 'Org1', JSON.stringify(visit))
 
     let json = JSON.parse(result.toString())
     if (json.status == 200) {

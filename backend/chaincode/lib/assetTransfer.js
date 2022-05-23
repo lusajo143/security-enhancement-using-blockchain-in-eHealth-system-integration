@@ -288,7 +288,7 @@ class AssetTransfer extends Contract {
         for (let index = 0; index < patients.length; index++) {
             let patient = patients[index];
             if (patient.id == patient_id) {
-                patient.visits[0] = visit
+                patient.visits[patient.visits.length-1] = JSON.parse(visit)
                 fullname = patient.fname+' '+patient.mname+' '+patient.lname
                  
             }

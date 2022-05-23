@@ -3,6 +3,7 @@ const FabricCAServices = require('fabric-ca-client');
 const path = require('path');
 const { buildCAClient, registerAndEnrollUser, enrollAdmin, registerUser, enrollUser } = require('./Utils/CAUtil.js');
 const { buildCCPOrg1, buildWallet } = require('./Utils/AppUtil');
+const fs = require('fs')
 
 const channelName = 'mychannel';
 const chaincodeName = 'basic';
@@ -18,8 +19,8 @@ async function init() {
     try {
         ccp = buildCCPOrg1();
 		caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
-		wallet = await buildWallet(Wallets);
-        app.locals.wallet = wallet
+		wallet = await buildWallet(Wallets, walletPath);
+        app.locals.wallet = await buildWallet(Wallets);
 
     } catch (error) {
     }
@@ -34,6 +35,7 @@ const universal = require('./Routes/universal.js');
 const { getContract } = require('./Utils/Utils.js');
 const consultation = require('./Routes/consultation.js');
 const lab = require('./Routes/lab.js');
+const { info } = require('console');
 
 const app = express()
 
@@ -76,7 +78,7 @@ app.post('/enroll', async (req, res) => {
     let userId = req.body.userId
     let userSecret = req.body.userSecret
     
-    let response = await enrollUser(caClient, userId, userSecret, app.locals.wallet, mspOrg1)
+    let response = await enrollUser(caClient, userId, userSecret, wallet, mspOrg1)
 
     console.log(response);
     if (response) {
@@ -91,6 +93,8 @@ app.get('/download-id/:userId', async(req, res) => {
 
     try {
         res.status(200).download('wallet/'+userId+'.id')
+
+        // fs.unlink('wallet/'+userId+'.id')
     } catch (error) {
         res.status(404).end()
     }
@@ -101,16 +105,23 @@ app.post('', async (req, res) => {
     console.log(req.body);
     // Default is not connected (check the use of jwt)
     if (req.body.type == 'check') {
-        res.json({state: 0})
-    } else {
+        let username = req.body.username
+        let id = await app.locals.wallet.get(username)
+        console.log(id);
+        if (id) {
+            res.json({state: 1})
+        } else {
+            res.json({state: 0})
+        }
+    } else if(req.body.type == 'connect') {
         try {
             let username = req.body.username
-            // await app.locals.wallet.put(username, JSON.parse(req.body.id))
-            let wallet = await buildWallet(Wallets, walletPath)
+            await app.locals.wallet.put(username, JSON.parse(req.body.id))
+            // let wallet = await buildWallet(Wallets, walletPath)
 
-            await wallet.put(username, JSON.parse(req.body.id))
+            // await wallet.put(username, JSON.parse(req.body.id))
             let section = 'reception'
-            if (username == 'doctor1') section = 'consultation'
+            if (username == 'doctor1') section = 'consult'
             else if (username == 'technician1') section = 'lab'
             
             // else if (username == '')
@@ -118,6 +129,9 @@ app.post('', async (req, res) => {
         } catch (error) {
             console.log(error);
         }
+    } else if (req.body.type == 'logout') {
+        app.locals.wallet.remove(req.body.username)
+        res.json({}).end()
     }
 })
 
