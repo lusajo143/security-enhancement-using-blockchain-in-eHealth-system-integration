@@ -15,6 +15,9 @@ export class PrescribeComponent implements OnInit {
 
   nums: Number[] = []
   medicineCount: Number[] = [0]
+
+  // nums: Number[] = []
+  // medicineCount: Number[] = [0]
   selectedMedicines: string[] = []
   selectedAmount: string[] = []
   selectedTimesADay: string[] = []
