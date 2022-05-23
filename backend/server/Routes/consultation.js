@@ -29,4 +29,17 @@ consultation.post('/sendToLab', async (req, res) => {
 
 })
 
+consultation.post('/sendToAccountant', async (req, res) => {
+    let patient_id = req.body.patient_id
+    let prescriptions = req.body.prescriptions
+
+    const contract = await getContract('doctor1')
+
+    let result = await contract.submitTransaction('addPrescription', patient_id, 'Org1', JSON.stringify(prescriptions))
+
+    console.log(result);
+    res.json(JSON.parse(result.toString()))
+
+})
+
 module.exports = consultation

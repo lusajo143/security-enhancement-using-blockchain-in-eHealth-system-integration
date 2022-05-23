@@ -199,8 +199,9 @@ class AssetTransfer extends Contract {
         return JSON.stringify(results)
     }
 
-    // Send patient to lab
     async sendPatientToLab(ctx, patient_id, doctor, org, complain, historyComplain, tests) {
+        // Send patient to lab
+
         let results = await this.updatePatientStatus(ctx, patient_id, org, 'lab')
 
         results = JSON.parse(results.toString())
@@ -236,6 +237,36 @@ class AssetTransfer extends Contract {
 
         return JSON.stringify({status: 200, message: 'Successfuly sent patient to examination'})
 
+    }
+
+    async addPrescription(ctx, patient_id, org, prescription) {
+        let results = await this.updatePatientStatus(ctx, patient_id, org, 'accountant')
+
+        results = JSON.parse(results.toString())
+
+        if (!results || results == null || results.status != 200) {
+            throw new Error('Failed to update status')
+        }
+
+        let patients = await ctx.stub.getState('Patients')
+
+        patients = JSON.parse(patients.toString())
+
+        let fullname = ''
+
+        for (let index = 0; index < patients.length; index++) {
+            let patient = patients[index];
+            if (patient.id == patient_id) {
+                patient.visits[patient.visits.length-1].prescription = JSON.parse(prescription)
+                fullname = patient.fname+' '+patient.mname+' '+patient.lname
+                 
+            }
+        }
+
+        await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
+
+        return JSON.stringify({status: 200, message: `Successfuly sent ${fullname} to accountant`})
+       
     }
 
 
