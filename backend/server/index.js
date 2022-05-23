@@ -78,7 +78,7 @@ app.post('/enroll', async (req, res) => {
     let userId = req.body.userId
     let userSecret = req.body.userSecret
     
-    let response = await enrollUser(caClient, userId, userSecret, wallet, mspOrg1)
+    let response = await enrollUser(caClient, userId, userSecret, app.locals.wallet, mspOrg1)
 
     console.log(response);
     if (response) {
