@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <mat-card>
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                    <mat-icon style="font-size: 70px;">person_outline</mat-icon>
+                    <div>
+                        <mat-card-subtitle fxLayout="row" fxLayoutAlign="end">Total patients</mat-card-subtitle>
+                        <mat-card-title fxLayout="row" fxLayoutAlign="end" style="font-size: 40px;">143</mat-card-title>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-md-3">
+            <mat-card>
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                    <mat-icon style="font-size: 70px;">today</mat-icon>
+                    <div>
+                        <mat-card-subtitle fxLayout="row" fxLayoutAlign="end">Today's patients</mat-card-subtitle>
+                        <mat-card-title fxLayout="row" fxLayoutAlign="end" style="font-size: 40px;">10</mat-card-title>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-md-3">
+            <mat-card>
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                    <mat-icon style="font-size: 70px;">calendar_view_day</mat-icon>
+                    <div>
+                        <mat-card-subtitle fxLayout="row" fxLayoutAlign="end">Yesterday's patients</mat-card-subtitle>
+                        <mat-card-title fxLayout="row" fxLayoutAlign="end" style="font-size: 40px;">25</mat-card-title>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-md-3">
+            <mat-card>
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                    <mat-icon style="font-size: 70px;">person</mat-icon>
+                    <div>
+                        <mat-card-subtitle fxLayout="row" fxLayoutAlign="end">Active</mat-card-subtitle>
+                        <mat-card-title fxLayout="row" fxLayoutAlign="end" style="font-size: 40px;">143</mat-card-title>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div style="display: block; height: 100%; width: 100%;">
+                <mat-card>
+                    <div class="bar" [chart]="barChart"></div>
+                </mat-card>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <mat-card>
+                <span>Active Patients</span>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -168,9 +168,6 @@ class AssetTransfer extends Contract {
 
     }
 
-
-
-
     // Consultation
     async getConsultationPatients(ctx, Org) {
         // Get all patients
@@ -191,7 +188,8 @@ class AssetTransfer extends Contract {
             // let found = false
 
             Patients.forEach(patient => {
-                if (patient.id == trackedPatient.patient_id && trackedPatient.status == "consultation") {
+                if ((patient.id == trackedPatient.patient_id && trackedPatient.status == "consultation") ||
+                (patient.id == trackedPatient.patient_id && trackedPatient.status == "labconsultation")) {
                     results.push(patient)
                 }
             });
@@ -262,8 +260,7 @@ class AssetTransfer extends Contract {
             // let found = false
 
             Patients.forEach(patient => {
-                if ((patient.id == trackedPatient.patient_id && trackedPatient.status == "lab") ||
-                (patient.id == trackedPatient.patient_id && trackedPatient.status == "labconsultation")) {
+                if (patient.id == trackedPatient.patient_id && trackedPatient.status == "lab") {
                     results.push(patient)
                 }
             });

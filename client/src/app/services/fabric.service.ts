@@ -9,6 +9,10 @@ export class FabricService {
 
   constructor(private http:HttpClient) { }
   base_url:any="http://localhost:5000/"
+
+  enrollUser(data: any) {
+    return this.http.post<simpleResponse>(this.base_url+'enroll', data)
+  }
  
   AddPatient(data:any){ 
     return this.http.post<simpleResponse>(this.base_url+"reception/registerPatient",data)
@@ -31,6 +35,10 @@ export class FabricService {
   sendToLab(data: any) {
     return this.http.post<simpleResponse>(this.base_url+"consultation/sendToLab", data)
   }
+
+  addPrescription(data: any) {
+    return this.http.post<simpleResponse>(this.base_url+"consultation/sendToAccountant", data)
+  } 
 
 
   // Lab

@@ -10,6 +10,7 @@ export class ReceptionDashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

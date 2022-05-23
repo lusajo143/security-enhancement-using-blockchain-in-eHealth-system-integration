@@ -4,7 +4,7 @@ const lab = require('express').Router()
 
 
 lab.get('/getPatients', async (req, res) => {
-    let contract = await getContract('receptionist');
+    let contract = await getContract('technician1');
     let result = await contract.submitTransaction('getLabPatients', 'Org1');
     res.json({status: 200, data: JSON.parse(result.toString())})
 })
@@ -13,7 +13,7 @@ lab.post('/addLabResults', async (req, res) => {
     let patient_id = req.body.patient_id
     let visit = req.body.visit
 
-    let contract = await getContract('receptionist')
+    let contract = await getContract('technician1')
 
     let result = await contract.submitTransaction('enterPatientTests', patient_id, 'Org1', visit)
 

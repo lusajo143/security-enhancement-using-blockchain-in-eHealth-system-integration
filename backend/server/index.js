@@ -1,7 +1,7 @@
 const { Gateway, Wallets } = require('fabric-network');
 const FabricCAServices = require('fabric-ca-client');
 const path = require('path');
-const { buildCAClient, registerAndEnrollUser, enrollAdmin } = require('./Utils/CAUtil.js');
+const { buildCAClient, registerAndEnrollUser, enrollAdmin, registerUser, enrollUser } = require('./Utils/CAUtil.js');
 const { buildCCPOrg1, buildWallet } = require('./Utils/AppUtil');
 
 const channelName = 'mychannel';
@@ -49,12 +49,42 @@ app.use('/lab', lab)
 app.get('/init', async (req, res) => {
     await enrollAdmin(caClient, wallet, mspOrg1);
 
-    await registerAndEnrollUser(caClient, wallet, mspOrg1, 'receptionist', 'org1.department1');
+    // await registerAndEnrollUser(caClient, wallet, mspOrg1, 'receptionist', 'org1.department1');
+
+    await registerUser(caClient, mspOrg1, 'receptionist1', 'receptionist1', 'org1.department1', wallet)
+    await registerUser(caClient, mspOrg1, 'doctor1', 'doctor1', 'org1.department1', wallet)
+    await registerUser(caClient, mspOrg1, 'technician1', 'technician1', 'org1.department1', wallet)
+    await registerUser(caClient, mspOrg1, 'accountant1', 'accountant1', 'org1.department1', wallet)
 
     let contract = await getContract('admin')
     contract.submitTransaction('InitLedger')
 
     res.send('done')
+})
+
+app.post('/enroll', async (req, res) => {
+    let userId = req.body.userId
+    let userSecret = req.body.userSecret
+    
+    let response = await enrollUser(caClient, userId, userSecret, wallet, mspOrg1)
+
+    console.log(response);
+    if (response) {
+        res.status(200).json({status: 200, message: 'Enrolled user successfully'})
+    } else {
+        res.status(500).json({status: 500, message: 'Failed to enroll user'})
+    }
+})
+
+app.get('/download-id/:userId', async(req, res) => {
+    let userId = req.params.userId
+
+    try {
+        res.status(200).download('wallet/'+userId+'.id')
+    } catch (error) {
+        res.status(404).end()
+    }
+
 })
 
 

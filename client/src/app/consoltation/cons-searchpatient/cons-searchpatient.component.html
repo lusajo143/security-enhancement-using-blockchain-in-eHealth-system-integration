@@ -29,15 +29,21 @@
                                 <td>38</td>
                                 <td><a mat-raised-button mat-button-primary color="primary" routerLink="/consult/history"><mat-icon>folder</mat-icon></a></td>
                                 <td><a mat-raised-button mat-button-primary color="accent"  (click)="openExamine(patient.id)" ><mat-icon>visibility</mat-icon></a></td>
-                                <td><a mat-raised-button mat-button-primary color="accent"  (click)="openDiagonise()"><mat-icon>visibility</mat-icon></a></td> 
-                                <td><a  mat-raised-button mat-button-primary color="primary" (click)="openPrescribe()"><mat-icon>visibility</mat-icon></a></td> 
+                                <td><a mat-raised-button mat-button-primary color="accent"  (click)="openDiagonise(patient)"><mat-icon>visibility</mat-icon></a></td> 
+                                <td><a  mat-raised-button mat-button-primary color="primary" (click)="openPrescribe(patient.id)"><mat-icon>visibility</mat-icon></a></td> 
+                              
                             </tr>
+                    
+            
                         </tbody>
                      
                     </table>
                   </mat-card-content>
                 </mat-card-title>
             </mat-card>
+       
+
+
         </div>
 
     </div>

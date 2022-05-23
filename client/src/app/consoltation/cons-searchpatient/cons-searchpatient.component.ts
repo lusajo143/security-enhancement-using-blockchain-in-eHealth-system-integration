@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import { dataResponse, patient } from 'src/app/interfaces/interfaces';
+import { dataResponse, patient, patientFull } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
 import { ConsExamformComponent } from '../cons-examform/cons-examform.component';
 import { DiagoniseComponent } from '../diagonise/diagonise.component';
@@ -20,8 +20,8 @@ export class ConsSearchpatientComponent implements OnInit {
     showDataTable=false
     patients: patient[] = []
 
-  openDiagonise() {
-    const dialogRef = this.dialog.open(DiagoniseComponent);
+  openDiagonise(patient: any) {
+    const dialogRef = this.dialog.open(DiagoniseComponent, { data: patient});
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
@@ -36,9 +36,9 @@ export class ConsSearchpatientComponent implements OnInit {
   }
 
 
-  openPrescribe(){
+  openPrescribe(patient_id: any){
 
-    const dialogRef = this.dialog.open(PrescribeComponent);
+    const dialogRef = this.dialog.open(PrescribeComponent, {data: patient_id});
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
@@ -54,6 +54,7 @@ export class ConsSearchpatientComponent implements OnInit {
         for (let index = 0; index < data.length; index++) {
           this.patients.push(data[index])
         }
+        console.log(this.patients[0])
         this.showDataTable = true
         this.showProgressBar = false
       }

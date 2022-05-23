@@ -50,19 +50,9 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { PatientTestComponent } from './laboratory/patient-test/patient-test.component';
 import { LabTestComponent } from './laboratory/lab-test/lab-test.component';
-import { AccountComponent } from './accounts/account/account.component';
-import { AccountSidebarComponent } from './accounts/account-sidebar/account-sidebar.component';
-import { AccountDashboardComponent } from './accounts/account-dashboard/account-dashboard.component';
-import { AccountQueComponent } from './accounts/account-que/account-que.component';
-import { AccountProcesspaymentComponent } from './accounts/account-processpayment/account-processpayment.component';
-import { AccountReceiptComponent } from './accounts/account-receipt/account-receipt.component';
-import { PharmacyComponent } from './pharmacy/pharmacy/pharmacy.component';
-import { PharmacySidenavComponent } from './pharmacy/pharmacy-sidenav/pharmacy-sidenav.component';
-import { PharmacydashboardComponent } from './pharmacy/pharmacydashboard/pharmacydashboard.component';
-import { GivedrugsComponent } from './pharmacy/givedrugs/givedrugs.component';
-import { AdddrugsComponent } from './pharmacy/adddrugs/adddrugs.component';
-import { ReceiptsComponent } from './pharmacy/receipts/receipts.component';
-
+import { ViewResultImageComponent } from './consoltation/view-result-image/view-result-image.component';
+import { ChartModule } from 'angular-highcharts';
+import { DashboardComponent } from './charts/dashboard/dashboard.component'
 
 @NgModule({
   declarations: [
@@ -90,18 +80,8 @@ import { ReceiptsComponent } from './pharmacy/receipts/receipts.component';
     PrescribeComponent,
     PatientTestComponent,
     LabTestComponent,
-    AccountComponent,
-    AccountSidebarComponent,
-    AccountDashboardComponent,
-    AccountQueComponent,
-    AccountProcesspaymentComponent,
-    AccountReceiptComponent,
-    PharmacyComponent,
-    PharmacySidenavComponent,
-    PharmacydashboardComponent,
-    GivedrugsComponent,
-    AdddrugsComponent,
-    ReceiptsComponent
+    ViewResultImageComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -127,9 +107,8 @@ import { ReceiptsComponent } from './pharmacy/receipts/receipts.component';
     FlexLayoutModule,
     MatDialogModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
-
-    
+    MatProgressSpinnerModule,
+    ChartModule
   ],
   providers: [FabricService],
   bootstrap: [AppComponent]

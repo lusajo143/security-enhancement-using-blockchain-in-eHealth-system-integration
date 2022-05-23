@@ -40,8 +40,7 @@ export interface patientFull {
 export interface visits {
     doctor: string
     examination: examination[],
-    diagnosis: any
-    prescription: any
+    prescription: prescription
 }
 
 export interface examination {
@@ -56,5 +55,16 @@ export interface test {
     Key: string
     image: string
     feedback: string
+}
+
+export interface prescription {
+    medicines: Medicine[]
+    comment: string
+}
+
+export interface Medicine {
+    medicine: string
+    amount: string
+    timeaday: string
 }
 
