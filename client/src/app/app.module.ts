@@ -52,11 +52,15 @@ import { PatientTestComponent } from './laboratory/patient-test/patient-test.com
 import { LabTestComponent } from './laboratory/lab-test/lab-test.component';
 import { ViewResultImageComponent } from './consoltation/view-result-image/view-result-image.component';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { ChartModule } from 'angular-highcharts';
 import { DashboardComponent } from './charts/dashboard/dashboard.component'
 =======
 
 >>>>>>> 5b583c0 (Diagnosis)
+=======
+import { ChartModule } from 'angular-highcharts'
+>>>>>>> b08d599 (reception dashboard)
 
 @NgModule({
   declarations: [
@@ -85,11 +89,15 @@ import { DashboardComponent } from './charts/dashboard/dashboard.component'
     PatientTestComponent,
     LabTestComponent,
 <<<<<<< HEAD
+<<<<<<< HEAD
     ViewResultImageComponent,
     DashboardComponent,
 =======
     ViewResultImageComponent
 >>>>>>> 5b583c0 (Diagnosis)
+=======
+    ViewResultImageComponent,
+>>>>>>> b08d599 (reception dashboard)
   ],
   imports: [
     BrowserModule,
