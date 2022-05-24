@@ -54,6 +54,18 @@ import { ViewResultImageComponent } from './consoltation/view-result-image/view-
 
 import { ChartModule } from 'angular-highcharts';
 import { DashboardComponent } from './charts/dashboard/dashboard.component'
+import { AdddrugsComponent } from './pharmacy/adddrugs/adddrugs.component';
+import { GivedrugsComponent } from './pharmacy/givedrugs/givedrugs.component';
+import { PharmacyComponent } from './pharmacy/pharmacy/pharmacy.component';
+import { PharmacySidenavComponent } from './pharmacy/pharmacy-sidenav/pharmacy-sidenav.component';
+import { PharmacydashboardComponent } from './pharmacy/pharmacydashboard/pharmacydashboard.component';
+import { ReceiptsComponent } from './pharmacy/receipts/receipts.component';
+import { AccountComponent } from './accounts/account/account.component';
+import { AccountDashboardComponent } from './accounts/account-dashboard/account-dashboard.component';
+import { AccountProcesspaymentComponent } from './accounts/account-processpayment/account-processpayment.component';
+import { AccountQueComponent } from './accounts/account-que/account-que.component';
+import { AccountReceiptComponent } from './accounts/account-receipt/account-receipt.component';
+import { AccountSidebarComponent } from './accounts/account-sidebar/account-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +96,18 @@ import { DashboardComponent } from './charts/dashboard/dashboard.component'
     ViewResultImageComponent,
     DashboardComponent,
     ViewResultImageComponent,
+    AdddrugsComponent,
+    GivedrugsComponent,
+    PharmacyComponent,
+    PharmacySidenavComponent,
+    PharmacydashboardComponent,
+    ReceiptsComponent,
+    AccountComponent,
+    AccountDashboardComponent,
+    AccountProcesspaymentComponent,
+    AccountQueComponent,
+    AccountReceiptComponent,
+    AccountSidebarComponent
   ],
   imports: [
     BrowserModule,

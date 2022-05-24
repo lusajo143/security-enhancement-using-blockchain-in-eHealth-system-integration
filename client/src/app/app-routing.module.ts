@@ -15,6 +15,15 @@ import { NewpatientComponent } from './reception/newpatient/newpatient.component
 import { ReceptionDashboardComponent } from './reception/reception-dashboard/reception-dashboard.component';
 import { ReceptionComponent } from './reception/reception/reception.component';
 import { SearchpatientComponent } from './reception/searchpatient/searchpatient.component';
+import { AccountComponent } from './accounts/account/account.component'
+import { AccountDashboardComponent } from './accounts/account-dashboard/account-dashboard.component';
+import { AccountProcesspaymentComponent } from './accounts/account-processpayment/account-processpayment.component';
+import { AccountReceiptComponent } from './accounts/account-receipt/account-receipt.component';
+import { PharmacydashboardComponent } from './pharmacy/pharmacydashboard/pharmacydashboard.component';
+import { GivedrugsComponent } from './pharmacy/givedrugs/givedrugs.component';
+import { AdddrugsComponent } from './pharmacy/adddrugs/adddrugs.component';
+import { PharmacyComponent } from './pharmacy/pharmacy/pharmacy.component';
+
 
 const routes: Routes = [
 
@@ -46,10 +55,23 @@ const routes: Routes = [
     path: "lab", component: LaboratoryComponent, children: [
       { path: "dashboard", component: LabDashboardComponent },
       { path: "tests", component: LabTestsComponent },
-
-
     ]
   },
+
+  //Account links
+{path:"account",component:AccountComponent,children:[
+  {path:"dashboard",component:AccountDashboardComponent},
+  {path:"processpayment",component:AccountProcesspaymentComponent},
+  {path:"receipt",component:AccountReceiptComponent},
+]},
+
+//Pharmacy links
+{path:"pharmacy",component:PharmacyComponent,children:[
+  {path:"dashboard",component:PharmacydashboardComponent},
+  {path:"givedrugs",component:GivedrugsComponent},
+  {path:"adddrugs",component:AdddrugsComponent},
+ 
+]},
 
   //auth link 
   { path: "**", component: AuthComponent },
