@@ -15,6 +15,7 @@ reception.post('/registerPatient', async (req, res) => {
     let gender = req.body.gender
     let kinName = req.body.kinName
     let phone = req.body.phone
+    let plocation = req.body.plocation
     let dob = req.body.dob
     let kinPlace = req.body.kinPlace
     let relationship = req.body.relationship
@@ -24,7 +25,7 @@ reception.post('/registerPatient', async (req, res) => {
     let contract = await getContract(userId)
     let result = await contract.submitTransaction('registerPatient', Date.now().toString(), fname,
         mname, lname, gender, kinName, phone, dob, kinPlace,
-        relationship, kinPhone)
+        relationship, kinPhone, plocation)
         
     result = result.toString()
 

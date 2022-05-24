@@ -49,6 +49,7 @@ export class NewpatientComponent implements OnInit {
         let mname = input.mname
         let lname = input.lname
         let kinName = input.kinName
+        let plocation = input.plocation
         let gender = input.gender
         let kinPlace = input.kinPlace
         let relationship = input.relationship
@@ -58,7 +59,7 @@ export class NewpatientComponent implements OnInit {
     
         this.updateDOB(input.dob)
     
-        let data = { fname, mname, lname, gender, kinName, kinPlace, relationship, dob, kinphone, phone }
+        let data = { fname, mname, lname, gender, kinName, kinPlace, relationship, dob, kinphone, phone, plocation }
         console.log(data);
         
         this.service.AddPatient(data).subscribe((result: simpleResponse) => {

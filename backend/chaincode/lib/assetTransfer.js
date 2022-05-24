@@ -80,9 +80,9 @@ class AssetTransfer extends Contract {
     }
 
 
-    async registerPatient(ctx, id, fname, mname, lname, gender, kinName, phone, dob, kinPlace, relationship, kinPhone) {
+    async registerPatient(ctx, id, fname, mname, lname, gender, kinName, phone, dob, kinPlace, relationship, kinPhone, plocation) {
         const patient = {
-            id, fname, mname, lname, gender, kinName, phone, dob, kinPlace, relationship, kinPhone,
+            id, fname, mname, lname, gender, kinName, phone, dob, kinPlace, relationship, kinPhone, plocation,
             visits: []
         }
 
