@@ -23,7 +23,7 @@ export class SearchpatientComponent implements OnInit {
 
   openDialog(patient_id: any) {
    const ref = this.dialog.open(PaymentmodalComponent, {data: patient_id})
-   ref.afterClosed().subscribe((result)=>{
+   ref.afterClosed().subscribe((_result)=>{
      this.fetchPatients()
    })
   }
