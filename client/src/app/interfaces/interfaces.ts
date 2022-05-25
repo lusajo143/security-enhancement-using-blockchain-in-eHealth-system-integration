@@ -14,6 +14,7 @@ export interface patient {
     fname: string
     mname: string
     lname: string
+    plocation: string
     gender: string
     kinName: string
     kinPhone: string

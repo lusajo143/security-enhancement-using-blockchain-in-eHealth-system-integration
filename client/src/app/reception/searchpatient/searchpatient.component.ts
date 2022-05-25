@@ -4,6 +4,7 @@ import { dataResponse, patient } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog'
 import { PaymentmodalComponent } from '../paymentmodal/paymentmodal.component';
+import { calAge } from 'src/app/configs/config';
 
 @Component({
   selector: 'app-searchpatient',
@@ -40,6 +41,7 @@ export class SearchpatientComponent implements OnInit {
        
         let data = JSON.parse(result.data)
         for (let index = 0; index < data.length; index++) {
+          data[index].dob = calAge(data[index].dob)
           this.patients.push(data[index])
         }
         this.showDataTable = true

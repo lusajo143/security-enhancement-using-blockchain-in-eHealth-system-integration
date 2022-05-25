@@ -17,12 +17,16 @@ export class PaymentmodalComponent implements OnInit {
     private snackbar: MatSnackBar,
     private dialogRef: MatDialogRef<PaymentmodalComponent>
   ) { }
+
+  isLoading: boolean = false
   
   ngOnInit(): void {
   }
 
   toConsultation(type: string) {
+    this.isLoading = true
     this.service.updatePatientStatus({patient_id: this.patient_id, type}).subscribe((result:simpleResponse) => {
+      this.isLoading = false
       if (result.status == 200) {
         this.snackbar.open("Patient sent to consultation successfully", "Close")
         this.dialogRef.close()

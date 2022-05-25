@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import { calAge } from 'src/app/configs/config';
 import { dataResponse, patient, patientFull } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
 import { ConsExamformComponent } from '../cons-examform/cons-examform.component';
@@ -16,21 +17,21 @@ export class ConsSearchpatientComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
     private service: FabricService) {}
-    showProgressBar=true
+    showProgressBar=false
     showDataTable=false
     patients: patient[] = []
 
   openDiagonise(patient: any) {
     const dialogRef = this.dialog.open(DiagoniseComponent, { data: patient});
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.fetchPatients()
     });
   }
 
   openExamine(patient_id: any){
     const dialogRef = this.dialog.open(ConsExamformComponent, { data: patient_id});
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.fetchPatients()
     });
 
   }
@@ -40,7 +41,7 @@ export class ConsSearchpatientComponent implements OnInit {
 
     const dialogRef = this.dialog.open(PrescribeComponent, {data: patient_id});
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.fetchPatients()
     });
     
   }
@@ -48,10 +49,19 @@ export class ConsSearchpatientComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.fetchPatients()
+    
+  }
+
+  fetchPatients() {
+    this.showProgressBar = true
+    this.showDataTable = false
+    this.patients = []
     this.service.getPatientsConsultation().subscribe((result: dataResponse) => {
       if (result.status == 200) {
-        let data = JSON.parse(result.data)
+        let data = JSON.parse(result.data)        
         for (let index = 0; index < data.length; index++) {
+          data[index].dob = calAge(data[index].dob)
           this.patients.push(data[index])
         }
         console.log(this.patients[0])
