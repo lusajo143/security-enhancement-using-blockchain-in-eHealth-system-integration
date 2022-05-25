@@ -24,8 +24,11 @@ export class ConsExamformComponent implements OnInit {
   }
 
   tests: any[] = []
+  isLoading: boolean = false
+
   examine(exam: NgForm) {
-    console.log(exam.value);
+    
+    this.isLoading = true
 
     const value = exam.value
 
@@ -40,6 +43,7 @@ export class ConsExamformComponent implements OnInit {
     }
 
     this.service.sendToLab(data).subscribe((result: simpleResponse) => {
+      this.isLoading = false
       if (result.status == 200) {
         this.dialogRef.close()
       }

@@ -1,4 +1,6 @@
+
 <div class="card">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
     <div class="card-header">
         Patient's Queue
     </div>
@@ -22,8 +24,8 @@
                     <td>{{patient.id}}</td>
                     <td>{{patient.fname}} {{patient.mname}} {{patient.lname}}</td>
                     <td>{{patient.gender}}</td>
-                    <td>38</td>
-                    <td>{{patient.kinPlace}}</td>
+                    <td>{{patient.dob}}</td>
+                    <td>{{patient.plocation}}</td>
                     <td>Insurance</td>
                     <td><a  mat-raised-button mat-button-primary color="primary" (click)="testDialog(patient.id, patient.visits[patient.visits.length-1])"  ><mat-icon>edit</mat-icon>Test</a></td> 
                   

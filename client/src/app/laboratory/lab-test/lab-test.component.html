@@ -5,7 +5,7 @@
         </mat-card-subtitle>
     </mat-card-title>
     <mat-card-content>
-
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading" style="margin-top: 10px; margin-bottom: 15px;"></mat-progress-bar>
         <div style="margin-top: 10px;">
             <form action="#" #testsForm="ngForm" (ngSubmit)="save(testsForm.value)">
 
@@ -16,8 +16,8 @@
                             <input matInput placeholder="Ex. Pizza" value="{{test.Key}}" readonly>
                         </mat-form-field>
                     </div>
-                    <div class="col-4">
-                        <input type="file" (change)="selectFile($event, ind)">
+                    <div class="col-4 pt-3">
+                        <input type="file" (change)="selectFile($event, ind)" style="width: 100%;">
                         <!-- <mat-form-field class="columns" appearance="fill">
                             <mat-label *ngIf="selectedFiles; else newFile">{{selectedFiles[ind].item(0)?.name}}</mat-label>
                             <ng-template #newFile>
@@ -33,7 +33,8 @@
                     <div class="col-4">
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Feedback</mat-label>
-                            <input matInput placeholder="feed back from technician" [ngModel]="feedback[ind]" name="p" (ngModelChange)="changeUpdate($event, ind)">
+                            <input matInput placeholder="feed back from technician" [ngModel]="feedback[ind]" name="p"
+                                (ngModelChange)="changeUpdate($event, ind)">
                         </mat-form-field>
                     </div>
 

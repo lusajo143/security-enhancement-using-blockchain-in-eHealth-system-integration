@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { create, IPFSHTTPClient } from 'ipfs-http-client'
 import { simpleResponse, test } from 'src/app/interfaces/interfaces';
@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class LabTestComponent implements OnInit {
 
   tests: test[] = []
+  isLoading: boolean = false
 
   client: IPFSHTTPClient = create({
     url: '/ip4/127.0.0.1/tcp/5001'
@@ -23,6 +24,7 @@ export class LabTestComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private service: FabricService,
     private snackbar: MatSnackBar,
+    private dialogRef: MatDialogRef<LabTestComponent>
   ) { }
 
   selectedFiles: FileList[] = []
@@ -72,6 +74,7 @@ export class LabTestComponent implements OnInit {
         //   })
         // }
 
+        this.isLoading = true
         // Prepare data to send to server
         this.data.visit.examination.clinicalDetails = values.clinicalDetails
         this.data.visit.examination.labTestComment = values.labTechComment
@@ -83,11 +86,13 @@ export class LabTestComponent implements OnInit {
 
         this.data.visit.examination.tests = this.tests
 
-        console.log(this.data);
+        // console.log(this.data);
 
         this.service.addLabResults(this.data).subscribe((result: simpleResponse) => {
           if (result.status == 200) {
+            this.isLoading = false
             Swal.fire('Saved!', '', 'success')
+            this.dialogRef.close()
           }
           this.snackbar.open(result.message, 'close')
         })
