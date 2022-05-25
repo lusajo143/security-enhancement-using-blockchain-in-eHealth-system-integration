@@ -18,12 +18,7 @@ export class PrescribeComponent implements OnInit {
   selectedMedicines: string[] = []
   selectedAmount: string[] = []
   selectedTimesADay: string[] = []
-
-  // nums: Number[] = []
-  // medicineCount: Number[] = [0]
-  // selectedMedicines: string[] = []
-  // selectedAmount: string[] = []
-  // selectedTimesADay: string[] = []
+  isLoading: boolean = false
 
   constructor(
     private service: FabricService,
@@ -37,7 +32,7 @@ export class PrescribeComponent implements OnInit {
   }
 
   numChanged(event: any) {
-    console.log(event);
+    // console.log(event);
     this.medicineCount = []
     for(let i = 0; i < event; i++) this.medicineCount.push(0)
     
@@ -60,6 +55,7 @@ export class PrescribeComponent implements OnInit {
   sendToAccount() {
 
     let prescriptions = []
+    this.isLoading = true
     for(let index = 0; index < this.medicineCount.length; index++) {
       let prescription = {
         medicine: this.selectedMedicines[index],
@@ -70,6 +66,7 @@ export class PrescribeComponent implements OnInit {
     }
     
     this.service.addPrescription({patient_id: this.patient_id, prescriptions}).subscribe((result: simpleResponse) => {
+      this.isLoading = false
       this.snackbar.open(result.message, 'close')
       if (result.status == 200) {
         this.dialogRef.close()

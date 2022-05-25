@@ -36,6 +36,7 @@ const { getContract } = require('./Utils/Utils.js');
 const consultation = require('./Routes/consultation.js');
 const lab = require('./Routes/lab.js');
 const { info } = require('console');
+const admin = require('./Routes/admin.js');
 
 const app = express()
 
@@ -53,6 +54,7 @@ app.use((req, res, next) => {
 
 
 app.use(universal)
+app.use('/admin', admin)
 app.use('/reception',reception)
 app.use('/consultation', consultation)
 app.use('/lab', lab)

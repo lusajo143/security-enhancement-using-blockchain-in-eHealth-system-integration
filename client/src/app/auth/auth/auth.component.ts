@@ -45,6 +45,9 @@ export class AuthComponent implements OnInit {
         else if (username == "technician1") {
           this.router.navigate(["/lab/dashboard"])
         }
+        else if (username == "accountant1") {
+          this.router.navigate(["account/dashboard"])
+        }
       }
     })
 
