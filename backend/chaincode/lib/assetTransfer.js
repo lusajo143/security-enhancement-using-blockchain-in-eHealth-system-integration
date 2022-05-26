@@ -366,6 +366,23 @@ class AssetTransfer extends Contract {
          return JSON.stringify(results)
     }
 
+    async calculateDrugCost(ctx, Org, drug_id, amount) {
+        const org = await ctx.stub.getState(Org)
+        if (!org || org == null) {
+            throw new Error(`Organization ${Org} not found`)
+        }
+
+        org = JSON.parse(org.toString())
+        let cost = 0
+        org.drugs.forEach(drug => {
+            if (drug.id == drug_id) {
+                cost = amount * price
+            }
+        });
+
+        return cost
+    }
+
 
     // Pharmacy
     async addDrug(ctx, Org, id, name, strength, type, quantity, price, vendor_name, location,

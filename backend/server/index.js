@@ -148,5 +148,8 @@ app.get('/getDrugs', async (req, res) => {
     res.json(JSON.parse(result.toString()))
 })
 
+app.get('/getReceipt', async (req, res) => {
+    
+})
 
 app.listen(5000, ()=>console.log("Server listening at 5000"))
