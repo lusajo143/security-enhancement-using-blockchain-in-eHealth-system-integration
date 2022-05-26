@@ -20,17 +20,20 @@ class AssetTransfer extends Contract {
             {
                 orgId: 'Org1',
                 name: 'Muhimbili Hospital',
-                patients_Track: []
+                patients_Track: [],
+                drugs: []
             },
             {
                 orgId: 'Org2',
                 name: 'Benjamin Mkapa Hospital',
-                patients_Track: []
+                patients_Track: [],
+                drugs: []
             },
             {
                 orgId: 'Org3',
                 name: 'Dodoma Hospital',
-                patients_Track: []
+                patients_Track: [],
+                drugs: []
             }
         ]
 
@@ -329,6 +332,75 @@ class AssetTransfer extends Contract {
 
         return JSON.stringify({status: 200, message: `Successfuly entered tests results for ${fullname}`})
        
+    }
+
+
+
+    // Accountant
+    async getAccountantPatients(ctx, Org) {
+         // Get all patients
+         let Patients = await ctx.stub.getState('Patients')
+         if (!Patients || Patients == null) throw new Error('Patients not found')
+ 
+         Patients = JSON.parse(Patients.toString())
+ 
+         // Get Tracked patients
+         let org = await ctx.stub.getState(Org)
+         let OrgJson = JSON.parse(org.toString())
+         let TrackedPatients = OrgJson.patients_Track
+ 
+         // Filter patients
+         let results = []
+ 
+         TrackedPatients.forEach(trackedPatient => {
+             // let found = false
+ 
+             Patients.forEach(patient => {
+                 if ((patient.id == trackedPatient.patient_id && trackedPatient.status == "accountant")) {
+                     results.push(patient)
+                 }
+             });
+ 
+         });
+ 
+         return JSON.stringify(results)
+    }
+
+
+    // Pharmacy
+    async addDrug(ctx, Org, id, name, strength, type, quantity, price, vendor_name, location,
+        phone, email, manu_date, exp_date, per_maker) {
+            const drug = {
+                id: `MD_${id}`,
+                name, strength, type, quantity, price, vendor_name, location, phone, email,
+                manu_date, exp_date, per_maker
+            }
+
+            let org = await ctx.stub.getState(Org)
+            if (!org || org == null) {
+                throw new Error(`${Org} is not found`)
+            }
+
+            org = JSON.parse(org.toString())
+
+            org.drugs.push(drug)
+
+            await ctx.stub.putState(Org, Buffer.from(stringify(org)))
+
+            return JSON.stringify({status: 200, message: `Drug with id MD_${id} has been added successfully`})
+
+        }
+
+    // Get organization's drugs
+    async getDrugs(ctx, Org) {
+        let org = await ctx.stub.getState(Org)
+
+        if (!org || org == null) {
+            throw new Error(`${Org} is not found`)
+        }
+
+        org = JSON.parse(org.toString())
+        return JSON.stringify({status: 200, data: org.drugs})
     }
 
 

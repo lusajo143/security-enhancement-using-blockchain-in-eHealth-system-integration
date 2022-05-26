@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { calAge } from 'src/app/configs/config';
+import { dataResponse, patientFull } from 'src/app/interfaces/interfaces';
+import { FabricService } from 'src/app/services/fabric.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,8 +13,11 @@ export class AccountProcesspaymentComponent implements OnInit {
 
   showProgressBar =true
   showDataTable=true
+  patients: patientFull[] = []
  
-  constructor() { }
+  constructor(
+    private service: FabricService
+  ) { }
 
 
   insurance(){
@@ -33,6 +39,26 @@ export class AccountProcesspaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fetchPatients()
+  }
+
+  fetchPatients() {
+    this.showProgressBar = true
+    this.showDataTable = false
+    this.patients = []
+    this.service.getAccountantPatients().subscribe((result: dataResponse) => {
+      if (result.status == 200) {
+        let data = JSON.parse(result.data)        
+        for (let index = 0; index < data.length; index++) {
+          data[index].dob = calAge(data[index].dob)
+          this.patients.push(data[index])
+        }
+        console.log(this.patients[0])
+        this.showDataTable = true
+        this.showProgressBar = false
+      }
+
+    })
   }
 
 }

@@ -37,6 +37,8 @@ const consultation = require('./Routes/consultation.js');
 const lab = require('./Routes/lab.js');
 const { info } = require('console');
 const admin = require('./Routes/admin.js');
+const accountant = require('./Routes/accountant.js');
+const pharmacy = require('./Routes/pharmacy.js');
 
 const app = express()
 
@@ -58,6 +60,8 @@ app.use('/admin', admin)
 app.use('/reception',reception)
 app.use('/consultation', consultation)
 app.use('/lab', lab)
+app.use('/accountant', accountant)
+app.use('/pharmacy', pharmacy)
 
 app.get('/init', async (req, res) => {
     await enrollAdmin(caClient, wallet, mspOrg1);
@@ -137,6 +141,12 @@ app.post('', async (req, res) => {
     }
 })
 
+
+app.get('/getDrugs', async (req, res) => {
+    const contract = await getContract('admin')
+    let result = await contract.evaluateTransaction('getDrugs', 'Org1')
+    res.json(JSON.parse(result.toString()))
+})
 
 
 app.listen(5000, ()=>console.log("Server listening at 5000"))

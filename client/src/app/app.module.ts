@@ -66,6 +66,7 @@ import { AccountProcesspaymentComponent } from './accounts/account-processpaymen
 import { AccountQueComponent } from './accounts/account-que/account-que.component';
 import { AccountReceiptComponent } from './accounts/account-receipt/account-receipt.component';
 import { AccountSidebarComponent } from './accounts/account-sidebar/account-sidebar.component';
+import { MatChipsModule } from '@angular/material/chips'
 
 @NgModule({
   declarations: [
@@ -134,7 +135,8 @@ import { AccountSidebarComponent } from './accounts/account-sidebar/account-side
     MatDialogModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    ChartModule
+    ChartModule,
+    MatChipsModule
   ],
   providers: [FabricService],
   bootstrap: [AppComponent]
