@@ -61,4 +61,10 @@ export class FabricService {
     return this.http.post<simpleResponse>(this.base_url+'pharmacy/addDrug', data)
   }
 
+
+  // All
+  getDrugs(){
+    return this.http.get<dataResponse>(this.base_url+'getDrugs')
+  }
+
 }

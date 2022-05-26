@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { simpleResponse } from 'src/app/interfaces/interfaces';
+import { dataResponse, simpleResponse } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { FabricService } from 'src/app/services/fabric.service';
 })
 export class PrescribeComponent implements OnInit {
 
-  medicines =["La (500mg) Tablets","Paracetamol (500mg) Tablets"]
+  medicines: string[] = []
 
   nums: Number[] = []
   medicineCount: Number[] = [0]
@@ -29,6 +29,16 @@ export class PrescribeComponent implements OnInit {
 
   ngOnInit(): void {
     for(let i = 0; i <= 15; i++) this.nums.push(i+1)
+    this.service.getDrugs().subscribe((results: dataResponse) => {
+      
+      if (results.status == 200) {
+        console.log(results);
+
+        for(let index = 0; index < results.data.length; index++) {
+          this.medicines.push(`${results.data[index].name} (${results.data[index].strength}) ${results.data[index].type}`)
+        }
+      }
+    })
   }
 
   numChanged(event: any) {

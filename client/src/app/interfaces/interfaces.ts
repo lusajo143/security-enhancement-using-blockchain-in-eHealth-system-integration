@@ -70,3 +70,19 @@ export interface Medicine {
     timeaday: string
 }
 
+export interface MedicineFull {
+    id: string
+    name: string
+    strength: string
+    type: string
+    quantity: Number
+    price: Number
+    vendor_name: string
+    location: string
+    phone: string
+    email: string
+    manu_date: string
+    exp_date: string
+    per_maker: string
+}
+
