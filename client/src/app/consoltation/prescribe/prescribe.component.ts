@@ -12,12 +12,15 @@ import { FabricService } from 'src/app/services/fabric.service';
 export class PrescribeComponent implements OnInit {
 
   medicines: string[] = []
+  medicines_id: string[] = []
+  pureMedicines: any[] = []
 
   nums: Number[] = []
   medicineCount: Number[] = [0]
   selectedMedicines: string[] = []
   selectedAmount: string[] = []
   selectedTimesADay: string[] = []
+  selectedMedicalIds: string[] = []
   isLoading: boolean = false
 
   constructor(
@@ -33,9 +36,11 @@ export class PrescribeComponent implements OnInit {
       
       if (results.status == 200) {
         console.log(results);
+        this.pureMedicines = results.data
 
         for(let index = 0; index < results.data.length; index++) {
           this.medicines.push(`${results.data[index].name} (${results.data[index].strength}) ${results.data[index].type}`)
+          this.medicines_id.push(results.data[index].id)
         }
       }
     })
@@ -49,8 +54,18 @@ export class PrescribeComponent implements OnInit {
   }
 
   addMedicine(index: any, med: any) {
+    let med_id = ''
+    for(let i = 0; i < this.pureMedicines.length; i++) {
+      let name = `${this.pureMedicines[i].name} (${this.pureMedicines[i].strength}) ${this.pureMedicines[i].type}`
+      if (med == name) {
+        med_id = this.pureMedicines[i].id
+        break
+      }
+    }
+
     this.selectedMedicines[index] = med
     this.selectedAmount[index] = '1'
+    this.selectedMedicalIds[index] = med_id
     
   }
 
@@ -70,7 +85,8 @@ export class PrescribeComponent implements OnInit {
       let prescription = {
         medicine: this.selectedMedicines[index],
         amount: parseInt(this.selectedAmount[index]),
-        timesaday: parseInt(this.selectedTimesADay[index])
+        timesaday: parseInt(this.selectedTimesADay[index]),
+        medicine_id: this.medicines_id[index]
       }
       prescriptions.push(prescription)
     }
