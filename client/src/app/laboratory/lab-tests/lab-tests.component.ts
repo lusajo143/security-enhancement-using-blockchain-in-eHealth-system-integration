@@ -11,6 +11,8 @@ import { LabTestComponent } from '../lab-test/lab-test.component';
   styleUrls: ['./lab-tests.component.css']
 })
 export class LabTestsComponent implements OnInit {
+  isLoading=true
+  showtable=false
 
   constructor(private dialog:MatDialog,
     private service: FabricService) { }
@@ -23,8 +25,6 @@ export class LabTestsComponent implements OnInit {
       this.fetchPatients()
     });
   }
-
-  isLoading: boolean = false
   // TODO: add payment to visits
   ngOnInit(): void {
     this.fetchPatients()
@@ -35,7 +35,9 @@ export class LabTestsComponent implements OnInit {
     this.isLoading = true
     this.service.getLabPatients().subscribe((result:dataResponse) => {      
       this.isLoading = false
-      if (result.status == 200) {       
+      this.showtable=true
+            if (result.status == 200) {  
+
         for(let index = 0; index < result.data.length; index++) {
           result.data[index].dob = calAge(result.data[index].dob)
           this.patients.push(result.data[index])

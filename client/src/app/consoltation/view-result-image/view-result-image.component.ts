@@ -14,6 +14,7 @@ export class ViewResultImageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.url)
   }
 
   closeDialog() {

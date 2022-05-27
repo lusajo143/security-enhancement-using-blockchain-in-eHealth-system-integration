@@ -34,6 +34,12 @@ export class ConsExamformComponent implements OnInit {
 
     this.addTest('FBS',value.FBS)
     this.addTest('RBS', value.RBS)
+    this.addTest('TF', value.TF)
+    this.addTest('PRBS', value.PRBS)
+    this.addTest('RF', value.RF)
+    this.addTest('FBS', value.FBS)
+    this.addTest('FBC', value.FBC)
+    this.addTest('MRD', value.MRD)
 
     let data = {
       patient_id: this.patient_id,

@@ -72,6 +72,7 @@ app.get('/init', async (req, res) => {
     await registerUser(caClient, mspOrg1, 'doctor1', 'doctor1', 'org1.department1', wallet, 'consultation')
     await registerUser(caClient, mspOrg1, 'technician1', 'technician1', 'org1.department1', wallet, 'lab')
     await registerUser(caClient, mspOrg1, 'accountant1', 'accountant1', 'org1.department1', wallet, 'accountant')
+    await registerUser(caClient, mspOrg1, 'pharmacy1', 'pharmacy1', 'org1.department1', wallet, 'pharmacy')
 
     let contract = await getContract('admin')
     contract.submitTransaction('InitLedger')

@@ -16,7 +16,8 @@ export class NewpatientComponent implements OnInit {
 
   campainTwo: FormGroup;
   dob: string = ""
-
+  spinbar=false
+  showform=true
   constructor(private service: FabricService,
     private snackbar: MatSnackBar) {
     const today = new Date();
@@ -43,6 +44,8 @@ export class NewpatientComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+        this.spinbar=true
+        this.showform=false
 
         let input = form.value
         let fname = input.fname
@@ -65,12 +68,17 @@ export class NewpatientComponent implements OnInit {
         this.service.AddPatient(data).subscribe((result: simpleResponse) => {
           this.snackbar.open(result.message, "close")
           if (result.status == 200) {
-            form.reset()
+            Swal.fire('Saved!', '', 'success')
+        this.spinbar=false
+        form.reset()
+        this.showform=true
+
+          
           }
         })
 
 
-        Swal.fire('Saved!', '', 'success')
+        
       } else if (result.isDenied) {
         Swal.fire('user has not been saved', '', 'info')
       }

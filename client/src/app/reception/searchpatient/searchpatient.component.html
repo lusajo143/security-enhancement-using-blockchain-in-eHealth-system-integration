@@ -27,7 +27,8 @@
                             <td>{{patient.gender}}</td>
                             <td>{{patient.dob}}</td>
                             <td>{{patient.plocation}}</td>
-                            <td><button mat-button (click)="openDialog(patient.id)">
+                            <td>
+                                <button mat-raised-button color="primary"(click)="openDialog(patient.id)">
                                     Send
                                 </button></td>
 
