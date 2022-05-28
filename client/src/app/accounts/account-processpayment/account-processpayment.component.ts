@@ -48,7 +48,7 @@ export class AccountProcesspaymentComponent implements OnInit {
     this.patients = []
     this.service.getAccountantPatients().subscribe((result: dataResponse) => {
       if (result.status == 200) {
-        let data = JSON.parse(result.data)        
+        let data = JSON.parse(result.data)
         for (let index = 0; index < data.length; index++) {
           data[index].dob = calAge(data[index].dob)
           this.patients.push(data[index])
