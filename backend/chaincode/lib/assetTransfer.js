@@ -258,9 +258,9 @@ class AssetTransfer extends Contract {
         let fullname = ''
 
         // Add prescription cost
-        // prescriptions = JSON.parse(prescriptions)
-        // prescriptions.forEach(prescription => {
-        //     prescription.cost = await this.calculateDrugCost(ctx, org, prescription.medicine_id, prescription.amount)
+        // prescriptions = JSON.parse(prescription)
+        // prescriptions.forEach(Prescription => {
+        //     Prescription.cost = await this.calculateDrugCost(ctx, org, Prescription.medicine_id, Prescription.amount)
         // });
 
         for (let index = 0; index < patients.length; index++) {

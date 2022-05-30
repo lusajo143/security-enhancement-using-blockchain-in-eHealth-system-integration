@@ -3,12 +3,12 @@ const { getContract } = require('../Utils/Utils')
 
 const consultation = Router()
 
-consultation.get('/getPatients', async (req, res) => {
+consultation.get('/getPatients', async (_req, res) => {
     const contract = await getContract('doctor1')
 
     let result = await contract.evaluateTransaction('getConsultationPatients', 'Org1')
 
-    res.json({status: 200, data: result.toString()})
+    res.json({ status: 200, data: result.toString() })
 
 })
 
@@ -32,12 +32,27 @@ consultation.post('/sendToAccountant', async (req, res) => {
     let patient_id = req.body.patient_id
     let prescriptions = req.body.prescriptions
 
+    // console.log(prescriptions);
+
     const contract = await getContract('doctor1')
 
-    let result = await contract.submitTransaction('addPrescription', patient_id, 'Org1', JSON.stringify(prescriptions))
 
-    console.log(result);
-    res.json(JSON.parse(result.toString()))
+
+    new Promise(async (resolve, _reject) => {
+        let pIndex = 0
+        for (let index = 0; index < prescriptions.length; index++) {
+            const prescription = prescriptions[index];
+            prescription.cost = (await contract.evaluateTransaction('calculateDrugCost', 'Org1', prescription.medicine_id, prescription.amount)).toString()
+            pIndex++
+        }
+        resolve(prescriptions)
+    }).then(async (Prescriptions) => {
+        let result = await contract.submitTransaction('addPrescription', patient_id, 'Org1', JSON.stringify(Prescriptions))
+
+        res.json(JSON.parse(result.toString()))
+    }).catch((_err) => {
+        res.json({ status: 500 })
+    })
 
 })
 
