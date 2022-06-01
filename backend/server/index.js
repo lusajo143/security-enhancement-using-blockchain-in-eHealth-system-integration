@@ -158,4 +158,14 @@ app.post('/calcost', async (req, res) => {
     res.send(result.toString())
 })
 
+app.post('/getPatient', async (req, res) => {
+    let patient_id = req.body.patient_id
+
+    console.log(patient_id);
+
+    let contract = await getContract('admin')
+    let result = await contract.evaluateTransaction('getPatient',patient_id)
+    res.json({status: 200, data: JSON.parse(result.toString())})
+})
+
 app.listen(5000, ()=>console.log("Server listening at 5000"))

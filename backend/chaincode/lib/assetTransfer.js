@@ -110,6 +110,24 @@ class AssetTransfer extends Contract {
 
     }
 
+    async getPatient(ctx, patient_id) {
+        let patients = await ctx.stub.getState('Patients')
+        if (!patients || patients == null) {
+            throw new Error('Error occured')
+        }
+
+        patients = JSON.parse(patients.toString())
+        let Patient
+        patients.forEach(patient => {
+            if (patient.id == patient_id) {
+                Patient = patient
+            }
+        });
+
+        return JSON.stringify(Patient)
+
+    }
+
     async updatePatientStatus(ctx, patient_id, org, status) {
         let orgs = await ctx.stub.getState(org)
 

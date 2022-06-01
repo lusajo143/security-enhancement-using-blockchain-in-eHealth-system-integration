@@ -22,6 +22,10 @@ export class FabricService {
     return this.http.get<dataResponse>(this.base_url+'reception/getPatients')
   }
 
+  getPatient(patient_id: any) {
+    return this.http.post<dataResponse>(this.base_url+'getPatient', patient_id)
+  }
+
   updatePatientStatus(data: any) {
     return this.http.post<simpleResponse>(this.base_url+'reception/sendToConsultation', data)
   }

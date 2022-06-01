@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { calAge } from 'src/app/configs/config';
 import { dataResponse, patientFull } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
@@ -16,7 +17,8 @@ export class AccountProcesspaymentComponent implements OnInit {
   patients: patientFull[] = []
  
   constructor(
-    private service: FabricService
+    private service: FabricService,
+    private router: Router
   ) { }
 
 
@@ -59,6 +61,10 @@ export class AccountProcesspaymentComponent implements OnInit {
       }
 
     })
+  }
+
+  viewReceipt(patient: any) {
+    this.router.navigate(['/account/receipt', {pid: JSON.stringify(patient)}])
   }
 
 }
