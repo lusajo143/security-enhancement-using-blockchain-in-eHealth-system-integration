@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { dataResponse, Medicine, patientFull, prescription } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
@@ -12,7 +13,7 @@ export class AccountReceiptComponent implements OnInit {
 
   patient_id: string = ""
   total: number = 0
-  patient_data: patientFull = {
+  patient_data: any = {
     id: '',
     dob: '',
     fname: '',
@@ -25,39 +26,59 @@ export class AccountReceiptComponent implements OnInit {
     kinPlace: '',
     phone: '',
     relationship: '',
-    visits: []
+    visits: [],
   }
+  payment_status: string = "Not paid"
   medicines: any = []
+  isLoading: boolean = false
   constructor(
     private router: ActivatedRoute,
-    private service: FabricService
+    private service: FabricService,
+    private snackBar: MatSnackBar
   ) {
     
    }
 
   printReceipt(){
     Swal.fire({
-      title: 'Have the patient paid?',
+      title: 'Do you want to change payment status?',
       showDenyButton: true,
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'yes',
-      denyButtonText: `Don't print`,
+      denyButtonText: 'Cancel'
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('printed!', '', 'success')
+        this.isLoading = true
+        this.service.changePaymentStatus({patient_id: this.patient_id, status: 'Paid'}).subscribe((result: dataResponse) => {
+          this.isLoading = false
+          if (result.status == 200) {
+            this.payment_status = 'Paid'
+            Swal.fire('Payment status have been updated successfully', '', 'success')
+          } else {
+            this.snackBar.open('Failed to change payment status, Try again', 'close')
+          }
+        })
       } else if (result.isDenied) {
-        Swal.fire('not printed', '', 'info')
+        Swal.fire('Cancelled', '', 'info')
       }
     })
   }
 
+  sendToPharmacy() {
+    
+  }
+
   ngOnInit(): void {
     this.router.params.subscribe((data)=>{
-      this.service.getPatient({patient_id: JSON.parse(JSON.stringify(data)).pid.split("\"")[1]}).subscribe((result: dataResponse) => {
+      this.patient_id = JSON.parse(JSON.stringify(data)).pid.split("\"")[1]
+      this.service.getPatient({patient_id: this.patient_id}).subscribe((result: dataResponse) => {
         if (result.status == 200) {
           this.patient_data = result.data
-          this.medicines = this.patient_data.visits[0].prescription
+          this.medicines = this.patient_data.visits[this.patient_data.visits.length-1].prescription
+          if (this.patient_data.visits[this.patient_data.visits.length-1].paymentStatus) {
+            this.payment_status = this.patient_data.visits[this.patient_data.visits.length-1].paymentStatus
+          }
           this.service.getDrugs().subscribe((drugs: dataResponse) => {
             let Drugs = drugs.data
             this.medicines.forEach((medicine: any) => {

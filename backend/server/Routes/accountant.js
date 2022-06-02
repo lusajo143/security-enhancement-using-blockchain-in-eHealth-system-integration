@@ -11,5 +11,19 @@ accountant.get('/getPatients', async (req, res) => {
 
 })
 
+accountant.post('/changePaymentStatus', async (req, res) => {
+    let patient_id = req.body.patient_id
+    let status = req.body.status
+
+    console.log(status+' '+ patient_id+'\n');
+
+    const contract = await getContract('accountant1')
+
+    let result = await contract.submitTransaction('changePaymentStatus', 'Org1', patient_id, status)
+
+    res.json(JSON.parse(result.toString()))
+
+})
+
 
 module.exports = accountant

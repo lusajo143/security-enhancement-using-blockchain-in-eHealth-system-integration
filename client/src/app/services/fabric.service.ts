@@ -60,6 +60,10 @@ export class FabricService {
     return this.http.get<dataResponse>(this.base_url+'accountant/getPatients')
   }
 
+  changePaymentStatus(data: any) {
+    return this.http.post<dataResponse>(this.base_url+"accountant/changePaymentStatus", data)
+  }
+
   // Pharmacy
   addDrug(data: any) {
     return this.http.post<simpleResponse>(this.base_url+'pharmacy/addDrug', data)

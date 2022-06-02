@@ -286,7 +286,7 @@ class AssetTransfer extends Contract {
             if (patient.id == patient_id) {
                 patient.visits[patient.visits.length-1].prescription = JSON.parse(prescription)
                 fullname = patient.fname+' '+patient.mname+' '+patient.lname
-                 
+                break
             }
         }
 
@@ -405,6 +405,24 @@ class AssetTransfer extends Contract {
         });
 
         return cost.toString()
+    }
+
+    async changePaymentStatus(ctx, Org, patient_id, status) {
+       let patients = await ctx.stub.getState('Patients')
+
+        patients = JSON.parse(patients.toString())
+
+        for (let index = 0; index < patients.length; index++) {
+            let patient = patients[index];
+            if (patient.id == patient_id) {
+                patient.visits[patient.visits.length-1].paymentStatus = status
+                break
+            }
+        }
+
+        await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
+        return JSON.stringify({status: 200, message: 'Payment status updated successfully'})
+
     }
 
 
