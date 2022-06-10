@@ -155,11 +155,31 @@
             <mat-card>
                 <mat-card-subtitle>Action</mat-card-subtitle>
                 <mat-card-content>
-                    <button mat-raised-button color="primary" (click)="sendToPharmacy()">
-                        <mat-icon style="margin-right: 10px;">medication</mat-icon>
-                        <span>Send to Pharmacy</span>
-                    </button>
+                    <div *ngIf="payment_status == 'Paid'; else disabledSend">
+                        <button mat-raised-button color="primary" (click)="sendToPharmacy()"
+                            *ngIf="!isPharmacyLoading; else ploading">
+                            <mat-icon style="margin-right: 10px;">medication</mat-icon>
+                            <span>Send to Pharmacy</span>
+                        </button>
 
+                        <ng-template #ploading>
+                            <button mat-raised-button disabled="true">
+                                <div fxLayout="row">
+                                    <mat-spinner mode="indeterminate" diameter="25"
+                                        style="margin-top: 5px; margin-right: 5px;"></mat-spinner>
+                                    <span>Sending...</span>
+                                </div>
+                            </button>
+                        </ng-template>
+                    </div>
+
+
+                    <ng-template #disabledSend>
+                        <button mat-raised-button disabled="true">
+                            <mat-icon style="margin-right: 10px;">medication</mat-icon>
+                            <span>Send to Pharmacy</span>
+                        </button>
+                    </ng-template>
                 </mat-card-content>
             </mat-card>
         </div>

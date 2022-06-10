@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
-import { dataResponse, Medicine, patientFull, prescription } from 'src/app/interfaces/interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
+import { dataResponse, Medicine, patientFull, prescription, simpleResponse } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -31,8 +31,10 @@ export class AccountReceiptComponent implements OnInit {
   payment_status: string = "Not paid"
   medicines: any = []
   isLoading: boolean = false
+  isPharmacyLoading: boolean = false
   constructor(
-    private router: ActivatedRoute,
+    private Activerouter: ActivatedRoute,
+    private router: Router,
     private service: FabricService,
     private snackBar: MatSnackBar
   ) {
@@ -66,11 +68,17 @@ export class AccountReceiptComponent implements OnInit {
   }
 
   sendToPharmacy() {
-    
+    this.isPharmacyLoading = true
+    this.service.sendPatientToPharmacy({patient_id: this.patient_id}).subscribe((result: simpleResponse) => {
+      this.isPharmacyLoading = false
+      if (result.status = 200) {
+        this.router.navigate(['/account/processpayment'])
+      }
+    })
   }
 
   ngOnInit(): void {
-    this.router.params.subscribe((data)=>{
+    this.Activerouter.params.subscribe((data)=>{
       this.patient_id = JSON.parse(JSON.stringify(data)).pid.split("\"")[1]
       this.service.getPatient({patient_id: this.patient_id}).subscribe((result: dataResponse) => {
         if (result.status == 200) {

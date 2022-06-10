@@ -1,3 +1,4 @@
+const { application } = require('express')
 const { getContract } = require('../Utils/Utils')
 
 const pharmacy = require('express').Router()
@@ -30,5 +31,11 @@ pharmacy.post('/addDrug', async (req, res) => {
 
 })
 
+pharmacy.get('/getPatients', async (req, res) => {
+    const contract = await getContract('pharmacy1')
+
+    let result = await contract.evaluateTransaction('getPharmacyPatients', 'Org1')
+    res.json(JSON.parse(result.toString()))
+})
 
 module.exports = pharmacy

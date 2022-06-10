@@ -19,7 +19,18 @@ accountant.post('/changePaymentStatus', async (req, res) => {
 
     const contract = await getContract('accountant1')
 
-    let result = await contract.submitTransaction('changePaymentStatus', 'Org1', patient_id, status)
+    let result = await contract.submitTransaction('changePaymentStatus', patient_id, status)
+
+    res.json(JSON.parse(result.toString()))
+
+})
+
+accountant.post('/sendPatientToPharmacy', async (req, res) => {
+    let patient_id = req.body.patient_id
+    
+    const contract = await getContract('accountant1')
+
+    let result = await contract.submitTransaction('updatePatientStatus', patient_id, 'Org1','pharmacy')
 
     res.json(JSON.parse(result.toString()))
 
