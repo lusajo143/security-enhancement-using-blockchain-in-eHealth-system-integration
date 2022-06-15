@@ -18,16 +18,16 @@
                         <th>Location</th>
                         <th>Consultation</th>
                         <th>Laboratory</th>
-                        <th>Receipt</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr >
-                       <td>1</td>
-                       <td>Alpha</td>
-                       <td>Male</td>
-                       <td>34</td>
-                       <td>Tanga</td>
+                    <tr *ngFor="let patient of patients">
+                       <td>{{ patient.id }}</td>
+                       <td>{{ patient.fname }} {{ patient.mname}} {{ patient.lname }}</td>
+                       <td>{{ patient.gender }}</td>
+                       <td>{{ patient.dob }}</td>
+                       <td>{{ patient.plocation }}</td>
                        <td><mat-icon style="color: green; font-size: 25px;">how_to_reg</mat-icon></td>
                        <td><mat-icon style="color: green; font-size: 25px;">how_to_reg</mat-icon></td>
                        <td><button mat-raised-button color="primary" (click)="receipt()">View Receipt</button></td>
