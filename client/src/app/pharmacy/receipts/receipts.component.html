@@ -1,14 +1,7 @@
-<!-- <div class="container">
+
     <div class="row">
         <div class="col-12">
-            <mat-card>
-                <mat-card-title>
-                    <mat-card-subtitle>
-                        Patient Information
-                    </mat-card-subtitle>
-                    <mat-card-content>
-                        <form action="">
-                            
+                      <h1>PATIENT DETAILS</h1>
                             <div class="row">
                                 <div class="col-4">
                                     <mat-form-field class="example-full-width" appearance="fill">
@@ -32,27 +25,36 @@
     
                             </div>
     
-                          Treatment
+                          Treatment Details
                        
                             <div class="row">
     
                                 <div class="col-6 mt-3">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                            
-                                       paracetamol 500 mg   2od for 2days
-                                    </mat-form-field>
+                                    <mat-list role="list">
+                                        <mat-list-item role="listitem">1. paracetamol 500 mg   2od for 2days</mat-list-item>
+                                        <mat-list-item role="listitem">2. paracetamol 500 mg   2od for 2days</mat-list-item>
+                                        <mat-list-item role="listitem">3. paracetamol 500 mg   2od for 2days</mat-list-item>
+
+                                       
+                                      </mat-list>
+                                      <mat-list role="list">
+                                        <mat-list-item role="listitem">amount:2000</mat-list-item>
+                                        <mat-list-item role="listitem">Status:Paid</mat-list-item>
+                                      </mat-list>
+                                    
                                 </div>
                                
                             </div>
-    
-                 
-                            <a (click)="receivedDrugs()" class="btn btn-primary">Patient has paid</a>
-                        
-                        </form>
-                    </mat-card-content>
-                </mat-card-title>
-            </mat-card>
+                     
+                            <div class="row">
+                                <div class="col-12">
+                                    <button mat-raised-button color="primary" (click)="closeSession()"><mat-icon>cached</mat-icon>Close session</button>
+                                </div>
+                            </div>
+              
         </div>
         <div class="col-2"></div>
-    </div>
-</div> -->
+    </div> 
+
+
+    

@@ -19,9 +19,15 @@
                 <mat-label>Strength</mat-label>
                 <input matInput placeholder="250mg" value="250 mg" ngModel name="strength">
               </mat-form-field>
-              <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Type of medicine</mat-label>
-                <input matInput placeholder="Tablet" value="tablet" ngModel name="drugtype">
+            
+              <mat-form-field appearance="fill">
+                <mat-label>Medication drugs</mat-label>
+                <mat-select ngModel name="drugtype">
+                 
+                  <mat-option value="Tablet">Tablet</mat-option>
+                  <mat-option value="Syringe">Syringe</mat-option>
+                  <mat-option value="Bottled">Bottled</mat-option>
+                </mat-select>
               </mat-form-field>
               <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Quantity</mat-label>

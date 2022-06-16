@@ -10,18 +10,19 @@ export class ReceiptsComponent implements OnInit {
 
   constructor() { }
 
-  receivedDrugs(){
+  closeSession(){
 
     Swal.fire({
-      title: 'Do you want to save this record?',
+      title: 'Do you want to save close the session?',
       showDenyButton: true,
+      text:"Make sure that the patient has received medics before closing the session",
       showCancelButton: true,
-      confirmButtonText: 'Save',
-      denyButtonText: `Don't save`,
+      confirmButtonText: 'close',
+      denyButtonText: `Don't close`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
+        Swal.fire('closed!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
       }
@@ -29,7 +30,7 @@ export class ReceiptsComponent implements OnInit {
 
 
   }
-
+ 
   ngOnInit(): void {
   }
 
