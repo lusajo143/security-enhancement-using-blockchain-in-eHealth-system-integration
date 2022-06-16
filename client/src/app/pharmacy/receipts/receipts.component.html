@@ -6,49 +6,63 @@
                                 <div class="col-4">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>First Name</mat-label>
-                                        <input matInput placeholder="Ex. Pizza" value="Sushi">
+                                        <input matInput placeholder="Ex. Pizza" value="{{patient.fname}}" readonly="true">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-4">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Middle Name</mat-label>
-                                        <input matInput placeholder="Ex. Pizza" value="Sushi">
+                                        <input matInput placeholder="Ex. Pizza" value="{{patient.mname}}" readonly="true">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-4">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Last Name</mat-label>
-                                        <input matInput placeholder="Ex. Pizza" value="Sushi">
+                                        <input matInput placeholder="Ex. Pizza" value="{{patient.lname}}" readonly="true">
                                     </mat-form-field>
                                 </div>
     
     
                             </div>
     
-                          Treatment Details
+                          <span class="font-bold">Prescription Details</span>
                        
                             <div class="row">
     
-                                <div class="col-6 mt-3">
+                                <div class="col-6">
                                     <mat-list role="list">
-                                        <mat-list-item role="listitem">1. paracetamol 500 mg   2od for 2days</mat-list-item>
-                                        <mat-list-item role="listitem">2. paracetamol 500 mg   2od for 2days</mat-list-item>
-                                        <mat-list-item role="listitem">3. paracetamol 500 mg   2od for 2days</mat-list-item>
-
-                                       
+                                        <mat-list-item role="listitem" *ngFor="let prescribe of prescription; let ind = index">
+                                            {{prescribe.medicine}}
+                                        </mat-list-item>
                                       </mat-list>
-                                      <mat-list role="list">
-                                        <mat-list-item role="listitem">amount:2000</mat-list-item>
-                                        <mat-list-item role="listitem">Status:Paid</mat-list-item>
-                                      </mat-list>
-                                    
                                 </div>
                                
                             </div>
+
+                            <span class="font-bold">Billed Amount:</span> {{total}}
+                            <br>
+                           <div fxLayout="row">
+                            <span class="mt-4 font-bold">Payment status: </span>
+                            <mat-list>
+                                <mat-list-item class="small-item">
+                                    <mat-chip-list>
+                                        <mat-chip style="background-color: green; color: white;"
+                                            *ngIf="payment_status == 'Paid'; else notPaid">{{payment_status}}
+                                        </mat-chip>
+                                        <ng-template #notPaid>
+                                            <mat-chip style="background-color: red; color: white;">
+                                                {{payment_status}}</mat-chip>
+                                        </ng-template>
+                                    </mat-chip-list>
+                                </mat-list-item>
+                            </mat-list>
+                           </div>
                      
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-12">
-                                    <button mat-raised-button color="primary" (click)="closeSession()"><mat-icon>cached</mat-icon>Close session</button>
+                                    <button mat-raised-button color="primary" (click)="closeSession()">
+                                        <mat-icon>cached</mat-icon> <span> End Session</span>
+                                    </button>
                                 </div>
                             </div>
               
