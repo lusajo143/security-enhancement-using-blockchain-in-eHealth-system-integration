@@ -21,18 +21,21 @@ class AssetTransfer extends Contract {
                 orgId: 'Org1',
                 name: 'Muhimbili Hospital',
                 patients_Track: [],
+                patients_Treated: [],
                 drugs: []
             },
             {
                 orgId: 'Org2',
                 name: 'Benjamin Mkapa Hospital',
                 patients_Track: [],
+                patients_Treated: [],
                 drugs: []
             },
             {
                 orgId: 'Org3',
                 name: 'Dodoma Hospital',
                 patients_Track: [],
+                patients_Treated: [],
                 drugs: []
             }
         ]
@@ -210,7 +213,7 @@ class AssetTransfer extends Contract {
 
             Patients.forEach(patient => {
                 if ((patient.id == trackedPatient.patient_id && trackedPatient.status == "consultation") ||
-                (patient.id == trackedPatient.patient_id && trackedPatient.status == "labconsultation")) {
+                    (patient.id == trackedPatient.patient_id && trackedPatient.status == "labconsultation")) {
                     results.push(patient)
                 }
             });
@@ -239,6 +242,7 @@ class AssetTransfer extends Contract {
         // let doctor = await this.getUserId(ctx)
         const visit = {
             doctor,
+            org,
             examination: {
                 complain,
                 historyComplain,
@@ -256,7 +260,7 @@ class AssetTransfer extends Contract {
 
         await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
 
-        return JSON.stringify({status: 200, message: 'Successfuly sent patient to examination'})
+        return JSON.stringify({ status: 200, message: 'Successfuly sent patient to examination' })
 
     }
 
@@ -279,16 +283,16 @@ class AssetTransfer extends Contract {
         for (let index = 0; index < patients.length; index++) {
             let patient = patients[index];
             if (patient.id == patient_id) {
-                patient.visits[patient.visits.length-1].prescription = JSON.parse(prescription)
-                fullname = patient.fname+' '+patient.mname+' '+patient.lname
+                patient.visits[patient.visits.length - 1].prescription = JSON.parse(prescription)
+                fullname = patient.fname + ' ' + patient.mname + ' ' + patient.lname
                 break
             }
         }
 
         await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
 
-        return JSON.stringify({status: 200, message: `Successfuly sent ${fullname} to accountant`})
-       
+        return JSON.stringify({ status: 200, message: `Successfuly sent ${fullname} to accountant` })
+
     }
 
 
@@ -341,48 +345,48 @@ class AssetTransfer extends Contract {
         for (let index = 0; index < patients.length; index++) {
             let patient = patients[index];
             if (patient.id == patient_id) {
-                patient.visits[patient.visits.length-1] = JSON.parse(visit)
-                fullname = patient.fname+' '+patient.mname+' '+patient.lname
-                 
+                patient.visits[patient.visits.length - 1] = JSON.parse(visit)
+                fullname = patient.fname + ' ' + patient.mname + ' ' + patient.lname
+
             }
         }
 
         await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
 
-        return JSON.stringify({status: 200, message: `Successfuly entered tests results for ${fullname}`})
-       
+        return JSON.stringify({ status: 200, message: `Successfuly entered tests results for ${fullname}` })
+
     }
 
 
 
     // Accountant
     async getAccountantPatients(ctx, Org) {
-         // Get all patients
-         let Patients = await ctx.stub.getState('Patients')
-         if (!Patients || Patients == null) throw new Error('Patients not found')
- 
-         Patients = JSON.parse(Patients.toString())
- 
-         // Get Tracked patients
-         let org = await ctx.stub.getState(Org)
-         let OrgJson = JSON.parse(org.toString())
-         let TrackedPatients = OrgJson.patients_Track
- 
-         // Filter patients
-         let results = []
- 
-         TrackedPatients.forEach(trackedPatient => {
-             // let found = false
- 
-             Patients.forEach(patient => {
-                 if ((patient.id == trackedPatient.patient_id && trackedPatient.status == "accountant")) {
-                     results.push(patient)
-                 }
-             });
- 
-         });
- 
-         return JSON.stringify(results)
+        // Get all patients
+        let Patients = await ctx.stub.getState('Patients')
+        if (!Patients || Patients == null) throw new Error('Patients not found')
+
+        Patients = JSON.parse(Patients.toString())
+
+        // Get Tracked patients
+        let org = await ctx.stub.getState(Org)
+        let OrgJson = JSON.parse(org.toString())
+        let TrackedPatients = OrgJson.patients_Track
+
+        // Filter patients
+        let results = []
+
+        TrackedPatients.forEach(trackedPatient => {
+            // let found = false
+
+            Patients.forEach(patient => {
+                if ((patient.id == trackedPatient.patient_id && trackedPatient.status == "accountant")) {
+                    results.push(patient)
+                }
+            });
+
+        });
+
+        return JSON.stringify(results)
     }
 
     async calculateDrugCost(ctx, Org, drug_id, amount) {
@@ -403,20 +407,20 @@ class AssetTransfer extends Contract {
     }
 
     async changePaymentStatus(ctx, patient_id, status) {
-       let patients = await ctx.stub.getState('Patients')
+        let patients = await ctx.stub.getState('Patients')
 
         patients = JSON.parse(patients.toString())
 
         for (let index = 0; index < patients.length; index++) {
             let patient = patients[index];
             if (patient.id == patient_id) {
-                patient.visits[patient.visits.length-1].paymentStatus = status
+                patient.visits[patient.visits.length - 1].paymentStatus = status
                 break
             }
         }
 
         await ctx.stub.putState('Patients', Buffer.from(stringify(patients)))
-        return JSON.stringify({status: 200, message: 'Payment status updated successfully'})
+        return JSON.stringify({ status: 200, message: 'Payment status updated successfully' })
 
     }
 
@@ -424,26 +428,26 @@ class AssetTransfer extends Contract {
     // Pharmacy
     async addDrug(ctx, Org, id, name, strength, type, quantity, price, vendor_name, location,
         phone, email, manu_date, exp_date, per_maker) {
-            const drug = {
-                id: `MD_${id}`,
-                name, strength, type, quantity, price, vendor_name, location, phone, email,
-                manu_date, exp_date, per_maker
-            }
-
-            let org = await ctx.stub.getState(Org)
-            if (!org || org == null) {
-                throw new Error(`${Org} is not found`)
-            }
-
-            org = JSON.parse(org.toString())
-
-            org.drugs.push(drug)
-
-            await ctx.stub.putState(Org, Buffer.from(stringify(org)))
-
-            return JSON.stringify({status: 200, message: `Drug with id MD_${id} has been added successfully`})
-
+        const drug = {
+            id: `MD_${id}`,
+            name, strength, type, quantity, price, vendor_name, location, phone, email,
+            manu_date, exp_date, per_maker
         }
+
+        let org = await ctx.stub.getState(Org)
+        if (!org || org == null) {
+            throw new Error(`${Org} is not found`)
+        }
+
+        org = JSON.parse(org.toString())
+
+        org.drugs.push(drug)
+
+        await ctx.stub.putState(Org, Buffer.from(stringify(org)))
+
+        return JSON.stringify({ status: 200, message: `Drug with id MD_${id} has been added successfully` })
+
+    }
 
     async getPharmacyPatients(ctx, Org) {
         // Get all patients
@@ -474,6 +478,39 @@ class AssetTransfer extends Contract {
         return JSON.stringify(results)
     }
 
+    async endVisit(ctx, Org, patient_id) {
+        // Get Tracked patients
+        let org = await ctx.stub.getState(Org)
+        let OrgJson = JSON.parse(org.toString())
+        let TrackedPatients = OrgJson.patients_Track
+
+        let tIndex = 0
+
+        for (let index = 0; index < TrackedPatients.length; index++) {
+            const tPatient = TrackedPatients[index];
+            if (tPatient.patient_id == patient_id) {
+                tIndex = index
+                break
+            }
+        }
+
+        // Remove patient from tracked patients
+        OrgJson.patients_Track.splice(tIndex, 1)
+        let found = false
+        OrgJson.patients_Treated.forEach((patient) => {
+            if (patient == patient_id) {
+                found = true
+            }
+        });
+
+        if (!found) {
+            OrgJson.patients_Treated.push(patient_id)
+        }
+        
+        await ctx.stub.putState(Org, Buffer.from(stringify(OrgJson)))
+
+    }
+
     // Get organization's drugs
     async getDrugs(ctx, Org) {
         let org = await ctx.stub.getState(Org)
@@ -483,7 +520,7 @@ class AssetTransfer extends Contract {
         }
 
         org = JSON.parse(org.toString())
-        return JSON.stringify({status: 200, data: org.drugs})
+        return JSON.stringify({ status: 200, data: org.drugs })
     }
 
 

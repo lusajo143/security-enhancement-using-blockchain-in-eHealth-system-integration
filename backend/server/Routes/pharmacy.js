@@ -38,4 +38,11 @@ pharmacy.get('/getPatients', async (req, res) => {
     res.json(JSON.parse(result.toString()))
 })
 
+pharmacy.post('/endVisit', async (req, res) => {
+    const contract = await getContract('pharmacy1')
+
+    let result = await contract.submitTransaction('endVisit', 'Org1', '1655425477504')
+    console.log(result.toString());
+})
+
 module.exports = pharmacy
