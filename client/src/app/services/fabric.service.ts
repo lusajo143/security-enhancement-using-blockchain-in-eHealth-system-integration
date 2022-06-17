@@ -77,6 +77,10 @@ export class FabricService {
     return this.http.get<[]>(this.base_url+'pharmacy/getPatients')
   }
 
+  endVisit(data: any) {
+    return this.http.post<simpleResponse>(this.base_url+'pharmacy/endVisit', data)
+  }
+
 
   // All
   getDrugs(){

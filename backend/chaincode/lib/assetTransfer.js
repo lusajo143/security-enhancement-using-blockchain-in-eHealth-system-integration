@@ -506,8 +506,10 @@ class AssetTransfer extends Contract {
         if (!found) {
             OrgJson.patients_Treated.push(patient_id)
         }
-        
+
         await ctx.stub.putState(Org, Buffer.from(stringify(OrgJson)))
+
+        return JSON.stringify({status: 200, message: 'Ended visit successfully'})
 
     }
 
