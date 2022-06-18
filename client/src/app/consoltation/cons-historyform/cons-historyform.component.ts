@@ -19,6 +19,8 @@ export class ConsHistoryformComponent implements OnInit {
 
   patient: any
 
+  visits: any[] = []
+
   constructor(
     private activeRoute: ActivatedRoute,
     private service: FabricService
@@ -30,7 +32,10 @@ export class ConsHistoryformComponent implements OnInit {
       this.service.getPatient({patient_id: this.patient_id}).subscribe((result: any) => {
         this.patient = result.data
         this.patient.dob = calAge(result.data.dob)
-        console.log(this.patient);
+        this.visits = this.patient.visits
+        console.log(this.visits);
+      
+
         this.isLoading = false
       })
     })
