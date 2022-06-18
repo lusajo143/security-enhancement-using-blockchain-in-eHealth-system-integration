@@ -27,17 +27,21 @@ export class GivedrugsComponent implements OnInit {
 
  
     
-  receipt(){
+  receipt(patient: any){
 
-    const dialogRef = this.dialog.open(ReceiptsComponent);
+    const dialogRef = this.dialog.open(ReceiptsComponent, {data: patient});
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.fetchPatients()
     });
 
     
   }
 
   ngOnInit(): void {
+    this.fetchPatients()
+  }
+
+  fetchPatients() {
     this.showProgressBar = true
     this.service.getPharmacyPatients().subscribe((result: any[]) => {
       this.showProgressBar = false
@@ -50,6 +54,5 @@ export class GivedrugsComponent implements OnInit {
       
     })
   }
-
 
 }

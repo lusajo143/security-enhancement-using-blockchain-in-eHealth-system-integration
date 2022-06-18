@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { calAge } from 'src/app/configs/config';
 import { dataResponse, patient, patientFull } from 'src/app/interfaces/interfaces';
 import { FabricService } from 'src/app/services/fabric.service';
@@ -16,6 +17,7 @@ export class ConsSearchpatientComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog,
+    private router: Router,
     private service: FabricService) {}
     showProgressBar=false
     showDataTable=false
@@ -51,6 +53,10 @@ export class ConsSearchpatientComponent implements OnInit {
 
     this.fetchPatients()
     
+  }
+
+  viewHistory(patient_id: any) {
+    this.router.navigate(['/consult/history', {id: patient_id}])
   }
 
   fetchPatients() {
