@@ -1,15 +1,60 @@
-<div class="container">
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <mat-card>
                 <mat-card-title>
                     <mat-card-subtitle>
-                        Patient History
+                        Patient's Details
                     </mat-card-subtitle>
                     <mat-card-content>
+
+                        <mat-list>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">First Name: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.fname}}</span>
+                            </mat-list-item>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Middle Name: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.mname}}</span>
+                            </mat-list-item>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Last Name: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.lname}}</span>
+                            </mat-list-item>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Gender: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.gender}}</span>
+                            </mat-list-item>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Age: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.dob}} years</span>
+                            </mat-list-item>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Phone: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.phone}}</span>
+                            </mat-list-item>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Location: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.plocation}}</span>
+                            </mat-list-item>
+                        </mat-list>
+
+                        <div class="pt-4 pb-2">
+                            Next of kin Details
+                        </div>
+
+                        <mat-list>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Name: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.kinName}}</span>
+                            </mat-list-item>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Phone: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.kinPhone}}</span>
+                            </mat-list-item>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Location: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.kinPlace}}</span>
+                            </mat-list-item>
+                            <mat-list-item style="font-size: 15px; height: 30px;">
+                                <span class="font-bold">Relationship: </span> <span *ngIf="!isLoading" style="margin-left: 20px;"> {{patient.relationship}}</span>
+                            </mat-list-item>
+                        </mat-list>
+
                         <form action="">
                             
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-4">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>First Name</mat-label>
@@ -29,10 +74,9 @@
                                     </mat-form-field>
                                 </div>
     
+                            </div> -->
     
-                            </div>
-    
-                            Complaints
+                            <!-- Complaints
                        
                             <div class="row">
     
@@ -70,8 +114,8 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                          
-                            <a routerLink="/consult/patients" class="btn btn-primary">back</a>
+                           -->
+                            <!-- <a routerLink="/consult/patients" class="btn btn-primary">back</a> -->
                         
                         </form>
                     </mat-card-content>
@@ -79,5 +123,10 @@
             </mat-card>
         </div>
         <div class="col-2"></div>
+    </div>
+    <div class="row pt-4 font-bold">
+        <div class="col">
+            Medical History
+        </div>
     </div>
 </div>
