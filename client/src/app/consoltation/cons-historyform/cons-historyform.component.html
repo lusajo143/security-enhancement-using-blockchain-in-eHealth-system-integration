@@ -52,72 +52,6 @@
                             </mat-list-item>
                         </mat-list>
 
-                        <form action="">
-                            
-                            <!-- <div class="row">
-                                <div class="col-4">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>First Name</mat-label>
-                                        <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-4">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Middle Name</mat-label>
-                                        <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-4">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Last Name</mat-label>
-                                        <input matInput placeholder="Ex. Pizza" value="Sushi">
-                                    </mat-form-field>
-                                </div>
-    
-                            </div> -->
-    
-                            <!-- Complaints
-                       
-                            <div class="row">
-    
-                                <div class="col-6 mt-3">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Message</mat-label>
-                                        <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
-                                        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-6 mt-3">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>History of the complain</mat-label>
-                                        <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
-                                        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-    
-                            Medical Treatment
-                            <div class="row">
-    
-                                <div class="col-6 mt-3">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Diagoniss</mat-label>
-                                        <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
-                                        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-6 mt-3">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Prescription</mat-label>
-                                        <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
-                                        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                           -->
-                            <!-- <a routerLink="/consult/patients" class="btn btn-primary">back</a> -->
-                        
-                        </form>
                     </mat-card-content>
                 </mat-card-title>
             </mat-card>
@@ -128,5 +62,42 @@
         <div class="col">
             Medical History
         </div>
+        
+    </div>
+    <div class="row pt-4 font-bold" *ngFor="visiti in patient.visitis">
+        <div class="col-md-6">
+            <div class="example-action-buttons">
+                <button mat-button (click)="accordion.openAll()">Show</button>
+                <button mat-button (click)="accordion.closeAll()">Hide</button>
+              </div>
+              <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Personal data
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      Type your name and age
+                      <mat-icon>account_circle</mat-icon>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+              
+                  <mat-form-field appearance="fill">
+                    <mat-label>First name</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+              
+                  <mat-form-field appearance="fill">
+                    <mat-label>Age</mat-label>
+                    <input matInput type="number" min="1">
+                  </mat-form-field>
+              
+                </mat-expansion-panel>
+              
+         
+              </mat-accordion>
+              
+        </div>
+        
     </div>
 </div>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { calAge } from 'src/app/configs/config';
 import { FabricService } from 'src/app/services/fabric.service';
+import {MatAccordion} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-cons-historyform',
@@ -9,6 +10,8 @@ import { FabricService } from 'src/app/services/fabric.service';
   styleUrls: ['./cons-historyform.component.css']
 })
 export class ConsHistoryformComponent implements OnInit {
+   @ViewChild(MatAccordion)
+  accordion: MatAccordion = new MatAccordion;
 
   patient_id: string = ""
 

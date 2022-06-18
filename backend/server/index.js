@@ -18,8 +18,8 @@ let wallet
 async function init() {
     try {
         ccp = buildCCPOrg1();
-		caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
-		wallet = await buildWallet(Wallets, walletPath);
+        caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
+        wallet = await buildWallet(Wallets, walletPath);
         app.locals.wallet = await buildWallet(Wallets);
 
     } catch (error) {
@@ -43,7 +43,7 @@ const pharmacy = require('./Routes/pharmacy.js');
 const app = express()
 
 app.use(express.json())
-app.use(express.urlencoded({urlencoded: true}))
+app.use(express.urlencoded({ urlencoded: true }))
 
 app.use(cors())
 
@@ -57,7 +57,7 @@ app.use((req, res, next) => {
 
 app.use(universal)
 app.use('/admin', admin)
-app.use('/reception',reception)
+app.use('/reception', reception)
 app.use('/consultation', consultation)
 app.use('/lab', lab)
 app.use('/accountant', accountant)
@@ -76,7 +76,7 @@ app.get('/init', async (req, res) => {
 
     let contract = await getContract('admin')
     contract.submitTransaction('InitLedger')
-    
+
 
     res.send('done')
 })
@@ -84,22 +84,22 @@ app.get('/init', async (req, res) => {
 app.post('/enroll', async (req, res) => {
     let userId = req.body.userId
     let userSecret = req.body.userSecret
-    
+
     let response = await enrollUser(caClient, userId, userSecret, wallet, mspOrg1)
 
     console.log(response);
     if (response) {
-        res.status(200).json({status: 200, message: 'Enrolled user successfully'})
+        res.status(200).json({ status: 200, message: 'Enrolled user successfully' })
     } else {
-        res.status(500).json({status: 500, message: 'Failed to enroll user'})
+        res.status(500).json({ status: 500, message: 'Failed to enroll user' })
     }
 })
 
-app.get('/download-id/:userId', async(req, res) => {
+app.get('/download-id/:userId', async (req, res) => {
     let userId = req.params.userId
 
     try {
-        res.status(200).download('wallet/'+userId+'.id')
+        res.status(200).download('wallet/' + userId + '.id')
 
         // fs.unlink('wallet/'+userId+'.id')
     } catch (error) {
@@ -116,11 +116,11 @@ app.post('', async (req, res) => {
         let id = await app.locals.wallet.get(username)
         console.log(id);
         if (id) {
-            res.json({state: 1})
+            res.json({ state: 1 })
         } else {
-            res.json({state: 0})
+            res.json({ state: 0 })
         }
-    } else if(req.body.type == 'connect') {
+    } else if (req.body.type == 'connect') {
         try {
             let username = req.body.username
             await app.locals.wallet.put(username, JSON.parse(req.body.id))
@@ -130,9 +130,9 @@ app.post('', async (req, res) => {
             let section = 'reception'
             if (username == 'doctor1') section = 'consult'
             else if (username == 'technician1') section = 'lab'
-            
+
             // else if (username == '')
-            res.json({url: `http://localhost:4200/${section}/dashboard`})
+            res.json({ url: `http://localhost:4200/${section}/dashboard` })
         } catch (error) {
             console.log(error);
         }
@@ -164,8 +164,8 @@ app.post('/getPatient', async (req, res) => {
     console.log(patient_id);
 
     let contract = await getContract('admin')
-    let result = await contract.evaluateTransaction('getPatient',patient_id)
-    res.json({status: 200, data: JSON.parse(result.toString())})
+    let result = await contract.evaluateTransaction('getPatient', patient_id)
+    res.json({ status: 200, data: JSON.parse(result.toString()) })
 })
 
-app.listen(5000, ()=>console.log("Server listening at 5000"))
+app.listen(5000, () => console.log("Server listening at 5000"))
