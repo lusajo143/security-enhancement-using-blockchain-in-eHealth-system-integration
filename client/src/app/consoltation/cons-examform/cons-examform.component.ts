@@ -32,29 +32,30 @@ export class ConsExamformComponent implements OnInit {
 
     const value = exam.value
 
+    // console.log(value);
+    
     this.addTest('FBS',value.FBS)
-    // this.addTest('RBS', value.RBS)
+    this.addTest('RBS', value.RBS)
     this.addTest('TF', value.TF)
     this.addTest('PRBS', value.PRBS)
     this.addTest('RF', value.RF)
-    // this.addTest('FBS', value.FBS)
-    // this.addTest('FBC', value.FBC)
-    // this.addTest('MRD', value.MRD)
+    this.addTest('FBC', value.FBC)
+    this.addTest('RDT', value.MRD)
 
-    let data = {
-      patient_id: this.patient_id,
-      complain: value.complain,
-      historyComplain: value.historyComplain,
-      tests: this.tests
-    }
+    // let data = {
+    //   patient_id: this.patient_id,
+    //   complain: value.complain,
+    //   historyComplain: value.historyComplain,
+    //   tests: this.tests
+    // }
 
-    this.service.sendToLab(data).subscribe((result: simpleResponse) => {
-      this.isLoading = false
-      if (result.status == 200) {
-        this.dialogRef.close()
-      }
-      this.snackbar.open(result.message, 'close')
-    })
+    // this.service.sendToLab(data).subscribe((result: simpleResponse) => {
+    //   this.isLoading = false
+    //   if (result.status == 200) {
+    //     this.dialogRef.close()
+    //   }
+    //   this.snackbar.open(result.message, 'close')
+    // })
     console.log(this.tests);
     
 
@@ -62,6 +63,8 @@ export class ConsExamformComponent implements OnInit {
   }
 
   addTest(Key:string, test: any) {
+    console.log(test);
+    
     if (test != "" || test == true) {
       this.tests.push({Key})
     }

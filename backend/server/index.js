@@ -62,6 +62,7 @@ app.use('/consultation', consultation)
 app.use('/lab', lab)
 app.use('/accountant', accountant)
 app.use('/pharmacy', pharmacy)
+
 app.get('/init', async (req, res) => {
     await enrollAdmin(caClient, wallet, mspOrg1);
 
