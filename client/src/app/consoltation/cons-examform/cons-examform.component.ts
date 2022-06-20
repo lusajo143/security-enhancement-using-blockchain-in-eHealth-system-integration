@@ -42,21 +42,21 @@ export class ConsExamformComponent implements OnInit {
     this.addTest('FBC', value.FBC)
     this.addTest('RDT', value.MRD)
 
-    // let data = {
-    //   patient_id: this.patient_id,
-    //   complain: value.complain,
-    //   historyComplain: value.historyComplain,
-    //   tests: this.tests
-    // }
+    let data = {
+      patient_id: this.patient_id,
+      complain: value.complain,
+      historyComplain: value.historyComplain,
+      tests: this.tests
+    }
 
-    // this.service.sendToLab(data).subscribe((result: simpleResponse) => {
-    //   this.isLoading = false
-    //   if (result.status == 200) {
-    //     this.dialogRef.close()
-    //   }
-    //   this.snackbar.open(result.message, 'close')
-    // })
-    console.log(this.tests);
+    this.service.sendToLab(data).subscribe((result: simpleResponse) => {
+      this.isLoading = false
+      if (result.status == 200) {
+        this.dialogRef.close()
+      }
+      this.snackbar.open(result.message, 'close')
+    })
+    // console.log(this.tests);
     
 
     
