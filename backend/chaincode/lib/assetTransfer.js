@@ -41,6 +41,7 @@ class AssetTransfer extends Contract {
             {
                 orgId: 'Org1',
                 name: 'Muhimbili Hospital',
+                users: [],
                 patients_Track: [],
                 patients_Treated: [],
                 drugs: []
@@ -48,6 +49,7 @@ class AssetTransfer extends Contract {
             {
                 orgId: 'Org2',
                 name: 'Benjamin Mkapa Hospital',
+                users: [],
                 patients_Track: [],
                 patients_Treated: [],
                 drugs: []
@@ -55,6 +57,7 @@ class AssetTransfer extends Contract {
             {
                 orgId: 'Org3',
                 name: 'Dodoma Hospital',
+                users: [],
                 patients_Track: [],
                 patients_Treated: [],
                 drugs: []
@@ -81,7 +84,6 @@ class AssetTransfer extends Contract {
     }
 
     // Utils
-
     async isPatientRegistered(ctx, fname) {
         const patients = await ctx.stub.getState('Patients')
         let found = 'not found'
@@ -99,6 +101,26 @@ class AssetTransfer extends Contract {
             throw new Error('Organizations not found')
         }
         return orgs.toString()
+    }
+
+    async registerUser(ctx, username, Org, type) {
+        let org = await ctx.stub.getState(Org)
+        let OrgJson = JSON.parse(org.toString())
+        OrgJson.users.push({
+            username,
+            type
+        })
+        await ctx.stub.putState(Org)
+        return "done"
+    }
+
+    async getUsers(ctx, Org) {
+        let org = await ctx.stub.getState(Org)
+        if (!org || org == null) {
+            throw new Error('Organization not found')
+        }
+        let OrgJson = JSON.parse(org.toString())
+        return stringify(OrgJson.users)
     }
 
     async getUserId(ctx) {

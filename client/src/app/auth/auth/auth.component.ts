@@ -32,6 +32,7 @@ export class AuthComponent implements OnInit {
     //  }
 
 
+
     this.service.enrollUser({ userId: username, userSecret: password }).subscribe((results: any) => {
       if (results.status == 200) {
         window.open(`${baseUrl}download-id/${username}`, '_blank')
@@ -49,10 +50,12 @@ export class AuthComponent implements OnInit {
           this.router.navigate(["/lab/dashboard"])
         }
         else if (section == "accountant") {
-          this.router.navigate(["account/dashboard"])
+          this.router.navigate(["/account/dashboard"])
         }
         else if (section == 'pharmacy') {
-          this.router.navigate(['pharmacy/dashboard'])
+          this.router.navigate(['/pharmacy/dashboard'])
+        } else if (section == 'admin') {
+          this.router.navigate(['/admin/dashboard'])
         }
       }
     })

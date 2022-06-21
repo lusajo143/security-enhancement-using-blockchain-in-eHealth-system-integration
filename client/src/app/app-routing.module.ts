@@ -23,6 +23,10 @@ import { PharmacydashboardComponent } from './pharmacy/pharmacydashboard/pharmac
 import { GivedrugsComponent } from './pharmacy/givedrugs/givedrugs.component';
 import { AdddrugsComponent } from './pharmacy/adddrugs/adddrugs.component';
 import { PharmacyComponent } from './pharmacy/pharmacy/pharmacy.component';
+import { AdminComponent } from './admin/admin/admin.component';
+import { AdminDashboarddComponent } from './admin/admin-dashboardd/admin-dashboardd.component';
+import { RegisterUsersComponent } from './admin/register-users/register-users.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
 
 const routes: Routes = [
@@ -72,6 +76,25 @@ const routes: Routes = [
   {path:"adddrugs",component:AdddrugsComponent},
  
 ]},
+
+{
+  path: 'admin',
+  component: AdminComponent,
+  children: [
+    {
+      path: 'dashboard',
+      component: AdminDashboarddComponent
+    },
+    {
+      path: 'registerUser',
+      component: RegisterUsersComponent
+    },
+    {
+      path: 'users',
+      component: AdminUsersComponent
+    }
+  ]
+},
 
   //auth link 
   { path: "**", component: AuthComponent },

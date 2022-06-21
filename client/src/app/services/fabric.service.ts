@@ -13,6 +13,10 @@ export class FabricService {
   enrollUser(data: any) {
     return this.http.post<any>(this.base_url+'enroll', data)
   }
+
+  enrollAdmin(data: any) {
+    return this.http.post<any>(this.base_url+'enrollAdmin', data)
+  }
  
   AddPatient(data:any){ 
     return this.http.post<simpleResponse>(this.base_url+"reception/registerPatient",data)

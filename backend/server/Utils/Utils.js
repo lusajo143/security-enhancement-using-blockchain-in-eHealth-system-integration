@@ -39,6 +39,34 @@ exports.getContract = async (user) => {
     }
 }
 
+exports.getQSCC = async (user) => {
+    try {
+        ccp = buildCCPOrg1();
+        console.log(ccp);
+        caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
+        wallet = await buildWallet(Wallets, walletPath);
+
+        const gateway = new Gateway();
+
+        try {
+            await gateway.connect(ccp, {
+                wallet,
+                identity: user,
+                discovery: { enabled: true, asLocalhost: true } // using asLocalhost as this gateway is using a fabric network deployed locally
+            });
+
+            const network = await gateway.getNetwork(channelName);
+
+            return network.getContract('qscc');
+
+        } catch (error) {
+            console.log(error);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 exports.getUserType = async (userId) => {
 

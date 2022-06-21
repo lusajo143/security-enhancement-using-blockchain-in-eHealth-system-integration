@@ -1,5 +1,7 @@
 const { Gateway, Wallets } = require('fabric-network');
 const FabricCAServices = require('fabric-ca-client');
+const { common } = require('fabric-protos')
+const { BlockDecoder, Ledger } = require('fabric-common')
 const path = require('path');
 const { buildCAClient, registerAndEnrollUser, enrollAdmin, registerUser, enrollUser } = require('./Utils/CAUtil.js');
 const { buildCCPOrg1, buildWallet } = require('./Utils/AppUtil');
@@ -32,7 +34,7 @@ const express = require('express')
 const cors = require('cors');
 const reception = require('./Routes/receiption.js');
 const universal = require('./Routes/universal.js');
-const { getContract, getUserType } = require('./Utils/Utils.js');
+const { getContract, getUserType, getQSCC } = require('./Utils/Utils.js');
 const consultation = require('./Routes/consultation.js');
 const lab = require('./Routes/lab.js');
 const { info } = require('console');
@@ -64,7 +66,7 @@ app.use('/accountant', accountant)
 app.use('/pharmacy', pharmacy)
 
 app.get('/init', async (req, res) => {
-    await enrollAdmin(caClient, wallet, mspOrg1);
+    await enrollAdmin(caClient, wallet, 'admin', 'adminpw', mspOrg1);
 
     // await registerAndEnrollUser(caClient, wallet, mspOrg1, 'receptionist', 'org1.department1');
 
@@ -85,18 +87,29 @@ app.post('/enroll', async (req, res) => {
     let userId = req.body.userId
     let userSecret = req.body.userSecret
 
-    let response = await enrollUser(caClient, userId, userSecret, wallet, mspOrg1)
+    let response = await enrollAdmin(caClient, wallet, userId, userSecret, mspOrg1);
 
-    console.log(response);
     if (response) {
-        const contract = await getContract(userId)
-        let attr = await contract.evaluateTransaction('getUserAttrs')
-        let AttrJson = JSON.parse(attr.toString())
-        console.log(AttrJson);
-        res.status(200).json({ status: 200, section: AttrJson.user })
+        let contract = await getContract('admin')
+        contract.submitTransaction('InitLedger')
+        res.status(200).json({ status: 200, section: 'admin' })
     } else {
-        res.status(500).json({ status: 500, message: 'Failed to enroll user' })
+        response = await enrollUser(caClient, userId, userSecret, wallet, mspOrg1)
+
+        console.log(response);
+        if (response) {
+            const contract = await getContract(userId)
+            let attr = await contract.evaluateTransaction('getUserAttrs')
+            let AttrJson = JSON.parse(attr.toString())
+            console.log(AttrJson);
+            res.status(200).json({ status: 200, section: AttrJson.user })
+        } else {
+            res.status(500).json({ status: 500, message: 'Failed to enroll user' })
+        }
     }
+
+
+    
 })
 
 app.get('/download-id/:userId', async (req, res) => {
@@ -112,10 +125,19 @@ app.get('/download-id/:userId', async (req, res) => {
 
 })
 
-app.get('/getType', async (req, res) => {
-    const contract = await getContract('receptionist1')
-    let result = await contract.evaluateTransaction('getUserAttrs')
-    console.log(result.toString());
+console.log(caClient);
+
+
+app.get('/b', async(req, res) => {
+
+    let contract = await getQSCC('admin')
+    let info = await contract.evaluateTransaction('GetChainInfo', channelName)
+    const blockProto = JSON.stringify(common.BlockchainInfo.decode(info));
+    console.log(blockProto);
+    // let block  = await contract.evaluateTransaction('GetBlockByNumber',
+    // 'mychannel', 0)
+    // console.log(BlockDecoder.decode(block));
+    res.send('contract')
 })
 
 app.post('', async (req, res) => {
@@ -162,6 +184,22 @@ app.post('', async (req, res) => {
     }
 })
 
+
+app.post('/enrollAdmin', async (req, res) => {
+    let username = req.body.username
+    let password = req.body.password
+
+    let response = await enrollAdmin(caClient, wallet, username, password, mspOrg1);
+
+    if (response) {
+        let contract = await getContract('admin')
+        contract.submitTransaction('InitLedger')
+        res.status(200).json({ status: 200, message: 'Successfully enrolled admin' })
+    } else {
+        res.status(500).json({ status: 500, message: 'Failed to enroll admin' })
+    }
+
+})
 
 app.get('/getDrugs', async (req, res) => {
     const contract = await getContract('admin')
