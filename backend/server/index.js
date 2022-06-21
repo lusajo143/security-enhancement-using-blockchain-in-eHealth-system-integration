@@ -32,7 +32,7 @@ const express = require('express')
 const cors = require('cors');
 const reception = require('./Routes/receiption.js');
 const universal = require('./Routes/universal.js');
-const { getContract } = require('./Utils/Utils.js');
+const { getContract, getUserType } = require('./Utils/Utils.js');
 const consultation = require('./Routes/consultation.js');
 const lab = require('./Routes/lab.js');
 const { info } = require('console');
@@ -89,7 +89,11 @@ app.post('/enroll', async (req, res) => {
 
     console.log(response);
     if (response) {
-        res.status(200).json({ status: 200, message: 'Enrolled user successfully' })
+        const contract = await getContract(userId)
+        let attr = await contract.evaluateTransaction('getUserAttrs')
+        let AttrJson = JSON.parse(attr.toString())
+        console.log(AttrJson);
+        res.status(200).json({ status: 200, section: AttrJson.user })
     } else {
         res.status(500).json({ status: 500, message: 'Failed to enroll user' })
     }
@@ -108,13 +112,18 @@ app.get('/download-id/:userId', async (req, res) => {
 
 })
 
+app.get('/getType', async (req, res) => {
+    const contract = await getContract('receptionist1')
+    let result = await contract.evaluateTransaction('getUserAttrs')
+    console.log(result.toString());
+})
+
 app.post('', async (req, res) => {
     console.log(req.body);
     // Default is not connected (check the use of jwt)
     if (req.body.type == 'check') {
         let username = req.body.username
         let id = await app.locals.wallet.get(username)
-        console.log(id);
         if (id) {
             res.json({ state: 1 })
         } else {
@@ -124,14 +133,25 @@ app.post('', async (req, res) => {
         try {
             let username = req.body.username
             await app.locals.wallet.put(username, JSON.parse(req.body.id))
-            // let wallet = await buildWallet(Wallets, walletPath)
+            console.log(username);
+            let wallet = await buildWallet(Wallets, walletPath)
 
-            // await wallet.put(username, JSON.parse(req.body.id))
+            await wallet.put(username, JSON.parse(req.body.id))
+            const contract = await getContract(username)
+
+            let attr = await contract.evaluateTransaction('getUserAttrs')
+            let AttrJson = JSON.parse(attr.toString())
+            console.log(AttrJson);
+
             let section = 'reception'
-            if (username == 'doctor1') section = 'consult'
-            else if (username == 'technician1') section = 'lab'
 
-            // else if (username == '')
+            if (AttrJson.user == "reception") {
+                section = 'reception'
+            } else if (AttrJson.user == 'consultation') section = 'consult'
+            else if (AttrJson.user == 'lab') section = 'lab'
+            else if (AttrJson.user == 'accountant') section = 'account'
+            else if (AttrJson.user == 'pharmacy') section = 'pharmacy'
+
             res.json({ url: `http://localhost:4200/${section}/dashboard` })
         } catch (error) {
             console.log(error);

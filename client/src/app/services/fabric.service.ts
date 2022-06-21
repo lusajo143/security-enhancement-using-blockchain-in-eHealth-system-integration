@@ -11,7 +11,7 @@ export class FabricService {
   base_url:any="http://localhost:5000/"
 
   enrollUser(data: any) {
-    return this.http.post<simpleResponse>(this.base_url+'enroll', data)
+    return this.http.post<any>(this.base_url+'enroll', data)
   }
  
   AddPatient(data:any){ 

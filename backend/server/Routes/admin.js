@@ -20,8 +20,9 @@ admin.post('/registerUser', async (req, res) => {
     let password = req.body.password
     let mspId = 'Org1MSP'
     let department = req.body.department
+    let type = req.body.type
 
-    await registerUser(req.caClient, mspId, username, password, department, req.wallet)
+    await registerUser(req.caClient, mspId, username, password, department, req.wallet, type)
 
     res.json({
         status: 200,

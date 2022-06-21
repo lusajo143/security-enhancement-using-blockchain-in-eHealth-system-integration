@@ -81,8 +81,8 @@
             <mat-accordion class="example-headers-align" multi *ngFor="let visit of visits; let i = index;" style="width: 100%;">
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <h1>{{i+1}}. Visitation </h1>
+                        <mat-panel-title style="font-weight: bold;">
+                            {{i+1}}. Visitation
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
@@ -105,10 +105,9 @@
                         </mat-card>
 
 
-                        <h1>Examination Details</h1>
-                        <mat-card>
+                        <mat-card class="mt-4">
                             <mat-card-content>
-
+                                <h2>Examination Details</h2>
                                 <mat-list-item style="font-size: 15px; height: 30px;" role="listitem" role="listitem">
                                     <span class="font-bold"> Clinical Details:</span>
                                     <span style="margin-left: 20px;"> {{visit.examination.clinicalDetails}}</span>
@@ -132,14 +131,12 @@
                             </mat-card-content>
                         </mat-card>
 
-                        <h1>Lab Result</h1>
-                        <hr>
 
-
-                        <mat-card>
+                        <mat-card class="mt-4">
                             <mat-card-content>
+                                <h2>Lab Result</h2>
                                 <div *ngFor="let test of visit.examination.tests">
-                                    <div class="row">
+                                    <div class="row"  style="height: 30px;">
                                         <div class="col-6">
                                             <span class="font-bold" style="margin-left:20px ;">Test Name:</span>
                                             {{test.Key}}
@@ -148,45 +145,39 @@
                                             <span class="font-bold">Feedback:</span> {{test.feedback}}
                                         </div>
                                     </div>
-                                    <mat-list role="list">
+                                    <!-- <mat-list role="list">
                                         <mat-list-item role="listitem"
                                             style="font-size: 15px; height: 30px; padding-right:20px;"> </mat-list-item>
-                                    </mat-list>
+                                    </mat-list> -->
                                 </div>
                             </mat-card-content>
                         </mat-card>
 
-
-
-
-
-
-                        <h1>Prescription Details</h1>
-
-                        <mat-card>
+                        <mat-card class="mt-4">
                             <mat-card-content>
+                                <h2>Prescription Details</h2>
                                 <div *ngFor="let pr of visit.prescription">
                                     <mat-list role="list">
-                                        <mat-list-item role="listitem">
+                                        <mat-list-item  style="font-size: 15px; height: 30px;" role="listitem">
                                             <span class="font-bold"> Medicine:</span>
                                             <span style="margin-left: 20px;">{{pr.medicine}}</span>
                                             
                                        </mat-list-item>
-                                        <mat-list-item role="listitem">
+                                        <mat-list-item  style="font-size: 15px; height: 30px;" role="listitem">
                                             <span class="font-bold"> Quantity:</span>
                                             <span style="margin-left: 20px;">{{pr.amount}}</span>
                                          
                                         </mat-list-item>
                                       
                                     
-                                        <mat-list-item role="listitem">
+                                        <mat-list-item  style="font-size: 15px; height: 30px;" role="listitem">
                                             <span class="font-bold"> Usage per
                                                 day:</span>
                                             <span style="margin-left: 20px;">{{pr.timesaday}}</span>
                                         </mat-list-item>
 
 
-                                        <mat-list-item role="listitem"> 
+                                        <mat-list-item  style="font-size: 15px; height: 30px;" role="listitem"> 
                                             <span class="font-bold"> Cost:</span>
                                             <span style="margin-left: 20px;">{{pr.cost}}</span>
                                         </mat-list-item>

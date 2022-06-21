@@ -38,3 +38,40 @@ exports.getContract = async (user) => {
         console.log(error);
     }
 }
+
+
+exports.getUserType = async (userId) => {
+
+    try {
+        ccp = buildCCPOrg1();
+        caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
+        wallet = await buildWallet(Wallets, walletPath);
+
+        const gateway = new Gateway();
+
+        try {
+            await gateway.connect(ccp, {
+                wallet,
+                identity: 'admin',
+                discovery: { enabled: true, asLocalhost: true } // using asLocalhost as this gateway is using a fabric network deployed locally
+            });
+
+            const network = await gateway.getNetwork(channelName);
+
+            return gateway
+            // const ca = gateway.getClient().getCertificateAuthority()
+
+            // const identityService = ca.newIdentityService();
+            // const retrieveIdentity = await identityService.getOne(userId, userId)
+            // console.log("user attributes: ", retrieveIdentity.result.attrs)
+            // return retrieveIdentity.result.attrs
+
+        } catch (error) {
+            console.log(error);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+
+} 

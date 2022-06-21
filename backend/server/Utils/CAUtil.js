@@ -50,7 +50,8 @@ exports.enrollAdmin = async (caClient, wallet, orgMspId) => {
 	}
 };
 
-exports.registerUser = async (caClient, orgMspId, userId, Secret, affiliation, wallet) => {
+exports.registerUser = async (caClient, orgMspId, userId, Secret, affiliation, wallet, userType) => {
+	console.log("Yooh  "+userType);
 	try {
 		// Check to see if we've already enrolled the user
 		const userIdentity = await wallet.get(userId);
@@ -77,7 +78,12 @@ exports.registerUser = async (caClient, orgMspId, userId, Secret, affiliation, w
 			affiliation: affiliation,
 			enrollmentID: userId,
 			enrollmentSecret: Secret,
-			role: 'client'
+			role: 'client',
+			attrs: [{
+				name: "_type",
+				value: userType,
+				ecert: true
+			}]
 		}, adminUser);
 		console.log(secret);
 		return true
@@ -91,8 +97,15 @@ exports.enrollUser = async (caClient, userId, secret, wallet, orgMspId) => {
 	try {
 		const enrollment = await caClient.enroll({
 			enrollmentID: userId,
-			enrollmentSecret: secret
+			enrollmentSecret: secret,
+			attr_reqs: [{
+				name: "_type",
+				optional: false
+			}]
 		});
+		console.log();
+		console.log();
+		console.log(enrollment);
 		const x509Identity = {
 			credentials: {
 				certificate: enrollment.certificate,
@@ -101,6 +114,9 @@ exports.enrollUser = async (caClient, userId, secret, wallet, orgMspId) => {
 			mspId: orgMspId,
 			type: 'X.509',
 		};
+		console.log();
+		console.log();
+		console.log(x509Identity);
 		await wallet.put(userId, x509Identity);
 		console.log(`Successfully registered and enrolled user ${userId} and imported it into the wallet`);
 		return true

@@ -32,23 +32,26 @@ export class AuthComponent implements OnInit {
     //  }
 
 
-    this.service.enrollUser({ userId: username, userSecret: password }).subscribe((results: simpleResponse) => {
+    this.service.enrollUser({ userId: username, userSecret: password }).subscribe((results: any) => {
       if (results.status == 200) {
         window.open(`${baseUrl}download-id/${username}`, '_blank')
-        if (username == "receptionist1") {
+        let section = results.section
+        console.log(results);
+        
+        if (section == "reception") {
           this.router.navigate(["/reception/dashboard"])
         }
-        else if (username == "doctor1") {
+        else if (section == "consultation") {
           this.router.navigate(["/consult/dashboard"])
         }
 
-        else if (username == "technician1") {
+        else if (section == "lab") {
           this.router.navigate(["/lab/dashboard"])
         }
-        else if (username == "accountant1") {
+        else if (section == "accountant") {
           this.router.navigate(["account/dashboard"])
         }
-        else if (username == 'pharmacy1') {
+        else if (section == 'pharmacy') {
           this.router.navigate(['pharmacy/dashboard'])
         }
       }

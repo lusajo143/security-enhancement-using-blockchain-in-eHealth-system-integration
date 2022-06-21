@@ -14,6 +14,27 @@ const ClientIdentity = require('fabric-shim').ClientIdentity
 
 class AssetTransfer extends Contract {
 
+    async getUserIdentity(ctx) {
+        let cid = new ClientIdentity(stub);
+        return stringify(cid)
+        // if (cid.assertAttributeValue('role', 'approver')) {
+        //     throw new Error('Not a valid user');
+        // }
+    }
+
+    async getUserAttrs(ctx) {
+        let cid = new ClientIdentity(ctx.stub)
+    
+        let user = {
+            user: cid.getAttributeValue('_type').toString(),
+            // position: cid.getAttributeValue('position').toString(),
+            // org: cid.getAttributeValue('org').toString() // Org1
+        }
+    
+        return user
+    }
+    
+
     async InitLedger(ctx) {
 
         const orgs = [
@@ -509,7 +530,7 @@ class AssetTransfer extends Contract {
 
         await ctx.stub.putState(Org, Buffer.from(stringify(OrgJson)))
 
-        return JSON.stringify({status: 200, message: 'Ended visit successfully'})
+        return JSON.stringify({ status: 200, message: 'Ended visit successfully' })
 
     }
 
