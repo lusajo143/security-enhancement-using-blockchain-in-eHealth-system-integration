@@ -17,7 +17,7 @@ export class LabTestComponent implements OnInit {
   isLoading: boolean = false
 
   client: IPFSHTTPClient = create({
-    url: '/ip4/127.0.0.1/tcp/5001'
+    url: '/ip4/206.189.99.218/tcp/5001'
   })
 
   constructor(
@@ -36,7 +36,7 @@ export class LabTestComponent implements OnInit {
     // this.selectedFiles[index] = event.target.files
     let cid = this.client.add(event.target.files[0])
           cid.then((result) => {
-            this.imageUrl[index] = "http://127.0.0.1:8080/ipfs/" + result.path
+            this.imageUrl[index] = "https://ipfs.all.co.tz/ipfs/" + result.path
           }).catch((err) => {
             console.log("An error occured");
           })

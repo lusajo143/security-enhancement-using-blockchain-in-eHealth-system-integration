@@ -1,11 +1,12 @@
 const { Gateway, Wallets } = require('fabric-network');
 const FabricCAServices = require('fabric-ca-client');
-// const { common } = require('fabric-protos')
-// const { BlockDecoder, Ledger } = require('fabric-common')
+// const { BlockDecoder } = require('fabric-common')
 const path = require('path');
 const { buildCAClient, enrollAdmin, registerUser, enrollUser } = require('./Utils/CAUtil.js');
 const { buildCCPOrg1, buildWallet } = require('./Utils/AppUtil');
 const fs = require('fs')
+
+
 
 const channelName = 'mychannel';
 const chaincodeName = 'basic';
@@ -65,18 +66,18 @@ app.use('/accountant', accountant)
 app.use('/pharmacy', pharmacy)
 
 app.get('/init', async (req, res) => {
-    await enrollAdmin(caClient, wallet, 'admin', 'adminpw', mspOrg1);
+    // await enrollAdmin(caClient, wallet, 'admin', 'adminpw', mspOrg1);
 
     // await registerAndEnrollUser(caClient, wallet, mspOrg1, 'receptionist', 'org1.department1');
 
-    // await registerUser(caClient, mspOrg1, 'receptionist1', 'receptionist1', 'org1.department1', wallet, 'reception')
-    // await registerUser(caClient, mspOrg1, 'doctor1', 'doctor1', 'org1.department1', wallet, 'consultation')
-    // await registerUser(caClient, mspOrg1, 'technician1', 'technician1', 'org1.department1', wallet, 'lab')
-    // await registerUser(caClient, mspOrg1, 'accountant1', 'accountant1', 'org1.department1', wallet, 'accountant')
-    // await registerUser(caClient, mspOrg1, 'pharmacy1', 'pharmacy1', 'org1.department1', wallet, 'pharmacy')
+    await registerUser(caClient, mspOrg1, 'receptionist1', 'receptionist1', 'org1.department1', wallet, 'reception')
+    await registerUser(caClient, mspOrg1, 'doctor1', 'doctor1', 'org1.department1', wallet, 'consultation')
+    await registerUser(caClient, mspOrg1, 'technician1', 'technician1', 'org1.department1', wallet, 'lab')
+    await registerUser(caClient, mspOrg1, 'accountant1', 'accountant1', 'org1.department1', wallet, 'accountant')
+    await registerUser(caClient, mspOrg1, 'pharmacy1', 'pharmacy1', 'org1.department1', wallet, 'pharmacy')
 
-    let contract = await getContract('admin')
-    contract.submitTransaction('InitLedger')
+    // let contract = await getContract('admin')
+    // contract.submitTransaction('InitLedger')
 
 
     res.send('done')
@@ -86,9 +87,10 @@ app.post('/enroll', async (req, res) => {
     let userId = req.body.userId
     let userSecret = req.body.userSecret
 
-    let response = await enrollAdmin(caClient, wallet, userId, userSecret, mspOrg1);
 
-    if (response) {
+    if (userId == 'admin') {
+        let response = await enrollAdmin(caClient, wallet, userId, userSecret, mspOrg1);
+
         let contract = await getContract('admin')
         contract.submitTransaction('InitLedger')
         res.status(200).json({ status: 200, section: 'admin' })
@@ -174,7 +176,6 @@ app.post('', async (req, res) => {
 
             res.json({ url: `http://localhost:4200/${section}/dashboard` })
         } catch (error) {
-            console.log('Adminniiiii');
             console.log(error);
         }
     } else if (req.body.type == 'logout') {
@@ -223,6 +224,30 @@ app.post('/getPatient', async (req, res) => {
     let contract = await getContract('admin')
     let result = await contract.evaluateTransaction('getPatient', patient_id)
     res.json({ status: 200, data: JSON.parse(result.toString()) })
+})
+
+app.get('/getDashData', async(req, res) => {
+
+    let contract = await getContract('admin')
+    let orgs = await contract.evaluateTransaction('getAllOrgs')
+    let patients = await contract.evaluateTransaction('getAllPatients')
+    let Orgs =  JSON.parse(orgs.toString())
+    let active = 0
+    let treated = 0
+    Orgs.forEach(org => {
+        if (org.orgId == 'Org1') {
+            active = org.patients_Track.length,
+            treated = org.patients_Treated.length
+        }
+    });
+    console.log(Orgs);
+    res.json({ status: 200, data: {
+        orgs: Orgs,
+        patients: JSON.parse(patients.toString()),
+        active,
+        treated,
+        ccp: buildCCPOrg1()
+    } })
 })
 
 app.listen(5000, () => console.log("Server listening at 5000"))

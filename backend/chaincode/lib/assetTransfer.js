@@ -40,7 +40,7 @@ class AssetTransfer extends Contract {
         const orgs = [
             {
                 orgId: 'Org1',
-                name: 'Muhimbili Hospital',
+                name: 'Branch A',
                 users: [],
                 patients_Track: [],
                 patients_Treated: [],
@@ -48,7 +48,7 @@ class AssetTransfer extends Contract {
             },
             {
                 orgId: 'Org2',
-                name: 'Benjamin Mkapa Hospital',
+                name: 'Branch B',
                 users: [],
                 patients_Track: [],
                 patients_Treated: [],
@@ -56,7 +56,7 @@ class AssetTransfer extends Contract {
             },
             {
                 orgId: 'Org3',
-                name: 'Dodoma Hospital',
+                name: 'Branch C',
                 users: [],
                 patients_Track: [],
                 patients_Treated: [],

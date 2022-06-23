@@ -28,12 +28,28 @@ admin.post('/registerUser', async (req, res) => {
     let contract = await getContract('admin')
     let result = await contract.submitTransaction('registerUser', username, 'Org1', type)
 
-    console.log(result.toString() +' RESULT');
+    console.log(result.toString() + ' RESULT');
 
     res.json({
         status: 200,
         message: `${username} is registered successfully`
     })
 })
+
+admin.get('/dashboardData', async (req, res) => {
+    let contract = await getContract('admin')
+
+    try {
+        let users = await contract.evaluateTransaction('getUsers', 'Org1')
+        res.json({status: 200, data: {
+            users: JSON.parse(users.toString()),
+            
+        }})
+    } catch (err) {
+        res.json({status: 500, message: 'Failed to get users'})
+    }
+
+})
+
 
 module.exports = admin

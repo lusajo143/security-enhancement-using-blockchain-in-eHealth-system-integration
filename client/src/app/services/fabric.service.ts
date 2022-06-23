@@ -91,4 +91,13 @@ export class FabricService {
     return this.http.get<dataResponse>(this.base_url+'getDrugs')
   }
 
+  getDashData() {
+    return this.http.get(this.base_url+'getDashData')
+  }
+
+  // Admin
+  getBlockHeight() {
+    return this.http.get(this.base_url+'b', { responseType: 'text'})
+  }
+
 }
