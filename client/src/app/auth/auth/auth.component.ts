@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { simpleResponse } from 'src/app/interfaces/interfaces';
 import { FabricService } from '../../services/fabric.service'
 import { baseUrl } from '../../configs/config'
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-auth',
@@ -12,7 +13,8 @@ import { baseUrl } from '../../configs/config'
 export class AuthComponent implements OnInit {
 
   constructor(private router: Router,
-    private service: FabricService) { }
+    private service: FabricService,
+    private snackbar: MatSnackBar) { }
 
 
   login(form: any) {
@@ -57,6 +59,8 @@ export class AuthComponent implements OnInit {
         } else if (section == 'admin') {
           this.router.navigate(['/admin/dashboard'])
         }
+      } else if (results.status == 500) {
+        this.snackbar.open(results.message, 'Close')
       }
     })
 

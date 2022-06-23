@@ -104,12 +104,12 @@ app.post('/enroll', async (req, res) => {
             console.log(AttrJson);
             res.status(200).json({ status: 200, section: AttrJson.user })
         } else {
-            res.status(500).json({ status: 500, message: 'Failed to enroll user' })
+            res.json({ status: 500, message: 'Failed to enroll user' })
         }
     }
 
 
-    
+
 })
 
 app.get('/download-id/:userId', async (req, res) => {
@@ -125,10 +125,7 @@ app.get('/download-id/:userId', async (req, res) => {
 
 })
 
-console.log(caClient);
-
-
-app.get('/b', async(req, res) => {
+app.get('/b', async (req, res) => {
 
     let contract = await getQSCC('admin')
     let info = await contract.evaluateTransaction('GetChainInfo', channelName)
@@ -159,23 +156,28 @@ app.post('', async (req, res) => {
             let wallet = await buildWallet(Wallets, walletPath)
 
             await wallet.put(username, JSON.parse(req.body.id))
-            const contract = await getContract(username)
 
-            let attr = await contract.evaluateTransaction('getUserAttrs')
-            let AttrJson = JSON.parse(attr.toString())
-            console.log(AttrJson);
+            let section = 'admin'
 
-            let section = 'reception'
+            if (username != 'admin') {
+                const contract = await getContract(username)
 
-            if (AttrJson.user == "reception") {
-                section = 'reception'
-            } else if (AttrJson.user == 'consultation') section = 'consult'
-            else if (AttrJson.user == 'lab') section = 'lab'
-            else if (AttrJson.user == 'accountant') section = 'account'
-            else if (AttrJson.user == 'pharmacy') section = 'pharmacy'
+                let attr = await contract.evaluateTransaction('getUserAttrs')
+                let AttrJson = JSON.parse(attr.toString())
+                console.log(AttrJson);
 
+                if (AttrJson.user == "reception") {
+                    section = 'reception'
+                } else if (AttrJson.user == 'consultation') section = 'consult'
+                else if (AttrJson.user == 'lab') section = 'lab'
+                else if (AttrJson.user == 'accountant') section = 'account'
+                else if (AttrJson.user == 'pharmacy') section = 'pharmacy'
+
+            }
+            
             res.json({ url: `http://localhost:4200/${section}/dashboard` })
         } catch (error) {
+            console.log('Adminniiiii');
             console.log(error);
         }
     } else if (req.body.type == 'logout') {
