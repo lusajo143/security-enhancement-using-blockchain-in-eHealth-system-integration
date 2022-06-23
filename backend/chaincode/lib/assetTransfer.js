@@ -53,14 +53,6 @@ class AssetTransfer extends Contract {
                 patients_Track: [],
                 patients_Treated: [],
                 drugs: []
-            },
-            {
-                orgId: 'Org3',
-                name: 'Branch C',
-                users: [],
-                patients_Track: [],
-                patients_Treated: [],
-                drugs: []
             }
         ]
 

@@ -95,9 +95,17 @@ export class FabricService {
     return this.http.get(this.base_url+'getDashData')
   }
 
-  // Admin
-  getBlockHeight() {
-    return this.http.get(this.base_url+'b', { responseType: 'text'})
+  registerUser(data: any) {
+    return this.http.post(this.base_url+'admin/registerUser', data)
   }
+
+  getUsers() {
+    return this.http.get(this.base_url+'admin/dashboardData')
+  }
+
+  // Admin
+  // getBlockHeight() {
+  //   return this.http.get(this.base_url+'b', { responseType: 'text'})
+  // }
 
 }

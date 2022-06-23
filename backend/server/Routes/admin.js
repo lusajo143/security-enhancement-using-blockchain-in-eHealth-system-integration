@@ -45,6 +45,7 @@ admin.get('/dashboardData', async (req, res) => {
             users: JSON.parse(users.toString()),
             
         }})
+        console.log(users.toString());
     } catch (err) {
         res.json({status: 500, message: 'Failed to get users'})
     }

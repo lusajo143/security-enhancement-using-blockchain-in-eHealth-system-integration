@@ -240,7 +240,7 @@ app.get('/getDashData', async(req, res) => {
             treated = org.patients_Treated.length
         }
     });
-    console.log(Orgs);
+
     res.json({ status: 200, data: {
         orgs: Orgs,
         patients: JSON.parse(patients.toString()),
