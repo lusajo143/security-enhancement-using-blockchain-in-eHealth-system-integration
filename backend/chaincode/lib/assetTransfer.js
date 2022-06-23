@@ -105,12 +105,15 @@ class AssetTransfer extends Contract {
 
     async registerUser(ctx, username, Org, type) {
         let org = await ctx.stub.getState(Org)
+        if (!org || org == null) {
+            throw new Error('Organization not found')
+        }
         let OrgJson = JSON.parse(org.toString())
         OrgJson.users.push({
             username,
             type
         })
-        await ctx.stub.putState(Org)
+        await ctx.stub.putState(Org, Buffer.from(stringify(OrgJson)))
         return "done"
     }
 

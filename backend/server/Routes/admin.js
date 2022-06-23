@@ -3,6 +3,7 @@ const { Gateway, Wallets } = require('fabric-network');
 const FabricCAServices = require('fabric-ca-client');
 const { buildCAClient, registerUser } = require('../Utils/CAUtil.js');
 const { buildCCPOrg1, buildWallet } = require('../Utils/AppUtil');
+const { getContract } = require('../Utils/Utils.js');
 
 const admin = require('express').Router()
 
@@ -19,10 +20,15 @@ admin.post('/registerUser', async (req, res) => {
     let username = req.body.username
     let password = req.body.password
     let mspId = 'Org1MSP'
-    let department = req.body.department
+    let department = 'org1.department1'
     let type = req.body.type
 
     await registerUser(req.caClient, mspId, username, password, department, req.wallet, type)
+
+    let contract = await getContract('admin')
+    let result = await contract.submitTransaction('registerUser', username, 'Org1', type)
+
+    console.log(result.toString() +' RESULT');
 
     res.json({
         status: 200,

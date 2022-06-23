@@ -1,9 +1,9 @@
 const { Gateway, Wallets } = require('fabric-network');
 const FabricCAServices = require('fabric-ca-client');
-const { common } = require('fabric-protos')
-const { BlockDecoder, Ledger } = require('fabric-common')
+// const { common } = require('fabric-protos')
+// const { BlockDecoder, Ledger } = require('fabric-common')
 const path = require('path');
-const { buildCAClient, registerAndEnrollUser, enrollAdmin, registerUser, enrollUser } = require('./Utils/CAUtil.js');
+const { buildCAClient, enrollAdmin, registerUser, enrollUser } = require('./Utils/CAUtil.js');
 const { buildCCPOrg1, buildWallet } = require('./Utils/AppUtil');
 const fs = require('fs')
 
@@ -34,10 +34,9 @@ const express = require('express')
 const cors = require('cors');
 const reception = require('./Routes/receiption.js');
 const universal = require('./Routes/universal.js');
-const { getContract, getUserType, getQSCC } = require('./Utils/Utils.js');
+const { getContract, getQSCC } = require('./Utils/Utils.js');
 const consultation = require('./Routes/consultation.js');
 const lab = require('./Routes/lab.js');
-const { info } = require('console');
 const admin = require('./Routes/admin.js');
 const accountant = require('./Routes/accountant.js');
 const pharmacy = require('./Routes/pharmacy.js');
@@ -70,11 +69,11 @@ app.get('/init', async (req, res) => {
 
     // await registerAndEnrollUser(caClient, wallet, mspOrg1, 'receptionist', 'org1.department1');
 
-    await registerUser(caClient, mspOrg1, 'receptionist1', 'receptionist1', 'org1.department1', wallet, 'reception')
-    await registerUser(caClient, mspOrg1, 'doctor1', 'doctor1', 'org1.department1', wallet, 'consultation')
-    await registerUser(caClient, mspOrg1, 'technician1', 'technician1', 'org1.department1', wallet, 'lab')
-    await registerUser(caClient, mspOrg1, 'accountant1', 'accountant1', 'org1.department1', wallet, 'accountant')
-    await registerUser(caClient, mspOrg1, 'pharmacy1', 'pharmacy1', 'org1.department1', wallet, 'pharmacy')
+    // await registerUser(caClient, mspOrg1, 'receptionist1', 'receptionist1', 'org1.department1', wallet, 'reception')
+    // await registerUser(caClient, mspOrg1, 'doctor1', 'doctor1', 'org1.department1', wallet, 'consultation')
+    // await registerUser(caClient, mspOrg1, 'technician1', 'technician1', 'org1.department1', wallet, 'lab')
+    // await registerUser(caClient, mspOrg1, 'accountant1', 'accountant1', 'org1.department1', wallet, 'accountant')
+    // await registerUser(caClient, mspOrg1, 'pharmacy1', 'pharmacy1', 'org1.department1', wallet, 'pharmacy')
 
     let contract = await getContract('admin')
     contract.submitTransaction('InitLedger')
@@ -108,8 +107,6 @@ app.post('/enroll', async (req, res) => {
         }
     }
 
-
-
 })
 
 app.get('/download-id/:userId', async (req, res) => {
@@ -125,17 +122,17 @@ app.get('/download-id/:userId', async (req, res) => {
 
 })
 
-app.get('/b', async (req, res) => {
+// app.get('/b', async (req, res) => {
 
-    let contract = await getQSCC('admin')
-    let info = await contract.evaluateTransaction('GetChainInfo', channelName)
-    const blockProto = JSON.stringify(common.BlockchainInfo.decode(info));
-    console.log(blockProto);
-    // let block  = await contract.evaluateTransaction('GetBlockByNumber',
-    // 'mychannel', 0)
-    // console.log(BlockDecoder.decode(block));
-    res.send('contract')
-})
+//     let contract = await getQSCC('admin')
+//     let info = await contract.evaluateTransaction('GetChainInfo', channelName)
+//     const blockProto = JSON.stringify(common.BlockchainInfo.decode(info));
+//     console.log(blockProto);
+//     // let block  = await contract.evaluateTransaction('GetBlockByNumber',
+//     // 'mychannel', 0)
+//     // console.log(BlockDecoder.decode(block));
+//     res.send('contract')
+// })
 
 app.post('', async (req, res) => {
     console.log(req.body);
@@ -174,7 +171,7 @@ app.post('', async (req, res) => {
                 else if (AttrJson.user == 'pharmacy') section = 'pharmacy'
 
             }
-            
+
             res.json({ url: `http://localhost:4200/${section}/dashboard` })
         } catch (error) {
             console.log('Adminniiiii');

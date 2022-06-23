@@ -71,7 +71,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { AdminComponent } from './admin/admin/admin.component';
 import { RegisterUsersComponent } from './admin/register-users/register-users.component';
 import { AdminDashboarddComponent } from './admin/admin-dashboardd/admin-dashboardd.component';
-import { AdminUsersComponent } from './admin/admin-users/admin-users.component'
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { RegisterUserComponent } from './admin/register-user/register-user.component'
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { AdminUsersComponent } from './admin/admin-users/admin-users.component'
     AdminComponent,
     RegisterUsersComponent,
     AdminDashboarddComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    RegisterUserComponent
   ],
   imports: [
     BrowserModule,
